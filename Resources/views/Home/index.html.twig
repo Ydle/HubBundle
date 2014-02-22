@@ -1,0 +1,34 @@
+{% extends "YdleHubBundle::layout.html.twig" %}
+
+{% block title '{{ "home.title" | trans }}' %}
+
+{% block content %}
+
+    <!-- Example row of columns -->
+    <div class="row">
+
+      <div class="col-lg-4 ">
+      </div>
+      <div class="col-lg-4 center">
+        <img src="{{ asset('bundles/ydlehub/images/ydleLogo.png') }}" />
+      </div>
+      <div class="col-lg-4 with-border">
+        <h2>{{ "home.blocroom.title" | trans }}</h2>
+        <p>{{ "home.blocroom.text" | trans }} : </p>
+        {% if rooms %}
+              <ul>
+             {% for item in rooms %}
+                  <li><a href="{{ path('room', {'room': item.id }) }}">{{ item.name }}</a></li>
+             {% endfor %}
+             </ul>
+        {% else %}
+             <ul>
+              <li>{{ "home.blocroom.nothing" | trans }}</li>
+             </ul>
+         {% endif %}
+        
+        <p><a class="btn btn-default" href="{{ path('rooms') }}">{{ "home.blocroom.add" | trans }} &raquo;</a></p>
+      </div>
+    </div>
+    
+{% endblock %}

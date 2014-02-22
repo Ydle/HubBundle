@@ -1,0 +1,18 @@
+{% extends "YdleHubBundle::layout.html.twig" %}
+
+{% block title '{{ "page.config.title" | trans }}' %}
+
+{% block submenu %}
+  {{ include('YdleHubBundle:Config:submenu.html.twig', {
+    'current': current
+    })
+  }}
+{% endblock %}
+{% block content %}
+        <!-- Example row of columns -->
+        <div class="row">
+          <div style="width: 760px; margin-right: 20px;" class="col-lg-8 with-border">
+            <h2>{{ "config.test.title" | trans }}</h2>
+          </div>
+        </div>      
+{% endblock %}

@@ -1,0 +1,8 @@
+parameters:
+  ydle.data.manager.class: Ydle\HubBundle\Manager\DataManager
+
+services:
+  ydle.data.manager:
+    class: %ydle.data.manager.class%
+    arguments: 
+      entityManager: "@doctrine.orm.entity_manager"

@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+  <!-- li class="{% if(current == "index") %}active{% endif %}"><a href="{{ path('configYdle') }}">{{ "config.tab.parameters" | trans }}</a></li -->
+  <li class="{% if(current == "typeroom") %}active{% endif %}"><a href="{{ path('configTypeRoom') }}">{{ "config.tab.roomtypes" | trans }}</a></li>
+  <li class="{% if(current == "typesensor") %}active{% endif %}"><a href="{{ path('configTypeSensor') }}">{{ "config.tab.nodetypes" | trans }}</a></li>
+  <li class="{% if(current == "dashboard") %}active{% endif %}"><a href="{{ path('configDashboard') }}">{{ "config.tab.testdata" | trans }}</a></li>
+  <li class="{% if(current == "logs") %}active{% endif %}"><a href="{{ path('logs') }}">{{ "config.tab.logs" | trans }}</a></li>
+</ul>

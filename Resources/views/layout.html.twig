@@ -1,0 +1,60 @@
+{% extends "YdleHubBundle::base.html.twig" %}
+
+{% block stylesheets %}
+  <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+  <link href="{{ asset('bootstrap/css/bootstrap-theme.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/ydle.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/themes_uniform/default/css/uniform.default.min.css') }}" rel="stylesheet">
+{% endblock %}
+  
+{% block javascripts %}
+  <script type="text/javascript" src="{{ asset('js/jquery-1.10.2.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.uniform.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.time.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/ydle.js') }}"></script>
+{% endblock %}
+
+{% block head %}
+    <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}" />
+{% endblock %}
+
+{% block title 'Ydle Home' %}
+
+{% block menu %}
+  <div class="masthead">
+    <h3 class="text-muted">Ydle - v{{ app_version }}</h3>
+    <nav class="navbar navbar-default" role="navigation">
+    {{ knp_menu_render('menu.main', {'currentClass':'active'}) }}
+    </nav>
+    
+  </div>
+{% endblock %}
+    
+{% block body %}
+  <div class="body-content">
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-message">
+            <em>Notice</em>: {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% block submenu %}{% endblock %}
+    {% block content %}{% endblock %}
+  </div><!-- /.body-content -->
+
+  
+  <!-- Site footer -->
+  <div class="footer">
+     <p>&copy; Ydle 2014 - <a href="http://www.ydle.fr" target="_blank">http://www.ydle.fr</a></p>
+  </div>
+                      
+
+    {% if code is defined %}
+        <h2>Code behind this page</h2>
+        <div class="block">
+            <div class="symfony-content">{{ code|raw }}</div>
+        </div>
+    {% endif %}
+{% endblock %}

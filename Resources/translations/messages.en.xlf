@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file date="2014-02-09T01:18:10Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="890c940d2bf8b9db1c2fe86aa43e11f6260f43ad" resname="Actif ?">
+        <source>Actif ?</source>
+        <target>Actif ?</target>
+        <jms:reference-file line="25">Form/Type/RoomType.php</jms:reference-file>
+        <jms:reference-file line="15">Form/Type/RoomTypesType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7c1047ea0234e7a73efef178a9e20336fdad664d" resname="about.description">
+        <source>about.description</source>
+        <target state="new">about.description</target>
+        <jms:reference-file line="9">views/Pages/index.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="f390034904ee16353b3a1a7aa329c71865392650" resname="about.title">
+        <source>about.title</source>
+        <target state="new">about.title</target>
+        <jms:reference-file line="8">views/Pages/index.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="0ea672ae39904a50b2f93598bb34d0a4e730e70d" resname="action.submit">
+        <source>action.submit</source>
+        <target state="new">action.submit</target>
+        <jms:reference-file line="70">views/Config/typeroom.html.twig</jms:reference-file>
+        <jms:reference-file line="76">views/Config/typesensor.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="27161edf3cba49ffd4fdfa5a641edbbaf50d828a" resname="config.param.title">
+        <source>config.param.title</source>
+        <target state="new">config.param.title</target>
+        <jms:reference-file line="15">views/Config/index.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b06f12098c46e43ea4e65d234aa725b585225fc2" resname="config.tab.logs">
+        <source>config.tab.logs</source>
+        <target state="new">Logs</target>
+        <jms:reference-file line="6">views/Config/submenu.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="92581fdc3115691e5ce7a0ad26f4f4e3e47663b8" resname="config.tab.nodetypes">
+        <source>config.tab.nodetypes</source>
+        <target state="new">config.tab.nodetypes</target>
+        <jms:reference-file line="4">views/Config/submenu.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="2d4680616278aa660dff441396aacfd69d8e666c" resname="config.tab.parameters">
+        <source>config.tab.parameters</source>
+        <target state="new">config.tab.parameters</target>
+        <jms:reference-file line="2">views/Config/submenu.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="8b14a6e8391feb61a5265fa9619a1806cd3d59e6" resname="config.tab.roomtypes">
+        <source>config.tab.roomtypes</source>
+        <target state="new">config.tab.roomtypes</target>
+        <jms:reference-file line="3">views/Config/submenu.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3456b84ae59c5bef6cc3b81862ce159948e6fcba" resname="config.tab.testdata">
+        <source>config.tab.testdata</source>
+        <target state="new">config.tab.testdata</target>
+        <jms:reference-file line="5">views/Config/submenu.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cc71b48b9381db5e126a044798755ee8e6e8cab9" resname="config.test.gererate.action">
+        <source>config.test.gererate.action</source>
+        <target state="new">config.test.gererate.action</target>
+        <jms:reference-file line="16">views/Config/dashboard.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e023c1496762bcde2498f13d1588b44754baa2fe" resname="config.test.gererate.confirm">
+        <source>config.test.gererate.confirm</source>
+        <target state="new">config.test.gererate.confirm</target>
+        <jms:reference-file line="16">views/Config/dashboard.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e3819a7051d89148e2ed628feef7d969cf79b3dc" resname="config.test.title">
+        <source>config.test.title</source>
+        <target state="new">config.test.title</target>
+        <jms:reference-file line="15">views/Config/dashboard.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="6d0495679b028d49c5f0c3519a76d8096a44ec45" resname="home.blocroom.add">
+        <source>home.blocroom.add</source>
+        <target state="new">Ajouter une pièce</target>
+        <jms:reference-file line="30">views/Home/index.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="4ce757e84aa1ccf7669d8698055b1af65b1815c0" resname="home.blocroom.nothing">
+        <source>home.blocroom.nothing</source>
+        <target state="new">Aucune pièce actuellemnt</target>
+        <jms:reference-file line="26">views/Home/index.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="4a15ee5f948848075790cd8af57ef9692d943c40" resname="home.blocroom.text">
+        <source>home.blocroom.text</source>
+        <target state="new">Vos dernières pièces ajoutées</target>
+        <jms:reference-file line="17">views/Home/index.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b323f2a312ab5ed1131b8561871c6b5daef45746" resname="home.blocroom.title">
+        <source>home.blocroom.title</source>
+        <target state="new">Dernières pièces</target>
+        <jms:reference-file line="16">views/Home/index.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="031635d5f1fbe0228994a3985b0857aed244ec56" resname="label.no">
+        <source>label.no</source>
+        <target>No</target>
+        <jms:reference-file line="32">views/Config/typeroom.html.twig</jms:reference-file>
+        <jms:reference-file line="34">views/Config/typesensor.html.twig</jms:reference-file>
+        <jms:reference-file line="2">Resources/views/fakei18n.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="290d6f6d437efca404cdcc0a608152594063351f" resname="label.yes">
+        <source>label.yes</source>
+        <target>Yes</target>
+        <jms:reference-file line="32">views/Config/typeroom.html.twig</jms:reference-file>
+        <jms:reference-file line="34">views/Config/typesensor.html.twig</jms:reference-file>
+        <jms:reference-file line="1">Resources/views/fakei18n.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="560e95e31c9265ee875b90e555510e0e6b664c0b" resname="roomtype.add.title">
+        <source>roomtype.add.title</source>
+        <target state="new">roomtype.add.title</target>
+        <jms:reference-file line="50">views/Config/typeroom.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a8757e60072b4bbc6e9b88684459bbbeedbd5b51" resname="roomtypes.add.title">
+        <source>roomtypes.add.title</source>
+        <target state="new">roomtypes.add.title</target>
+        <jms:reference-file line="41">views/Config/typeroom.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="f43d542864bce4aa584c24c9134459bced8fb61c" resname="roomtypes.nbrooms.title">
+        <source>roomtypes.nbrooms.title</source>
+        <target state="new">roomtypes.nbrooms.title</target>
+        <jms:reference-file line="21">views/Config/typeroom.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="65482abb1e73a467ddee6f99cb4f7a76d92d92e8" resname="roomtypes.title">
+        <source>roomtypes.title</source>
+        <target state="new">roomtypes.title</target>
+        <jms:reference-file line="15">views/Config/typeroom.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e6e4941f0b7185a16bb6dcc6e9f2f6f5679e7a68" resname="sensortypes.add.title">
+        <source>sensortypes.add.title</source>
+        <target state="new">sensortypes.add.title</target>
+        <jms:reference-file line="51">views/Config/typesensor.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="40c5d035ad4670d1b1c7ced563813bb0be6d5b86" resname="sensortypes.delete.confirm">
+        <source>sensortypes.delete.confirm</source>
+        <target state="new">sensortypes.delete.confirm</target>
+        <jms:reference-file line="42">views/Config/typesensor.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7fe0a14f0857a88f295d57054c4f7fdca80ed692" resname="sensortypes.nbnodes.title">
+        <source>sensortypes.nbnodes.title</source>
+        <target state="new">sensortypes.nbnodes.title</target>
+        <jms:reference-file line="22">views/Config/typesensor.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3a6d565448b7b4a4b67c4212e0b791732df060be" resname="title.action">
+        <source>title.action</source>
+        <target>Action</target>
+        <jms:reference-file line="23">views/Config/typeroom.html.twig</jms:reference-file>
+        <jms:reference-file line="24">views/Config/typesensor.html.twig</jms:reference-file>
+        <jms:reference-file line="3">Resources/views/fakei18n.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a8a71c7253063410c5e916f554cf4194710af704" resname="title.active">
+        <source>title.active</source>
+        <target>Actif</target>
+        <jms:reference-file line="22">views/Config/typeroom.html.twig</jms:reference-file>
+        <jms:reference-file line="23">views/Config/typesensor.html.twig</jms:reference-file>
+        <jms:reference-file line="6">Resources/views/fakei18n.html.twig</jms:reference-file>
+        <jms:reference-file line="7">Resources/views/fakei18n.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="804c50441b40986f4741d4d29291c0149a86386e" resname="title.description">
+        <source>title.description</source>
+        <target state="new">title.description</target>
+        <jms:reference-file line="20">views/Config/typeroom.html.twig</jms:reference-file>
+        <jms:reference-file line="20">views/Config/typesensor.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="38b1cc0bd67ce26301376d676b2f4b930452c5a1" resname="title.name">
+        <source>title.name</source>
+        <target>Nom</target>
+        <jms:reference-file line="19">views/Config/typeroom.html.twig</jms:reference-file>
+        <jms:reference-file line="19">views/Config/typesensor.html.twig</jms:reference-file>
+        <jms:reference-file line="4">Resources/views/fakei18n.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="322976406eda4e63b20b5333c21dbcc7020bf1e2" resname="title.type">
+        <source>title.type</source>
+        <target>Type</target>
+        <jms:reference-file line="5">Resources/views/fakei18n.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="699d394acaa7425a7881c4d49f7fbb1033814f91" resname="title.unit">
+        <source>title.unit</source>
+        <target state="new">title.unit</target>
+        <jms:reference-file line="21">views/Config/typesensor.html.twig</jms:reference-file>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

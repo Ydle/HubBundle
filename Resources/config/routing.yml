@@ -1,0 +1,36 @@
+homeYdle:
+    pattern:  /
+    defaults: { _controller: YdleHubBundle:Home:index }
+
+    
+pagesAbout:
+    pattern:  /pages/about
+    defaults: { _controller: YdleHubBundle:Pages:index }
+    
+configYdle:
+    pattern:  /conf
+    defaults: { _controller: YdleHubBundle:Config:index }
+    
+configDashboard:
+    pattern:  /conf/dashboard
+    defaults: { _controller: YdleHubBundle:Config:dashboard }
+    
+
+Populate:
+    pattern:  /conf/populate
+    defaults: { _controller: YdleHubBundle:Config:populate }
+    
+
+    
+################
+#  Type Rooms  #
+################
+configTypeRoom:
+    pattern:  /conf/typeroom/{type}
+    defaults: { _controller: YdleHubBundle:Config:typeroom, type:0 }
+configTypeRoomActivation:
+    pattern:  /conf/typeroom/activation/{type}/{active}
+    defaults: { _controller: YdleHubBundle:Config:typeroomactivation, type:0, active:0 } 
+configTypeRoomDelete:
+    pattern:  /conf/typeroom/delete/{type}
+    defaults: { _controller: YdleHubBundle:Config:typeroomdelete, type:0 } 
