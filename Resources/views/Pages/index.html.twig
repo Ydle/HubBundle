@@ -1,12 +1,18 @@
 {% extends "YdleHubBundle::layout.html.twig" %}
 
-{% block title '{{ "page.about.title" | trans }}' %}
+{% block title "page.about.title" | trans  %}
 
 {% block content %}
-        <div class="row">
-          <div style="width: 760px; margin-right: 20px;" class="col-lg-8 with-border">
-            <h2>{{ "about.title" | trans }}</h2>
-            <p>{{ "about.description" | trans }}</p>
-          </div>   
-        </div>      
+<div class="row">
+    <div style="width: 760px; margin-right: 20px;" class="col-lg-8 with-border">
+        <h2>{{ "about.title" | trans }}</h2>
+        <p>{{ "about.description" | trans | raw}}</p>
+    </div>   
+    <div class="col-lg-4 content panel panel-default">
+        <div class="panel-body">
+            <a href="https://twitter.com/YdleDomotique" class="twitter-follow-button" data-show-count="false" data-lang="fr" data-size="large">Suivre @YdleDomotique</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </div>
+    </div>     
+</div>  
 {% endblock %}

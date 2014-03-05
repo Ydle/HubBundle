@@ -1,6 +1,6 @@
 {% extends "YdleHubBundle::layout.html.twig" %}
 
-{% block title '{{ "page.config.title" | trans }}' %}
+{% block title "page.config.title" | trans  %}
 
 {% block submenu %}
   {{ include('YdleHubBundle:Config:submenu.html.twig', {
@@ -38,7 +38,7 @@
                         <a href="{{ path('configTypeRoomActivation', {'type': item.id, 'active': 1} ) }}" class="glyphicon glyphicon-play"></a>
                         {% endif %}
                         {% if item.rooms.count == 0 %}
-                        <a href="{{ path('configTypeRoomDelete', {'type': item.id} ) }}" onclick="return confirm('{{ "roomtypes.add.title" | trans }}');" class="glyphicon glyphicon-remove"></a>
+                        <a href="{{ path('configTypeRoomDelete', {'type': item.id} ) }}" onclick="return confirm('{{ "roomtypes.remove.title" | trans }}');" class="glyphicon glyphicon-remove"></a>
                         {% endif %}
                     </td>
                 </tr>

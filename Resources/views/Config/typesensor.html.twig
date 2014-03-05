@@ -1,6 +1,6 @@
 {% extends "YdleHubBundle::layout.html.twig" %}
 
-{% block title '{{ "page.config.title" | trans }}' %}
+{% block title "page.config.title" | trans %}
 
 {% block submenu %}
   {{ include('YdleHubBundle:Config:submenu.html.twig', {
@@ -12,7 +12,7 @@
         <!-- Example row of columns -->
         <div class="row">
           <div style="width: 760px; margin-right: 20px;" class="col-lg-8 with-border">
-           <h2>Liste des types de capteurs</h2>
+           <h2>{{ "typesensors.list.title" | trans }}</h2>
            <table id="sensortypes">
                <thead>
                    <tr>
