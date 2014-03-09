@@ -186,7 +186,6 @@ class ConfigController extends Controller
     		$roomType->setName('Type '.$i);
     		$roomType->setIsActive(true);                                                                      
 	        $em->persist($roomType);
-	        $em->flush();
 	        $types[] = $roomType;
     	}
     	
@@ -198,7 +197,6 @@ class ConfigController extends Controller
     		$room->setType($types[mt_rand(0, count($types) - 1)]);
     		$room->setIsActive(true);                                                                    
 	        $em->persist($room);
-	        $em->flush();
 	        $rooms[] = $room;
     	}
     	
@@ -211,7 +209,6 @@ class ConfigController extends Controller
     		$nodeType->setIsActive(true);  
     		$nodeType->setUnit($units[mt_rand(0, 2)]);                                                                    
 	        $em->persist($nodeType);
-	        $em->flush();
 	        $ctypes[] = $nodeType;
     	}
     	
@@ -234,7 +231,6 @@ class ConfigController extends Controller
     			}
     		}
 	        $em->persist($node);
-	        $em->flush();
 	        $nodes[] = $node;
     	}
     	
@@ -261,7 +257,6 @@ class ConfigController extends Controller
                             if($data < 0){ $data = 0; }
                             $startDate += 600;
                         }
-                        $em->flush();
                         break;
                     case '%':
                         $data = 600;
@@ -280,7 +275,6 @@ class ConfigController extends Controller
                             elseif($data > 100) { $data = 100; }
                             $startDate += 600;
                         }
-                        $em->flush();
                         break;
                     case '°':
                         $data = 1000;
@@ -297,11 +291,13 @@ class ConfigController extends Controller
                             $data += mt_rand(-10,10);
                             $startDate += 600;
                         }
-                        $em->flush();
                         break;
                 }
             }
     	}
+    	
+    	$em->flush();
+    	
     	// Ajout des datas aux capteurs
         return $this->redirect($this->generateUrl('configDashboard'));
     }
