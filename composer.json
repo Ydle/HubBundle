@@ -14,7 +14,8 @@
     ],
     "require": {
             "php": ">=5.3.0",
-            "ydle/room-bundle": "dev-master"
+            "ydle/room-bundle": "dev-master",
+            "ydle/nodes-bundle": "dev-master"
     },
     "autoload": {
         "psr-0": { "Ydle\\HubBundle": "" }
