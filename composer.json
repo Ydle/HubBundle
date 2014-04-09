@@ -18,7 +18,7 @@
             "ydle/nodes-bundle": "0.5",
             "ydle/logs-bundle": "0.5",
             "ydle/api-bundle": "0.5",
-            "ydle/user-bundle":: "0.5"
+            "ydle/user-bundle": "0.5"
     },
     "autoload": {
         "psr-0": { "Ydle\\HubBundle": "" }
