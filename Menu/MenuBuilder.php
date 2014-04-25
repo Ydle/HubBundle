@@ -21,7 +21,6 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('root');
         $menu->setCurrentUri($request->getRequestUri());
-        $menu->setChildrenAttributes(array('class' => 'toto'));
 
         $dashboardTitle = $translator->trans('title.dashboard');
         $menu->addChild($dashboardTitle, array('route' => 'homeYdle'));
