@@ -4,6 +4,7 @@ namespace Ydle\HubBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 class MenuBuilder
 {
