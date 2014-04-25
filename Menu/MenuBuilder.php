@@ -17,19 +17,22 @@ class MenuBuilder
         $this->factory = $factory;
     }
 
-    public function createMainMenu(Request $request)
+    public function createMainMenu(Request $request, Translator $translator)
     {
         $menu = $this->factory->createItem('root');
         $menu->setCurrentUri($request->getRequestUri());
+        $menu->setChildrenAttributes(array('class' => 'toto'));
 
-        $menu->addChild('Accueil', array('route' => 'homeYdle'));
+        $dashboardTitle = $translator->trans('title.dashboard');
+        $menu->addChild($dashboardTitle, array('route' => 'homeYdle'));
         $menu->addChild('Pièces', array('route' => 'rooms'));
         $menu->addChild('Capteurs', array('route' => 'nodes'));
         $menu->addChild('Configuration', array('route' => 'configDashboard'));
         $menu->addChild('A propos', array('route' => 'pagesAbout'));
-        
-        $menu->setChildrenAttribute('class', 'nav navbar-nav');
+
+        $menu->setChildrenAttribute('class', 'sidebar-menu');
 
         return $menu;
     }
+
 }
