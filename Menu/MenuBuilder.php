@@ -4,7 +4,7 @@ namespace Ydle\HubBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class MenuBuilder
 {
@@ -18,7 +18,7 @@ class MenuBuilder
         $this->factory = $factory;
     }
 
-    public function createMainMenu(Request $request, Translator $translator)
+    public function createMainMenu(Request $request, TranslatorInterface $translator)
     {
         $menu = $this->factory->createItem('root');
         $menu->setCurrentUri($request->getRequestUri());
