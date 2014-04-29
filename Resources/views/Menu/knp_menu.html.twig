@@ -1,0 +1,13 @@
+{% extends 'knp_menu.html.twig' %}
+{% block label %}
+{%- set attributes = item.attributes %}
+{%- set icon = item.attributes.icon|default('') %}
+{%- set treeview = item.attributes.treeview|default(false) %}
+{% if icon|length %}
+<i class="{{ icon }}"></i>
+{% endif %}
+{{ item.label|trans }}
+{% if treeview %}
+<i class="fa fa-angle-left pull-right"></i>
+{% endif %}
+{% endblock %}

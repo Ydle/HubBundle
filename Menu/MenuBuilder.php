@@ -24,35 +24,68 @@ class MenuBuilder
         $menu->setCurrentUri($request->getRequestUri());
 
         // home
-        $dashboardTitle = $translator->trans('title.dashboard');
-        $menu->addChild($dashboardTitle, array('route' => 'homeYdle'));
+        $menu->addChild('title.dashboard', array('route' => 'homeYdle', 'attributes' => array('icon' => 'fa fa-bar-chart-o')));
         
         // Rooms
-        $roomsTitle = $translator->trans('title.rooms');
-        $allRoomsTitle = $translator->trans('title.rooms.all');
-        $newRoomTitle = $translator->trans('title.rooms.new');
-        $menu->addChild($roomsTitle, array('route' => 'rooms'));
+        $menu->addChild('title.rooms', array(
+            'route' => 'rooms', 
+            'attributes' => array(
+                'class' => 'treeview', 
+                'icon' => 'fa fa-home',
+                'treeview' => true
+             ), 
+            'childrenAttributes' => array('class' =>'treeview-menu')
+        ));
+        //$menu->addChild('title.rooms')->setChildrenAttribute('class', 'test');
+        $menu->getChild('title.rooms')->addChild('title.rooms.all', array(
+            'route' => 'rooms',
+            'attributes' => array(
+                'icon' => 'fa fa-angle-double-right'
+            )
+        ));
+        $menu->getChild('title.rooms')->addChild('title.rooms.new', array(
+            'route' => 'rooms',
+            'attributes' => array(
+                'icon' => 'fa fa-angle-double-right'
+            )
+        ));
         
         // Nodes
-        $nodesTitle = $translator->trans('title.nodes');
-        $allNodesTitle = $translator->trans('title.nodes.all');
-        $newNodeTitle = $translator->trans('title.nodes.new');
-        $menu->addChild($nodesTitle, array('route' => 'nodes'));
+        $menu->addChild('title.nodes', array(
+            'route' => 'nodes', 
+            'attributes' => array(
+                'icon' => 'fa fa-dot-circle-o',
+                'treeview' => true
+             )
+        ));
         
         // Settings
-        $configTitle = $translator->trans('title.config');
         $configGeneralTitle = $translator->trans('title.config.general');
         $configRoomsTitle = $translator->trans('title.config.rooms');
         $configNodesTitle = $translator->trans('title.config.nodes');
-        $menu->addChild($configTitle, array('route' => 'configDashboard'));
+        $menu->addChild('title.config', array(
+            'route' => 'configDashboard', 
+            'attributes' => array(
+                'icon' => 'fa fa-cogs',
+                'treeview' => true
+            )
+        ));
         
         // Logs
-        $logsTitle = $translator->trans('title.logs');
-        $menu->addChild(logsTitle, array('route' => 'pagesAbout'));
+        $menu->addChild('title.logs', array(
+            'route' => 'pagesAbout', 
+            'attributes' => array(
+                'icon' => 'fa fa-list'
+            )
+        ));
         
         // About
-        $aboutTitle = $translator->trans('title.about');
-        $menu->addChild($aboutTitle, array('route' => 'pagesAbout'));
+        $menu->addChild('title.about', array(
+            'route' => 'pagesAbout',
+            'attributes' => array(
+                'icon' => 'fa fa-question-circle'
+            )
+        ));
 
         $menu->setChildrenAttribute('class', 'sidebar-menu');
 
