@@ -1887,7 +1887,7 @@ Component: timeline
   -moz-border-radius: 0;
   border-radius: 0;
   text-align: center;
-  color: #666;
+  color: #700099;
   border: 1px solid #ddd;
   background-color: #fafafa;
   font-size: 12px;
@@ -1900,8 +1900,8 @@ Component: timeline
 }
 .btn.btn-app:hover {
   background: #f4f4f4;
-  color: #444;
-  border-color: #aaa;
+  color: #700099;
+  border-color: #700099;
 }
 .btn.btn-app:active,
 .btn.btn-app:focus {

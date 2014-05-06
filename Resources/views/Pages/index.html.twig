@@ -4,15 +4,61 @@
 
 {% block content %}
 <div class="row">
-    <div style="width: 760px; margin-right: 20px;" class="col-lg-8 with-border">
-        <h2>{{ "about.title" | trans }}</h2>
-        <p>{{ "about.description" | trans | raw}}</p>
-    </div>   
-    <div class="col-lg-4 content panel panel-default">
-        <div class="panel-body">
-            <a href="https://twitter.com/YdleDomotique" class="twitter-follow-button" data-show-count="false" data-lang="fr" data-size="large">Suivre @YdleDomotique</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <div class="col-xs-8">
+        <!-- small box -->
+        <div class="box">
+            <div class="box-header" style="cursor: move;">
+                <h3 class="box-title">A propos de Ydle</h3>
+                <div class="box-tools pull-right">
+                    <button data-original-title="Collapse" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body table-responsive">
+                <p>Ydle est un projet domotique DIY et low cost lancé en 2013 par Yaug. Le but de YDLE est de permettre à chacun de réaliser son propre système domotique pour un coup raisonnable et avec du code ouvert, tout l'opposé des solutions chères et fermées des leaders du bricolage.</p>
+                <p>Vous pourrez ainsi soit construire votre propre réseau, soit utiliser d'autres solutions et les rendre compatible avec YDLE</p>
+                <p>Modularité, économies et simplicité sont les maitres mots du projet Ydle</p>
+                <p>N'hésitez pas à nous rejoindre <a href="http://forum.ydle.fr" target="_blank">sur le forum</a> pour en apprendre d'avantage et suivre l'évolution de cette formidable communauté.</p>
+            </div>
         </div>
-    </div>     
-</div>  
+    </div><!-- ./col -->
+    <div class="col-xs-4">
+        <div class="box">            
+            <div class="box-header" style="cursor: move;">
+                <h3 class="box-title">Suivre Ydle</h3>
+                <div class="box-tools pull-right">
+                    <button data-original-title="Collapse" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <p>Retrouvez Ydle sur les différents réseaux sociaux</p>
+                <a href="http://twitter.com/YdleDomotique" class="btn btn-block btn-social btn-twitter"><i class="fa fa-twitter"></i> @YdleDomotique</a>
+                <a href="https://www.facebook.com/YdleDomotique" class="btn btn-block btn-social btn-facebook"><i class="fa fa-fw fa-facebook"></i> YdleDomotique</a>
+                
+            </div>
+        </div>
+        <div class="box">            
+            <div class="box-header" style="cursor: move;">
+                <h3 class="box-title">Participez !</h3>
+                <div class="box-tools pull-right">
+                    <button data-original-title="Collapse" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body ydle-links">
+                <p>Participez à Ydle, faites nous vos retours, et suivez les dernières discussions.</p>
+                <a class="btn btn-app" href="http://forum.ydle.fr" target="_blank">
+                    <i class="fa fa-comment-o"></i>
+                    Forum
+                </a>
+                <a class="btn btn-app" href="http://wiki.ydle.fr/" target="_blank">
+                    <i class="fa fa-question"></i>
+                    Wiki
+                </a>
+                <a class="btn btn-app" href="http://webchat.freenode.net/" target="_blank">
+                    <i class="fa fa-users"></i>
+                    IRC
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
