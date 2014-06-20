@@ -4,6 +4,7 @@ namespace Ydle\HubBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Ydle\RoomBundle\Entity\RoomType;
 use Ydle\RoomBundle\Entity\Room;
 use Ydle\NodesBundle\Entity\SensorType;
@@ -12,9 +13,10 @@ use Ydle\HubBundle\Entity\NodeData;
 
 class ConfigController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->render('YdleHubBundle:Config:dashboard.html.twig', array('current' => 'dashboard', 'mainpage' => 'config'));
+        return $this->render('YdleHubBundle:Config:index.html.twig', array(
+        ));
     }
 
     /**
@@ -25,35 +27,73 @@ class ConfigController extends Controller
      */
     public function typeroomAction(Request $request)
     {
-        $types = $this->get("ydle.roomtypes.manager")->findAllByName();
-        $roomType = new RoomType();
-        
-        // Manage edition mode
-        $this->currentType = $request->get('type');
-        if($this->currentType){
-            $roomType = $this->get("ydle.roomtypes.manager")->getRepository()->find($request->get('type'));
-        }
-        $form = $this->createForm("room_types", $roomType);
+        $setttings = $this->get('ydle.settings.controller');
+   	$roomType = new RoomType();
+
+	$form = $this->createForm("room_types", $roomType);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($roomType);
             $em->flush();
-            $message = 'Type de pièce ajoutée avec succès';
+            $message = 'roomtype.add.success';
             if($roomType->getId()){
-                $message = 'Type de pièce modifié avec succès';
+                $message = 'roomtype.edit.success';
             }
-            $this->get('session')->getFlashBag()->add('notice', $message);
-            return $this->redirect($this->generateUrl('configTypeRoom'));
+            
+            $response = new JsonResponse();
+            $data = array(
+                'result' => 'ok',
+                'message' => $message
+            );
+            $response->setData($data);
+            return $response;
         }
 
         return $this->render('YdleHubBundle:Config:typeroom.html.twig', array(
-            'form' => $form->createView(), 
-            'current' => 'typeroom', 
-            'mainpage' => 'config',
-            'items' => $types
+            'form' => $form->createView()
         ));
+    }
+    
+    public function typeroomFormAction(Request $request)
+    {
+        $result = "ok";
+   	$roomType = new RoomType();
+        if($typeId = $request->get('type')){
+            $roomType = $this->get("ydle.roomtype.manager")->find($typeId);
+        }
+        $action = $this->get('router')->generate('configTypeRoomForm', array('type' => $typeId));
+        
+	$form = $this->createForm("room_types", $roomType);
+        if($request->isMethod('POST')){
+            $form->bind($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($roomType);
+                $em->flush();
+                $message = 'roomtype.add.success';
+                if($roomType->getId()){
+                    $message = 'roomtype.edit.success';
+                }
+
+                $response = new JsonResponse();
+                $result = 'success';
+                $data = array(
+                    'result' => $result,
+                    'message' => $message
+                );
+                $response->setData($data);
+                return $response;
+            } else{
+                $result = 'error';
+            }
+        }
+
+        return $this->render('YdleHubBundle:Config:typeroomForm.html.twig', array(
+            'action' => $action,
+            'form' => $form->createView())
+        );
     }
     
     /**
@@ -168,141 +208,5 @@ class ConfigController extends Controller
     
     public function populateAction()
     {
-        ini_set('max_execution_time', 0);
-    	$em = $this->getDoctrine()->getManager();
-    	
-    	// Delete from tables
-    	//$em->createQuery('DELETE FROM node_sensor')->execute();
-    	$em->createQuery('DELETE FROM YdleHubBundle:NodeData')->execute();
-    	$em->createQuery('DELETE FROM YdleNodesBundle:Node')->execute();
-    	$em->createQuery('DELETE FROM YdleNodesBundle:SensorType')->execute();
-    	$em->createQuery('DELETE FROM YdleRoomBundle:Room')->execute();
-    	$em->createQuery('DELETE FROM YdleRoomBundle:RoomType')->execute();
-    	
-    	// Creation des types de pièces
-    	$types = array();
-    	for($i = 0; $i < mt_rand(2, 4); $i++){
-    		$roomType = new RoomType();
-    		$roomType->setName('Type '.$i);
-    		$roomType->setIsActive(true);                                                                      
-	        $em->persist($roomType);
-	        $em->flush();
-	        $types[] = $roomType;
-    	}
-    	
-    	// Création des pièces
-    	$rooms = array();
-    	for($i = 0; $i < mt_rand(3, 7); $i++){
-    		$room = new Room();
-    		$room->setName('Pièce #'.$i);
-    		$room->setType($types[mt_rand(0, count($types) - 1)]);
-    		$room->setIsActive(true);                                                                    
-	        $em->persist($room);
-	        $em->flush();
-	        $rooms[] = $room;
-    	}
-    	
-    	// Création des types de capteurs
-   		$ctypes = array();
-   		$units = array('t','°','%','m');
-    	for($i = 0; $i < mt_rand(2, 4); $i++){
-    		$nodeType = new SensorType();
-    		$nodeType->setName('Type '.$i);
-    		$nodeType->setIsActive(true);  
-    		$nodeType->setUnit($units[mt_rand(0, 2)]);                                                                    
-	        $em->persist($nodeType);
-	        $em->flush();
-	        $ctypes[] = $nodeType;
-    	}
-    	
-    	// Création des capteurs
-    	$nodes = array();
-    	for($i = 0; $i < mt_rand(4, 8); $i++)
-    	{
-    		$node = new Node();
-    		$node->setName('test node #'.$i);
-    		$node->setCode($i);
-    		$node->setIsActive(true);
-    		$node->setRoom($rooms[mt_rand(0, count($rooms) -1)]); 
-    		
-    		$nbSensors = mt_rand(1,2);
-    		for($j = 0; $j < $nbSensors; $j++)
-    		{
-    			$newType = $ctypes[mt_rand(0, count($ctypes)-1)];
-    			if(!$node->hasType($newType)){
-    				$node->addType($newType);
-    			}
-    		}
-	        $em->persist($node);
-	        $em->flush();
-	        $nodes[] = $node;
-    	}
-    	
-        $now = strtotime("now");
-    	foreach($nodes as $n)
-    	{
-            foreach($n->getTypes() as $type)
-            {
-                $startDate = strtotime("1 january 2014");
-                switch($type->getUnit()){
-                    case 'm':
-                        $data = 1000;
-                        while($startDate < $now){
-                            $dt = \Datetime::createFromFormat("U", $startDate);
-                            $nodeData = new NodeData();
-                            $nodeData->setType($type);
-                            $nodeData->setNode($n);
-                            $nodeData->setData($data);
-                            $nodeData->setCreated($dt);
-                            $nodeData->setUpdated($dt);
-                            $em->persist($nodeData);
-                            
-                            $data += mt_rand(-30,30);
-                            if($data < 0){ $data = 0; }
-                            $startDate += 600;
-                        }
-                        $em->flush();
-                        break;
-                    case '%':
-                        $data = 600;
-                        while($startDate < $now){
-                            $dt = \Datetime::createFromFormat("U", $startDate);
-                            $nodeData = new NodeData();
-                            $nodeData->setType($type);
-                            $nodeData->setNode($n);
-                            $nodeData->setData($data);
-                            $nodeData->setCreated($dt);
-                            $nodeData->setUpdated($dt);
-                            $em->persist($nodeData);
-                            
-                            $data += mt_rand(-10,10);
-                            if($data < 0){ $data = 0; }
-                            elseif($data > 100) { $data = 100; }
-                            $startDate += 600;
-                        }
-                        $em->flush();
-                        break;
-                    case '°':
-                        $data = 1000;
-                        while($startDate < $now){
-                            $dt = \Datetime::createFromFormat("U", $startDate);
-                            $nodeData = new NodeData();
-                            $nodeData->setType($type);
-                            $nodeData->setNode($n);
-                            $nodeData->setData($data);
-                            $nodeData->setCreated($dt);
-                            $nodeData->setUpdated($dt);
-                            $em->persist($nodeData);
-                            
-                            $data += mt_rand(-10,10);
-                            $startDate += 600;
-                        }
-                        $em->flush();
-                        break;
-                }
-            }
-    	}
-    	// Ajout des datas aux capteurs
-        return $this->redirect($this->generateUrl('configDashboard'));
     }
 }

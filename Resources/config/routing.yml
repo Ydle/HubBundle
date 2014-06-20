@@ -7,9 +7,6 @@ pagesAbout:
     pattern:  /pages/about
     defaults: { _controller: YdleHubBundle:Pages:index }
     
-configYdle:
-    pattern:  /conf
-    defaults: { _controller: YdleHubBundle:Config:index }
     
 configDashboard:
     pattern:  /conf/dashboard
@@ -22,15 +19,24 @@ Populate:
     
 
     
-################
-#  Type Rooms  #
-################
+  
+  
+  
+configYdle:
+    pattern:  /config
+    defaults: { _controller: YdleHubBundle:Config:index }
 configTypeRoom:
-    pattern:  /conf/typeroom/{type}
-    defaults: { _controller: YdleHubBundle:Config:typeroom, type:0 }
-configTypeRoomActivation:
-    pattern:  /conf/typeroom/activation/{type}/{active}
-    defaults: { _controller: YdleHubBundle:Config:typeroomactivation, type:0, active:0 } 
-configTypeRoomDelete:
-    pattern:  /conf/typeroom/delete/{type}
-    defaults: { _controller: YdleHubBundle:Config:typeroomdelete, type:0 } 
+  pattern: /config/typeroom
+  defaults: { _controller: YdleHubBundle:Config:typeroom }
+configTypeRoomForm:
+  pattern: /config/typeroom/form/{type}
+  defaults: { _controller: YdleHubBundle:Config:typeroomForm, type:0 }
+      
+      
+#      
+#configTypeRoomActivation:
+#    pattern:  /conf/typeroom/activation/{type}/{active}
+#    defaults: { _controller: YdleHubBundle:Config:typeroomactivation, type:0, active:0 } 
+#configTypeRoomDelete:
+#    pattern:  /conf/typeroom/delete/{type}
+#    defaults: { _controller: YdleHubBundle:Config:typeroomdelete, type:0 } 

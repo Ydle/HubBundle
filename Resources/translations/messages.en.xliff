@@ -189,7 +189,7 @@
       </trans-unit>
       <trans-unit id="739bc15380f761fe654d2166408c4705e47ff95d" resname="title.config.rooms">
         <source>title.config.rooms</source>
-        <target state="new">RSooms</target>
+        <target state="new">Room Types</target>
         <jms:reference-file line="37">HubBundle/Menu/MenuBuilder.php</jms:reference-file>
         <jms:reference-file line="11">Resources/views/translations.html.twig</jms:reference-file>
       </trans-unit>

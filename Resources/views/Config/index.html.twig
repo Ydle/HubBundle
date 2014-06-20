@@ -1,19 +1,27 @@
 {% extends "YdleHubBundle::layout.html.twig" %}
 
-{% block title "page.config.title" | trans  %}
+{% block title %}{{ "title.config" | trans}}{% endblock %}
 
-{% block submenu %}
-  {{ include('YdleHubBundle:Config:submenu.html.twig', {
-    'current': current
-    })
-  }}
-{% endblock %}
 {% block content %}
-        <!-- Example row of columns -->
-        <div class="row">
-          <div style="width: 760px; margin-right: 20px;" class="col-lg-8 with-border">
-            <h2>{{ "config.param.title" | trans }}</h2>
-            <p>........</p>
-          </div>   
-        </div>      
+<div class="row">
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">General</h3>
+                <div class="box-tools pull-right">
+                    <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title"></h3>
+            </div>
+        </div>
+    </div> 
+</div>      
 {% endblock %}

@@ -1365,6 +1365,7 @@ body > .header .logo .icon {
   border-top-right-radius: 0;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
+  min-height:100px;
 }
 .box .box-body > table,
 .box .box-body > .table {
@@ -1658,23 +1659,31 @@ body > .header .logo .icon {
   clear: both;
 }
 .box > .overlay,
-.box > .loading-img {
+.box > .loading-img,
+.ajax-loading > .overlay,
+.ajax-loading > .loading-img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
-.box > .overlay {
+.ajax-loading > .overlay,
+.box > .overlay
+{
   z-index: 1010;
   background: rgba(255, 255, 255, 0.7);
 }
-.box > .overlay.dark {
+.ajax-loading > .overlay.dark,
+.box > .overlay.dark
+{
   background: rgba(0, 0, 0, 0.5);
 }
-.box > .loading-img {
+.ajax-loading > .loading-img,
+.box > .loading-img
+{
   z-index: 1020;
-  background: transparent url('../img/ajax-loader1.gif') 50% 50% no-repeat;
+  background: transparent url('/bundles/ydlehub/images/ajax-loader1.gif') 50% 50% no-repeat;
 }
 /*
 Component: timeline
@@ -1799,7 +1808,7 @@ Component: timeline
 }
 .btn.btn-primary {
   background-color: #8B00BD;
-  border-color: #367fa9;
+  border-color: #8B00BD;
 }
 .btn.btn-primary:hover,
 .btn.btn-primary:active,

@@ -1,75 +1,30 @@
 {% extends "YdleHubBundle::layout.html.twig" %}
 
-{% block title "page.config.title" | trans  %}
+{% block title %}{{ "title.config" | trans}}{% endblock %}
 
-{% block submenu %}
-  {{ include('YdleHubBundle:Config:submenu.html.twig', {
-    'current': current
-    })
-  }}
-{% endblock %}
 {% block content %}
-        <!-- Example row of columns -->
-        <div class="row">
-          <div style="width: 760px; margin-right: 20px;" class="col-lg-8 with-border">
-           <h2>{{ "roomtypes.title" | trans }}</h2>
-           <table id="roomtypes">
-               <thead>
-                   <tr>
-                       <th>{{ "title.name" | trans }}</th>
-                       <th>{{ "title.description" | trans }}</th>
-                       <th>{{ "roomtypes.nbrooms.title" | trans }}</th>
-                       <th>{{ "title.active" | trans }}</th>
-                       <th>{{ "title.action" | trans }}</th>
-                   </tr>
-               </thead>
-                <tbody>
-                {% for item in items %}
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.rooms.count }}</td>
-                    <td>{% if item.isactive %}{{ "label.yes" | trans }}{% else %}{{ "label.no" | trans }}{% endif %}</td>
-                    <td>
-                        <a href="{{ path('configTypeRoom', {'type': item.id} ) }}" class="glyphicon glyphicon-pencil"></a>
-                        {% if item.isactive %}
-                        <a href="{{ path('configTypeRoomActivation', {'type': item.id, 'active': 0} ) }}" class="glyphicon glyphicon-pause"></a>
-                        {% else %}
-                        <a href="{{ path('configTypeRoomActivation', {'type': item.id, 'active': 1} ) }}" class="glyphicon glyphicon-play"></a>
-                        {% endif %}
-                        {% if item.rooms.count == 0 %}
-                        <a href="{{ path('configTypeRoomDelete', {'type': item.id} ) }}" onclick="return confirm('{{ "roomtypes.remove.title" | trans }}');" class="glyphicon glyphicon-remove"></a>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
-           </table>
-          </div>      
-          <div class="col-lg-4 with-border">
-            <h2>{{ "roomtype.add.title" | trans }}</h2>
-            {{ form_start(form, { 'attr': {'class': 'ydle-form'} }) }}
-            {{ form_errors(form) }}
+<div class="row">
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Rooms types</h3>
+                <div class="box-tools pull-right">
+                    <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body ajax-loading table-responsive" id="roomtype-list" data-endpoint="/room/type.json" data-template="roomtype-list">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box" data-template="roomtype-list">
+            <div class="box-header">
+                <h3 class="box-title">Add / Edit a room type</h3>
+            </div>
 
-            <div class="form-item">
-                {{ form_label(form.name) }}
-                {{ form_errors(form.name) }}
-                {{ form_widget(form.name) }}
+            <div class="ajax-loading" data-endpoint="/config/typeroom/form" data-template="roomtype-form" id="roomtype-form">
             </div>
-            <div class="form-item">
-                {{ form_label(form.description ) }}
-                {{ form_errors(form.description) }}
-                {{ form_widget(form.description) }}
-            </div>
-            <div class="form-item">
-                {{ form_label(form.is_active) }}
-                {{ form_errors(form.is_active) }}
-                {{ form_widget(form.is_active) }}
-            </div>
-            <div class="form-item form-actions">
-                <button type="submit" class="btn btn-default">{{ "action.submit" | trans }}</button>
-            </div>
-            {{ form_end(form) }}
-          </div>      
-        </div>      
+        </div>
+    </div> 
+</div>      
 {% endblock %}

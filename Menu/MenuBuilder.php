@@ -60,14 +60,26 @@ class MenuBuilder
         ));
         
         // Settings
-        $configGeneralTitle = $translator->trans('title.config.general');
-        $configRoomsTitle = $translator->trans('title.config.rooms');
         $configNodesTitle = $translator->trans('title.config.nodes');
         $menu->addChild('title.config', array(
-            'route' => 'configDashboard', 
+            'route' => 'configYdle', 
             'attributes' => array(
+                'class' => 'treeview', 
                 'icon' => 'fa fa-cogs',
                 'treeview' => true
+            ),
+            'childrenAttributes' => array('class' =>'treeview-menu')
+        ));
+        $menu->getChild('title.config')->addChild('title.config.general', array(
+            'route' => 'configYdle',
+            'attributes' => array(
+                'icon' => 'fa fa-angle-double-right'
+            )
+        ));
+        $menu->getChild('title.config')->addChild('title.config.rooms', array(
+            'route' => 'configTypeRoom',
+            'attributes' => array(
+                'icon' => 'fa fa-angle-double-right'
             )
         ));
         

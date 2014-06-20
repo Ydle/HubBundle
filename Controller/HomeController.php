@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function indexAction()
     {
-        $rooms = $this->get("ydle.rooms.manager")->retrieve(array('limit' => 3));
-        return $this->render('YdleHubBundle:Home:index.html.twig', array('mainpage' => 'home', 'rooms' => $rooms));
+        //$rooms = $this->get("ydle.rooms.manager")->retrieve(array('limit' => 3));
+        return $this->render('YdleHubBundle:Home:index.html.twig', array('mainpage' => 'home', 'rooms' => array()));
     }
 }
