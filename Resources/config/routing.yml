@@ -23,13 +23,13 @@ Populate:
   
   
 configYdle:
-    pattern:  /config
+    pattern:  /conf
     defaults: { _controller: YdleHubBundle:Config:index }
 configTypeRoom:
-  pattern: /config/typeroom
+  pattern: /conf/typeroom
   defaults: { _controller: YdleHubBundle:Config:typeroom }
 configTypeRoomForm:
-  pattern: /config/typeroom/form/{type}
+  pattern: /conf/typeroom/form/{type}
   defaults: { _controller: YdleHubBundle:Config:typeroomForm, type:0 }
       
       
