@@ -6,6 +6,12 @@
         id: "roomtype-list", // id is optional, but useful for referencing the template later
         href: "/bundles/ydlehub/templates/Widgets/widget.settings.roomtype.html.twig"  
     });
+    ydleTemplates["nodetype-list"] = twig(
+    {
+        cache: false, 
+        id: "nodetype-list", // id is optional, but useful for referencing the template later
+        href: "/bundles/ydlehub/templates/Widgets/widget.settings.nodetype.html.twig"  
+    });
 
     $(document).ready(function() {
       

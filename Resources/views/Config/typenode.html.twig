@@ -1,0 +1,37 @@
+{% extends "YdleHubBundle::layout.html.twig" %}
+
+{% block title "page.config.title" | trans %}
+
+
+{% endblock %}
+
+{% extends "YdleHubBundle::layout.html.twig" %}
+
+{% block title %}{{ "title.config" | trans}}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Sensor types</h3>
+                <div class="box-tools pull-right">
+                    <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body ajax-loading table-responsive" id="roomtype-list" data-endpoint="/sensor/type.json" data-template="nodetype-list">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box" data-template="roomtype-list">
+            <div class="box-header">
+                <h3 class="box-title">Add / Edit a room type</h3>
+            </div>
+
+            <div class="ajax-loading" data-endpoint="/conf/typenode/form" data-template="roomtype-form" id="roomtype-form">
+            </div>
+        </div>
+    </div> 
+</div>      
+{% endblock %}

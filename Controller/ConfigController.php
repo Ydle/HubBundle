@@ -135,7 +135,7 @@ class ConfigController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return type
      */
-    public function typesensorAction(Request $request)
+    public function typenodeAction(Request $request)
     {
         $types = $this->get("ydle.sensortypes.manager")->findAllByName();
         $sensorType = new SensorType();
@@ -174,7 +174,7 @@ class ConfigController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return type
      */
-    public function typesensordeleteAction(Request $request)
+    public function typenodedeleteAction(Request $request)
     {
         $object = $this->get("ydle.sensortypes.manager")->getRepository()->find($request->get('type'));
         $em = $this->getDoctrine()->getManager();                                                                         
@@ -189,7 +189,7 @@ class ConfigController extends Controller
     * 
     * @param Request $request
     */
-    public function typesensoractivationAction(Request $request)
+    public function typenodeactivationAction(Request $request)
     {
         $isActive = $request->get('active');
         $message = $isActive?'Type activé':'Type désactivé';

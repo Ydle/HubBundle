@@ -31,6 +31,12 @@ configTypeRoom:
 configTypeRoomForm:
   pattern: /conf/typeroom/form/{type}
   defaults: { _controller: YdleHubBundle:Config:typeroomForm, type:0 }
+configTypeNode:
+  pattern: /conf/typenode
+  defaults: { _controller: YdleHubBundle:Config:typenode }
+configTypeNodeForm:
+  pattern: /conf/typenode/form/{type}
+  defaults: { _controller: YdleHubBundle:Config:typenodeForm, type:0 }
       
       
 #      

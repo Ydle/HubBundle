@@ -82,6 +82,12 @@ class MenuBuilder
                 'icon' => 'fa fa-angle-double-right'
             )
         ));
+        $menu->getChild('title.config')->addChild('title.config.nodes', array(
+            'route' => 'configTypeNode',
+            'attributes' => array(
+                'icon' => 'fa fa-angle-double-right'
+            )
+        ));
         
         // Logs
         $menu->addChild('title.logs', array(
