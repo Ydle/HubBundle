@@ -33,7 +33,7 @@ class NodeData
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Ydle\NodesBundle\Entity\SensorType")
+     * @ORM\ManyToOne(targetEntity="Ydle\NodesBundle\Entity\NodeType")
      * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $type;

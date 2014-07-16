@@ -5,9 +5,8 @@ namespace Ydle\HubBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Ydle\NodesBundle\Entity\NodeType;
 use Ydle\RoomBundle\Entity\RoomType;
-use Ydle\RoomBundle\Entity\Room;
-use Ydle\NodesBundle\Entity\SensorType;
 use Ydle\NodesBundle\Entity\Node;
 use Ydle\HubBundle\Entity\NodeData;
 
@@ -27,7 +26,7 @@ class ConfigController extends Controller
      */
     public function typeroomAction(Request $request)
     {
-        $setttings = $this->get('ydle.settings.controller');
+        $setttings = $this->get('ydle.settings.roomtype.controller');
    	$roomType = new RoomType();
 
 	$form = $this->createForm("room_types", $roomType);
@@ -95,6 +94,46 @@ class ConfigController extends Controller
             'form' => $form->createView())
         );
     }
+
+    public function typenodeFormAction(Request $request)
+    {
+        $result = "ok";
+        $nodeType = new NodeType();
+        if($typeId = $request->get('type')){
+            $nodeType = $this->get("ydle.nodetype.manager")->find($typeId);
+        }
+        $action = $this->get('router')->generate('configTypeNodeForm', array('type' => $typeId));
+
+        $form = $this->createForm("nodetypes_form", $nodeType);
+        if($request->isMethod('POST')){
+            $form->bind($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($nodeType);
+                $em->flush();
+                $message = 'nodetype.add.success';
+                if($nodeType->getId()){
+                    $message = 'nodetype.edit.success';
+                }
+
+                $response = new JsonResponse();
+                $result = 'success';
+                $data = array(
+                    'result' => $result,
+                    'message' => $message
+                );
+                $response->setData($data);
+                return $response;
+            } else{
+                $result = 'error';
+            }
+        }
+
+        return $this->render('YdleHubBundle:Config:typenodeForm.html.twig', array(
+            'action' => $action,
+            'form' => $form->createView())
+        );
+    }
     
     /**
     * Manage activation of a room type
@@ -137,15 +176,15 @@ class ConfigController extends Controller
      */
     public function typenodeAction(Request $request)
     {
-        $types = $this->get("ydle.sensortypes.manager")->findAllByName();
-        $sensorType = new SensorType();
+        $types = $this->get("ydle.nodetype.manager")->findAllByName();
+        $sensorType = new NodeType();
         
         // Manage edition mode
         $this->currentType = $request->get('type');
         if($this->currentType){
-            $sensorType = $this->get("ydle.sensortypes.manager")->getRepository()->find($request->get('type'));
+            $sensorType = $this->get("ydle.nodetype.manager")->getRepository()->find($request->get('type'));
         }
-        $form = $this->createForm("sensor_types", $sensorType);
+        $form = $this->createForm("nodetypes_form", $sensorType);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -160,7 +199,7 @@ class ConfigController extends Controller
             return $this->redirect($this->generateUrl('configTypeSensor'));
         }
 
-        return $this->render('YdleHubBundle:Config:typesensor.html.twig', array(
+        return $this->render('YdleHubBundle:Config:typenode.html.twig', array(
             'form' => $form->createView(), 
             'current' => 'typesensor', 
             'mainpage' => 'config',

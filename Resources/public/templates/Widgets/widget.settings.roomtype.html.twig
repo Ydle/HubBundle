@@ -25,13 +25,13 @@
 		<td>{{ entry.description }}</td>
 		<td>{{ entry.rooms|length }}</td>
 		<td>{% if entry.is_active %}
-                    <a class="label label-success ajax-action" href="/room/type/state.json?roomtype_id={{ entry.id }}&state=0">Yes</a>
+                    <a class="label label-success ajax-action" data-action="deactivate" href="/room/type/state.json?roomtype_id={{ entry.id }}&state=0">Yes</a>
                     {% else %}
-                    <a class="label label-default ajax-action" href="/room/type/state.json?roomtype_id={{ entry.id }}&state=1">No</a>
+                    <a class="label label-default ajax-action" data-action="activate" href="/room/type/state.json?roomtype_id={{ entry.id }}&state=1">No</a>
                     {% endif %}
                 </td>
 		<td>
-                    <a href="/config/typeroom/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="roomtype-form">
+                    <a href="/conf/typeroom/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="roomtype-form">
                         <i class="fa fa-pencil"></i>
                     </a>
                     <a href="/room/type.json?roomtype_id={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
@@ -49,8 +49,10 @@
 	<div class="row">
             <div class="col-xs-4">
                 <div id="example2_info" class="dataTables_info">
-		{% if total %}
+		{% if total > per_page %}
 Showing {{ (page - 1) * per_page + 1 }} to {{ (page - 1) * per_page + entries|length }} of {{ total }} entries
+{% elseif total <= per_page %}
+Showing {{ total }} items
 {% else %}
 Showing 0 items
 {% endif %}

@@ -18,6 +18,11 @@
             {{ form_errors(form.description) }}
         </div>
         <div class="form-group">
+            {{ form_label(form.unit ) }}
+            {{ form_widget(form.unit, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.unit) }}
+        </div>
+        <div class="form-group">
             {{ form_label(form.is_active) }}
             {{ form_widget(form.is_active, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.is_active) }}

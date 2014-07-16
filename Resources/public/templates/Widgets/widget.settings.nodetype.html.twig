@@ -12,6 +12,7 @@
 	<tfoot>
 	<tr>
 		<th>Name</th>
+                <th>Unit</th>
 		<th>Description</th>
 		<th>Nb nodes</th>
 		<th>Is active</th>
@@ -22,16 +23,17 @@
 	{% for entry in entries %}
 	<tr>
 		<td>{{ entry.name }}</td>
+                <td>{{ entry.unit }}</td>
 		<td>{{ entry.description }}</td>
 		<td></td>
 		<td>{% if entry.is_active %}
-                    <a class="label label-success ajax-action" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=0">Yes</a>
+                    <a class="label label-success ajax-action" data-action="deactivate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=0">Yes</a>
                     {% else %}
-                    <a class="label label-default ajax-action" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=1">No</a>
+                    <a class="label label-default ajax-action" data-action="activate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=1">No</a>
                     {% endif %}
                 </td>
 		<td>
-                    <a href="/config/typenode/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="nodetype-form">
+                    <a href="/conf/typenode/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="nodetype-form">
                         <i class="fa fa-pencil"></i>
                     </a>
                     <a href="/node/type.json?nodetype_id={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
@@ -41,7 +43,7 @@
 	</tr>
 	{% else %}
 	<tr>
-	    <td colspan="5">No entries</td>
+	    <td colspan="6">No entries</td>
 	<tr/>
 	{% endfor %}
 	</tbody>
@@ -49,8 +51,10 @@
 	<div class="row">
             <div class="col-xs-4">
                 <div id="example2_info" class="dataTables_info">
-		{% if total %}
+		{% if total > per_page %}
 Showing {{ (page - 1) * per_page + 1 }} to {{ (page - 1) * per_page + entries|length }} of {{ total }} entries
+{% elseif total <= per_page %}
+Showing {{ total }} items
 {% else %}
 Showing 0 items
 {% endif %}
