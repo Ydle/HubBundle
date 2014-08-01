@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2014-04-29T09:00:37Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2014-07-28T14:21:29Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -91,16 +91,22 @@
       <trans-unit id="031635d5f1fbe0228994a3985b0857aed244ec56" resname="label.no">
         <source>label.no</source>
         <target state="new">label.no</target>
-        <jms:reference-file line="34">views/Config/typesensor.html.twig</jms:reference-file>
-        <jms:reference-file line="32">views/Config/typeroom.html.twig</jms:reference-file>
         <jms:reference-file line="2">Resources/views/fakei18n.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="290d6f6d437efca404cdcc0a608152594063351f" resname="label.yes">
         <source>label.yes</source>
         <target state="new">label.yes</target>
-        <jms:reference-file line="34">views/Config/typesensor.html.twig</jms:reference-file>
-        <jms:reference-file line="32">views/Config/typeroom.html.twig</jms:reference-file>
         <jms:reference-file line="1">Resources/views/fakei18n.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e60add0a8046778faf7123e05b8618e3d7ade27a" resname="nodetype.add.success">
+        <source>nodetype.add.success</source>
+        <target state="new">Node type added successfully</target>
+        <jms:reference-file line="113">HubBundle/Controller/ConfigController.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="ecdc1a851e7c74da050737a1655a00c6a65314c6" resname="nodetype.edit.success">
+        <source>nodetype.edit.success</source>
+        <target state="new">Node type modified successfully</target>
+        <jms:reference-file line="115">HubBundle/Controller/ConfigController.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="aa810784c9ab6ebaeb954363c7fec9013e5d62a6" resname="page.about.title">
         <source>page.about.title</source>
@@ -110,15 +116,22 @@
       <trans-unit id="9313760552abaf4436373381e6237b51694eb692" resname="page.config.title">
         <source>page.config.title</source>
         <target state="new">page.config.title</target>
-        <jms:reference-file line="3">views/Config/typesensor.html.twig</jms:reference-file>
         <jms:reference-file line="3">views/Config/dashboard.html.twig</jms:reference-file>
-        <jms:reference-file line="3">views/Config/typeroom.html.twig</jms:reference-file>
-        <jms:reference-file line="3">views/Config/index.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e3bafd9acf267354acabc9b38c4f69338598d8a5" resname="roomtype.add.success">
+        <source>roomtype.add.success</source>
+        <target state="new">Room type added successfully</target>
+        <jms:reference-file line="72">HubBundle/Controller/ConfigController.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="560e95e31c9265ee875b90e555510e0e6b664c0b" resname="roomtype.add.title">
         <source>roomtype.add.title</source>
         <target state="new">roomtype.add.title</target>
         <jms:reference-file line="50">views/Config/typeroom.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="86dc6cb4c64924f935108663db54ac9e903f108a" resname="roomtype.edit.success">
+        <source>roomtype.edit.success</source>
+        <target state="new">Room type modified successfully</target>
+        <jms:reference-file line="74">HubBundle/Controller/ConfigController.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f43d542864bce4aa584c24c9134459bced8fb61c" resname="roomtypes.nbrooms.title">
         <source>roomtypes.nbrooms.title</source>
@@ -158,39 +171,36 @@
       <trans-unit id="3a6d565448b7b4a4b67c4212e0b791732df060be" resname="title.action">
         <source>title.action</source>
         <target state="new">title.action</target>
-        <jms:reference-file line="24">views/Config/typesensor.html.twig</jms:reference-file>
-        <jms:reference-file line="23">views/Config/typeroom.html.twig</jms:reference-file>
         <jms:reference-file line="3">Resources/views/fakei18n.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="a8a71c7253063410c5e916f554cf4194710af704" resname="title.active">
         <source>title.active</source>
         <target state="new">title.active</target>
-        <jms:reference-file line="23">views/Config/typesensor.html.twig</jms:reference-file>
-        <jms:reference-file line="22">views/Config/typeroom.html.twig</jms:reference-file>
         <jms:reference-file line="6">Resources/views/fakei18n.html.twig</jms:reference-file>
         <jms:reference-file line="7">Resources/views/fakei18n.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="86ddd6f60d6bab5a0ddb83b946838528c7e5809c" resname="title.config">
         <source>title.config</source>
         <target state="new">Settings</target>
+        <jms:reference-file line="3">views/Config/typenode.html.twig</jms:reference-file>
+        <jms:reference-file line="3">views/Config/typeroom.html.twig</jms:reference-file>
+        <jms:reference-file line="3">views/Config/index.html.twig</jms:reference-file>
         <jms:reference-file line="8">Resources/views/translations.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b284f51f9f21a71e0c3987a7525fcbb4d87e4e95" resname="title.config.general">
         <source>title.config.general</source>
         <target state="new">General</target>
-        <jms:reference-file line="36">HubBundle/Menu/MenuBuilder.php</jms:reference-file>
         <jms:reference-file line="9">Resources/views/translations.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="4d6d6b22047939bac84c0e2f5127a18341b01d9e" resname="title.config.nodes">
         <source>title.config.nodes</source>
         <target state="new">Nodes</target>
-        <jms:reference-file line="38">HubBundle/Menu/MenuBuilder.php</jms:reference-file>
+        <jms:reference-file line="63">HubBundle/Menu/MenuBuilder.php</jms:reference-file>
         <jms:reference-file line="10">Resources/views/translations.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="739bc15380f761fe654d2166408c4705e47ff95d" resname="title.config.rooms">
         <source>title.config.rooms</source>
         <target state="new">Room Types</target>
-        <jms:reference-file line="37">HubBundle/Menu/MenuBuilder.php</jms:reference-file>
         <jms:reference-file line="11">Resources/views/translations.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="ec6d7a6fa343c44fa7d3205c1e3c6bbffeb88ea3" resname="title.dashboard">
@@ -212,8 +222,6 @@
       <trans-unit id="38b1cc0bd67ce26301376d676b2f4b930452c5a1" resname="title.name">
         <source>title.name</source>
         <target state="new">title.name</target>
-        <jms:reference-file line="19">views/Config/typesensor.html.twig</jms:reference-file>
-        <jms:reference-file line="19">views/Config/typeroom.html.twig</jms:reference-file>
         <jms:reference-file line="4">Resources/views/fakei18n.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b80dab7331eb779b5a14467f28e37c3fc677ddd4" resname="title.nodes">

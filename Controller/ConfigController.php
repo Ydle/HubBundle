@@ -69,12 +69,12 @@ class ConfigController extends Controller
             $form->bind($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                $message = $this->get('translator')->trans('roomtype.add.success');
+                if($roomType->getId()){
+                    $message = $this->get('translator')->trans('roomtype.edit.success');
+                }
                 $em->persist($roomType);
                 $em->flush();
-                $message = 'roomtype.add.success';
-                if($roomType->getId()){
-                    $message = 'roomtype.edit.success';
-                }
 
                 $response = new JsonResponse();
                 $result = 'success';
@@ -83,6 +83,7 @@ class ConfigController extends Controller
                     'message' => $message
                 );
                 $response->setData($data);
+                $this->get('ydle.logger')->log('info', $message, 'hub');
                 return $response;
             } else{
                 $result = 'error';
@@ -109,12 +110,12 @@ class ConfigController extends Controller
             $form->bind($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                $message = $this->get('translator')->trans('nodetype.add.success');
+                if($nodeType->getId()){
+                    $message = $this->get('translator')->trans('nodetype.edit.success');
+                }
                 $em->persist($nodeType);
                 $em->flush();
-                $message = 'nodetype.add.success';
-                if($nodeType->getId()){
-                    $message = 'nodetype.edit.success';
-                }
 
                 $response = new JsonResponse();
                 $result = 'success';
@@ -123,6 +124,8 @@ class ConfigController extends Controller
                     'message' => $message
                 );
                 $response->setData($data);
+        
+                $this->get('ydle.logger')->log('info', $message, 'hub');
                 return $response;
             } else{
                 $result = 'error';
@@ -133,39 +136,6 @@ class ConfigController extends Controller
             'action' => $action,
             'form' => $form->createView())
         );
-    }
-    
-    /**
-    * Manage activation of a room type
-    * 
-    * @param Request $request
-    */
-    public function typeroomactivationAction(Request $request)
-    {
-        $isActive = $request->get('active');
-        $message = $isActive?'Type activé':'Type désactivé';
-        $object = $this->get("ydle.roomtypes.manager")->getRepository()->find($request->get('type'))->setIsActive($isActive);
-        $em = $this->getDoctrine()->getManager();                                                                         
-        $em->persist($object);
-        $em->flush();
-        $this->get('session')->getFlashBag()->add('notice', $message);
-        return $this->redirect($this->generateUrl('configTypeRoom'));
-    }
-    
-    /**
-     * Delete a type
-     * 
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return type
-     */
-    public function typeroomdeleteAction(Request $request)
-    {
-        $object = $this->get("ydle.roomtypes.manager")->getRepository()->find($request->get('type'));
-        $em = $this->getDoctrine()->getManager();                                                                         
-        $em->remove($object);
-        $em->flush();
-        $this->get('session')->getFlashBag()->add('notice', 'Type supprimé');
-        return $this->redirect($this->generateUrl('configTypeRoom'));
     }
     
     /**
@@ -205,39 +175,6 @@ class ConfigController extends Controller
             'mainpage' => 'config',
             'items' => $types
         ));
-    }
-    
-    /**
-     * Delete a type
-     * 
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return type
-     */
-    public function typenodedeleteAction(Request $request)
-    {
-        $object = $this->get("ydle.sensortypes.manager")->getRepository()->find($request->get('type'));
-        $em = $this->getDoctrine()->getManager();                                                                         
-        $em->remove($object);
-        $em->flush();
-        $this->get('session')->getFlashBag()->add('notice', 'Type supprimé');
-        return $this->redirect($this->generateUrl('configTypeSensor'));
-    }
-    
-    /**
-    * Manage activation of a sensor type
-    * 
-    * @param Request $request
-    */
-    public function typenodeactivationAction(Request $request)
-    {
-        $isActive = $request->get('active');
-        $message = $isActive?'Type activé':'Type désactivé';
-        $object = $this->get("ydle.sensortypes.manager")->getRepository()->find($request->get('type'))->setIsActive($isActive);
-        $em = $this->getDoctrine()->getManager();                                                                         
-        $em->persist($object);
-        $em->flush();
-        $this->get('session')->getFlashBag()->add('notice', $message);
-        return $this->redirect($this->generateUrl('configTypeSensor'));
     }
 
     public function dashboardAction()

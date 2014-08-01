@@ -2,49 +2,41 @@
 	<table class="table table-bordered table-hover dataTable">
 	<thead>
 	<tr>
-		<th>Name</th>
-                <th>Unit</th>
-		<th>Description</th>
-		<th>Nb nodes</th>
-		<th>Is active</th>
+		<th>Code</th>
+                <th>Nom</th>
+		<th>Type</th>
+		<th>Room</th>
+		<th>Active</th>
 		<th>Action</th>
 	</tr>
 	</thead>
 	<tfoot>
 	<tr>
-		<th>Name</th>
-                <th>Unit</th>
-		<th>Description</th>
-		<th>Nb nodes</th>
-		<th>Is active</th>
+		<th>Code</th>
+                <th>Nom</th>
+		<th>Type</th>
+		<th>Room</th>
+		<th>Active</th>
 		<th>Action</th>
 	</tr>
 	</tfoot>
 	<tbody>
 	{% for entry in entries %}
 	<tr>
-		<td>{{ entry.name }}</td>
-                <td>{{ entry.unit }}</td>
-		<td>{{ entry.description }}</td>
-		<td></td>
-		<td>{% if entry.is_active %}
-                    <a class="label label-success ajax-action" data-action="deactivate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=0">Yes</a>
-                    {% else %}
-                    <a class="label label-default ajax-action" data-action="activate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=1">No</a>
-                    {% endif %}
+		<td>{{ entry.code }}</td>
+                <td>{{ entry.name }}</td>
+		<td>                
+                    {% for type in node.types %}
+                      <span class="type">{{ type.name }}</span>
+                    {% endfor %}
                 </td>
-		<td>
-                    <a href="/conf/typenode/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="nodetype-form">
-                        <i class="fa fa-pencil"></i>
-                    </a>
-                    <a href="/node/type.json?nodetype_id={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </td>
+               <td>{{ node.room.name }}</td>
+               <td></td>
+               <td></td>
 	</tr>
 	{% else %}
 	<tr>
-	    <td colspan="6">No entries</td>
+	    <td colspan="4">No entries</td>
 	<tr/>
 	{% endfor %}
 	</tbody>
@@ -64,7 +56,7 @@ Showing 0 items
             {% if last_page > 1 %}
             <div class="col-xs-8">
                 <div class="dataTables_paginate paging_bootstrap">
-                    <ul class="pagination ajax-pagitation" data-target="/node/type.json" data-page="{{ page }}">
+                    <ul class="pagination ajax-pagitation" data-target="/nodes/list.json" data-page="{{ page }}">
                         {% set prevpage = page - 1 %}
                         {% set nextpage = page + 1 %}
                         {% set firstPage = page - 2 %}

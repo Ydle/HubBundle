@@ -12,6 +12,18 @@
         id: "nodetype-list", // id is optional, but useful for referencing the template later
         href: "/bundles/ydlehub/templates/Widgets/widget.settings.nodetype.html.twig"  
     });
+    ydleTemplates["logs-list"] = twig(
+    {
+        cache: false, 
+        id: "logs-list", // id is optional, but useful for referencing the template later
+        href: "/bundles/ydlehub/templates/Widgets/widget.logs.html.twig"  
+    });
+    ydleTemplates["nodes-list"] = twig(
+    {
+        cache: false, 
+        id: "nodes-list", // id is optional, but useful for referencing the template later
+        href: "/bundles/ydlehub/templates/Widgets/widget.nodes.html.twig"  
+    });
 
     $(document).ready(function() {
       
@@ -29,8 +41,33 @@
             $('form.ajax-form').each(function(){
                 manageAjaxForm($(this));
             }); 
+        }
+        
+        if($('a.ajax-button').length){
+            $('a.ajax-button').each(function(){
+                manageAjaxButton($(this));
+            }); 
         } 
     });
+    
+    function manageAjaxButton($button)
+    {
+        $button.click(function(){
+            $action = $button.attr('data-action');
+            $reloadElement = $("#"+$button.attr('data-reload'));
+            $reloadUrl = $button.attr('data-endpoint');
+            $url = $button.attr('href');
+            
+            $.ajax({
+                type: $action,
+                url: $url,
+                success: function(data){
+                    loadElement($reloadElement, $reloadUrl, true);
+                }
+            })
+            return false;
+        })
+    }
     
     /**
      * Load an element with ajax after display
@@ -143,12 +180,41 @@
             return false;
         });
     }
+        
+    function cleanFieldName(fieldName, formName)
+    {
+        fieldName = fieldName.replace(formName, '');
+        fieldName = fieldName.replace('[','');
+        fieldName = fieldName.replace(']','');
+        return fieldName;
+    }
     
     function manageAjaxForm($formElement)
     {
-        $formElement.ajaxForm({success: manageFormResponse, beforeSubmit: function(arr, $form, options){
-                addLoader($form.parent());
-        } });
+        if($formElement.hasClass('filter-form')){ 
+            $formElement.submit(function(e){
+                $url = $formElement.attr('data-source');
+                $formElems = $formElement.serializeArray();
+                $url += '?';//+$formElement.serialize();
+                for(tmpElmt in $formElems){
+                    cleanName = cleanFieldName($formElems[tmpElmt].name, $formElement.attr('name'));
+                    $url += cleanName+'='+$formElems[tmpElmt].value+'&';
+                }
+                $reloadElement = $('#'+$formElement.attr('data-reload'));
+                loadElement($reloadElement, $url, false);
+                e.stopPropagation();
+                return false;
+            });
+        } else {
+            $formElement.ajaxForm({
+                target: $formElement,
+                replaceTarget: true,
+                success: manageFormResponse, 
+                error: manageFormResponse, 
+                beforeSubmit: function(arr, $form, options){
+                    addLoader($form.parent());
+            } });
+        }
     }
     
     function addLoader($element)
@@ -199,6 +265,9 @@
                 $form.clearForm();
             }
             
+            removeLoader($form.parent());
+        }
+        if(statusText == "error"){
             removeLoader($form.parent());
         }
     };

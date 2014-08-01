@@ -2,49 +2,31 @@
 	<table class="table table-bordered table-hover dataTable">
 	<thead>
 	<tr>
-		<th>Name</th>
-                <th>Unit</th>
-		<th>Description</th>
-		<th>Nb nodes</th>
-		<th>Is active</th>
-		<th>Action</th>
+		<th>Date</th>
+                <th>Type</th>
+		<th>Source</th>
+		<th>Message</th>
 	</tr>
 	</thead>
 	<tfoot>
 	<tr>
-		<th>Name</th>
-                <th>Unit</th>
-		<th>Description</th>
-		<th>Nb nodes</th>
-		<th>Is active</th>
-		<th>Action</th>
+		<th>Date</th>
+                <th>Type</th>
+		<th>Source</th>
+		<th>Message</th>
 	</tr>
 	</tfoot>
 	<tbody>
 	{% for entry in entries %}
 	<tr>
-		<td>{{ entry.name }}</td>
-                <td>{{ entry.unit }}</td>
-		<td>{{ entry.description }}</td>
-		<td></td>
-		<td>{% if entry.is_active %}
-                    <a class="label label-success ajax-action" data-action="deactivate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=0">Yes</a>
-                    {% else %}
-                    <a class="label label-default ajax-action" data-action="activate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=1">No</a>
-                    {% endif %}
-                </td>
-		<td>
-                    <a href="/conf/typenode/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="nodetype-form">
-                        <i class="fa fa-pencil"></i>
-                    </a>
-                    <a href="/node/type.json?nodetype_id={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </td>
+		<td>{{ entry.created_at |date("d/m/Y H:i:s") }}</td>
+                <td>{{ entry.type }}</td>
+		<td>{{ entry.source }}</td>
+		<td>{{ entry.content }}</td>
 	</tr>
 	{% else %}
 	<tr>
-	    <td colspan="6">No entries</td>
+	    <td colspan="4">No entries</td>
 	<tr/>
 	{% endfor %}
 	</tbody>

@@ -91,7 +91,7 @@ class MenuBuilder
         
         // Logs
         $menu->addChild('title.logs', array(
-            'route' => 'pagesAbout', 
+            'route' => 'logs', 
             'attributes' => array(
                 'icon' => 'fa fa-list'
             )
