@@ -2,20 +2,16 @@
 	<table class="table table-bordered table-hover dataTable">
 	<thead>
 	<tr>
-		<th>Code</th>
                 <th>Nom</th>
 		<th>Type</th>
-		<th>Room</th>
 		<th>Active</th>
 		<th>Action</th>
 	</tr>
 	</thead>
 	<tfoot>
 	<tr>
-		<th>Code</th>
                 <th>Nom</th>
 		<th>Type</th>
-		<th>Room</th>
 		<th>Active</th>
 		<th>Action</th>
 	</tr>
@@ -23,14 +19,8 @@
 	<tbody>
 	{% for entry in entries %}
 	<tr>
-		<td>{{ entry.code }}</td>
-                <td>{{ entry.name }}</td>
-		<td>                
-                    {% for type in entry.types %}
-                      <span class="type">{{ type.name }}</span>
-                    {% endfor %}
-                </td>
-               <td>{{ entry.room.name }}</td>
+		<td>{{ entry.name }}</td>
+                <td>{{ entry.type.name }}</td>
                <td></td>
                <td></td>
 	</tr>
@@ -56,7 +46,7 @@ Showing 0 items
             {% if last_page > 1 %}
             <div class="col-xs-8">
                 <div class="dataTables_paginate paging_bootstrap">
-                    <ul class="pagination ajax-pagitation" data-target="/nodes/list.json" data-page="{{ page }}">
+                    <ul class="pagination ajax-pagitation" data-target="/rooms/list.json" data-page="{{ page }}">
                         {% set prevpage = page - 1 %}
                         {% set nextpage = page + 1 %}
                         {% set firstPage = page - 2 %}

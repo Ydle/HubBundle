@@ -24,6 +24,12 @@
         id: "nodes-list", // id is optional, but useful for referencing the template later
         href: "/bundles/ydlehub/templates/Widgets/widget.nodes.html.twig"  
     });
+    ydleTemplates["rooms-list"] = twig(
+    {
+        cache: false,
+        id: "rooms-list", // id is optional, but useful for referencing the template later
+        href: "/bundles/ydlehub/templates/Widgets/widget.rooms.html.twig"
+    });
 
     $(document).ready(function() {
       
@@ -207,8 +213,8 @@
             });
         } else {
             $formElement.ajaxForm({
-                target: $formElement,
-                replaceTarget: true,
+                //target: $formElement.parent(),
+		//replaceTarget: true,
                 success: manageFormResponse, 
                 error: manageFormResponse, 
                 beforeSubmit: function(arr, $form, options){
@@ -266,9 +272,14 @@
             }
             
             removeLoader($form.parent());
+            loadElement($form.parent());
         }
         if(statusText == "error"){
+	    $tmpFormId = $form.attr('id');
+	    $form.replaceWith(responseText.responseText);
+	    $form = $('#'+$tmpFormId);
             removeLoader($form.parent());
+            manageAjaxForm($form);
         }
     };
 })(jQuery);

@@ -32,12 +32,12 @@ class MenuBuilder
             'attributes' => array(
                 'class' => 'treeview', 
                 'icon' => 'fa fa-home',
-                'treeview' => true
+        //        'treeview' => true
              ), 
             'childrenAttributes' => array('class' =>'treeview-menu')
         ));
         //$menu->addChild('title.rooms')->setChildrenAttribute('class', 'test');
-        $menu->getChild('title.rooms')->addChild('title.rooms.all', array(
+        /*$menu->getChild('title.rooms')->addChild('title.rooms.all', array(
             'route' => 'rooms',
             'attributes' => array(
                 'icon' => 'fa fa-angle-double-right'
@@ -49,7 +49,7 @@ class MenuBuilder
                 'icon' => 'fa fa-angle-double-right'
             )
         ));
-        
+        */
         // Nodes
         $menu->addChild('title.nodes', array(
             'route' => 'nodes', 
