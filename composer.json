@@ -20,7 +20,7 @@
             "ydle/api-bundle": "0.5",
             "ydle/user-bundle": "0.5",
             "ydle/core-bundle": "0.5.2",
-            "ydle/settings-bundle": "0.5.5"
+            "ydle/settings-bundle": "0.5.6"
     },
     "autoload": {
         "psr-0": { "Ydle\\HubBundle": "" }
