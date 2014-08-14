@@ -14,13 +14,13 @@
     ],
     "require": {
             "php": ">=5.3.0",
-            "ydle/room-bundle": "0.5.6",
-            "ydle/nodes-bundle": "0.5.4",
+            "ydle/room-bundle": "0.5.7",
+            "ydle/nodes-bundle": "0.5.5",
             "ydle/logs-bundle": "0.5.1",
             "ydle/api-bundle": "0.5",
-            "ydle/user-bundle": "0.5",
+            "ydle/user-bundle": "0.5.1",
             "ydle/core-bundle": "0.5.2",
-            "ydle/settings-bundle": "0.5.6"
+            "ydle/settings-bundle": "0.5.7"
     },
     "autoload": {
         "psr-0": { "Ydle\\HubBundle": "" }
