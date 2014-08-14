@@ -30,7 +30,7 @@ class MenuBuilder
         $menu->addChild('title.rooms', array(
             'route' => 'rooms', 
             'attributes' => array(
-                'class' => 'treeview', 
+                'class' => '', 
                 'icon' => 'fa fa-home',
         //        'treeview' => true
              ), 

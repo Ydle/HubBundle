@@ -27,7 +27,8 @@
                 <td>{{ entry.unit }}</td>
 		<td>{{ entry.description }}</td>
 		<td></td>
-		<td>{% if entry.is_active %}
+		<td>
+                    {% if entry.is_active %}
                     <a class="label label-success ajax-action" data-action="deactivate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=0">Yes</a>
                     {% else %}
                     <a class="label label-default ajax-action" data-action="activate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=1">No</a>

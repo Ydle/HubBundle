@@ -30,6 +30,12 @@
         id: "rooms-list", // id is optional, but useful for referencing the template later
         href: "/bundles/ydlehub/templates/Widgets/widget.rooms.html.twig"
     });
+    ydleTemplates["room-nodes-list"] = twig(
+    {
+        cache: false, 
+        id: "room-nodes-list", // id is optional, but useful for referencing the template later
+        href: "/bundles/ydlehub/templates/Widgets/widget.room-nodes.html.twig"  
+    });
 
     $(document).ready(function() {
       
@@ -278,6 +284,8 @@
 	    $tmpFormId = $form.attr('id');
 	    $form.replaceWith(responseText.responseText);
 	    $form = $('#'+$tmpFormId);
+            console.log($form);
+            console.log($form.parent());
             removeLoader($form.parent());
             manageAjaxForm($form);
         }

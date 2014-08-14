@@ -39,7 +39,9 @@
 </a>
 <h3 class="ydle-version">Ydle {{ app_version }}</h3>
 {% block topnav %}
- {{ include('YdleHubBundle:Menu:topNav.html.twig') }}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {{ include('YdleHubBundle:Menu:topNav.html.twig') }}
+    {% endif %}
 {% endblock %}
 {% endblock %}
 <!-- Sidebar toggle button-->
@@ -52,8 +54,10 @@
 <aside class="left-side sidebar-offcanvas">
 <!-- sidebar: style can be found in sidebar.less -->
 <section class="sidebar">
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     <!-- sidebar menu: : style can be found in sidebar.less -->
     {{ knp_menu_render('menu.main', {'currentClass':'active', 'template': 'YdleHubBundle:Menu:knp_menu.html.twig'}) }}
+    {% endif %}
 </section>
 </aside>
 {% endblock %}

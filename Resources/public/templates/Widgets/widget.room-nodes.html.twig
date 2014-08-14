@@ -2,16 +2,20 @@
 	<table class="table table-bordered table-hover dataTable">
 	<thead>
 	<tr>
+		<th>Code</th>
                 <th>Nom</th>
 		<th>Type</th>
+		<th>Room</th>
 		<th>Active</th>
 		<th>Action</th>
 	</tr>
 	</thead>
 	<tfoot>
 	<tr>
+		<th>Code</th>
                 <th>Nom</th>
 		<th>Type</th>
+		<th>Room</th>
 		<th>Active</th>
 		<th>Action</th>
 	</tr>
@@ -19,23 +23,22 @@
 	<tbody>
 	{% for entry in entries %}
 	<tr>
-		<td><a href="/room/detail/{{ entry.slug }}" >{{ entry.name }}</a></td>
-                <td>{{ entry.type.name }}</td>
-                <td>
-                     {% if entry.is_active %}
-                     <a class="label label-success ajax-action" data-action="deactivate" href="/room/state.json?room_id={{ entry.id }}&state=0">Yes</a>
-                     {% else %}
-                     <a class="label label-default ajax-action" data-action="activate" href="/room/state.json?room_id={{ entry.id }}&state=1">No</a>
-                     {% endif %}
+		<td>{{ entry.code }}</td>
+                <td>{{ entry.name }}</td>
+		<td>                
+                    {% for type in entry.types %}
+                      <span class="type">{{ type.name }}</span>
+                    {% endfor %}
                 </td>
-                <td>
-                     <a href="/room/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="room-form">
-                         <i class="fa fa-pencil"></i>
-                     </a>
-                     <a href="/room.json?room_id={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
-                         <i class="fa fa-times"></i>
-                     </a>
-                </td>
+               <td>{{ entry.room.name }}</td>
+               <td>
+                    {% if entry.is_active %}
+                    <a class="label label-success ajax-action" data-action="deactivate" href="/node/state.json?node_id={{ entry.id }}&state=0">Yes</a>
+                    {% else %}
+                    <a class="label label-default ajax-action" data-action="activate" href="/node/state.json?node_id={{ entry.id }}&state=1">No</a>
+                    {% endif %}
+                   </td>
+               <td></td>
 	</tr>
 	{% else %}
 	<tr>
@@ -59,7 +62,7 @@ Showing 0 items
             {% if last_page > 1 %}
             <div class="col-xs-8">
                 <div class="dataTables_paginate paging_bootstrap">
-                    <ul class="pagination ajax-pagitation" data-target="/rooms/list.json" data-page="{{ page }}">
+                    <ul class="pagination ajax-pagitation" data-target="/nodes/list.json" data-page="{{ page }}">
                         {% set prevpage = page - 1 %}
                         {% set nextpage = page + 1 %}
                         {% set firstPage = page - 2 %}

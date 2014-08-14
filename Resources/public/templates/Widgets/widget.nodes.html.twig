@@ -31,8 +31,28 @@
                     {% endfor %}
                 </td>
                <td>{{ entry.room.name }}</td>
-               <td></td>
-               <td></td>
+               <td>
+                    {% if entry.is_active %}
+                    <a class="label label-success ajax-action" data-action="deactivate" href="/node/state.json?node_id={{ entry.id }}&state=0">Yes</a>
+                    {% else %}
+                    <a class="label label-default ajax-action" data-action="activate" href="/node/state.json?node_id={{ entry.id }}&state=1">No</a>
+                    {% endif %}
+                   </td>
+               <td>
+                    <a href="/nodes/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="nodes-form">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a href="/node.json?node={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
+                        <i class="fa fa-times"></i>
+                    </a>
+                        {% if entry.is_active %}
+                    <a href="/node/reset.json?node={{ entry.id }}" class="ajax-action btn btn-primary btn-warning btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to reset this node ?" data-action="reset">
+                        {% else %}
+                            <a href="" class="ajax-action btn btn-primary btn-warning btn-xs disabled" data-confirm="yes" data-confirmmessage="Are you sure to reset this node ?" data-action="reset">
+                        {% endif %}
+                        <i class="fa fa-star"></i>
+                    </a>
+                   </td>
 	</tr>
 	{% else %}
 	<tr>
