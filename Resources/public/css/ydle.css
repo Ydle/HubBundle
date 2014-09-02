@@ -415,7 +415,7 @@ body > .header .logo {
   height: 128px;
   display: block;
   text-indent:-3000px;
-  background:url('images/logo.png') no-repeat;
+  background:url('/bundles/ydlehub/css/images/logo.png') no-repeat;
 }
 body > .header .logo-wrapper{
 	height:128px;
@@ -2486,7 +2486,7 @@ Component: timeline
   padding: 0;
   width: 18px;
   height: 18px;
-  background: rgba(255, 255, 255, 0.7) url(iCheck/minimal/minimal.png) no-repeat;
+  background: rgba(255, 255, 255, 0.7) url(/bundles/ydlehub/iCheck/minimal/minimal.png) no-repeat;
   border: none;
   cursor: pointer;
 }
