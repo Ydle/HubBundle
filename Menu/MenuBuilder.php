@@ -21,7 +21,6 @@ class MenuBuilder
     public function createMainMenu(Request $request, TranslatorInterface $translator)
     {
         $menu = $this->factory->createItem('root');
-        $menu->setCurrentUri($request->getRequestUri());
 
         // home
         $menu->addChild('title.dashboard', array('route' => 'homeYdle', 'attributes' => array('icon' => 'fa fa-bar-chart-o')));
