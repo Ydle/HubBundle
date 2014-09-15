@@ -1,13 +1,7 @@
 {% extends "YdleHubBundle::base.html.twig" %}
 
 {% block stylesheets %}
-    {% stylesheets
-        '@YdleHubBundle/Resources/less/style_vendor.less'
-        '@YdleHubBundle/Resources/public/css/ydle.css'
-        filter='lessphp, ?cssrewrite' debug=true
-    %}
-    <link rel="stylesheet" href="{{ asset_url }}" media="screen" type="text/css" />
-    {% endstylesheets %}
+        <link rel="stylesheet" href="/css/style.min.css" media="screen" type="text/css" />
 {% endblock %}
 
 {% block title 'Ydle - Dashboard' %}
