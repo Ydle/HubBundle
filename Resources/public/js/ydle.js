@@ -38,6 +38,16 @@
     });
 
     $(document).ready(function() {
+        
+        $("<div id='tooltip'></div>").css({
+                position: "absolute",
+                display: "none",
+                border: "1px solid #fdd",
+                padding: "2px",
+                "background-color": "#fee",
+                opacity: 0.80
+        }).appendTo("body");
+
       
         if($(".ajax-loading").length){
             $(".ajax-loading").each(function(){
@@ -59,8 +69,82 @@
             $('a.ajax-button').each(function(){
                 manageAjaxButton($(this));
             }); 
+        }
+
+        if($('.ajax-graph').length){
+            $('.ajax-graph').each(function(){
+                manageAjaxGraph($(this));
+            });
         } 
     });
+    
+    function manageAjaxGraph($graph)
+    {
+        if(!$graph.parent().find('.overlay').length){
+            $graph.parent().append('<div class="overlay"></div>');
+            $graph.parent().append('<div class="loading-img"></div>');
+        }
+        $graphUrl = $graph.attr('data-endpoint');
+        $graphFilter = $graph.attr('data-filter');
+        $chartsPlaceholder = $('.graph-placeholder', $graph);
+        $graph.parent().find('.graph-action').each(function(){
+            $(this).click(function(){
+                $(this).parent().find('.graph-action.disabled').removeClass('disabled');
+                $(this).addClass('disabled');
+                $graph.parent().append('<div class="overlay"></div>');
+                $graph.parent().append('<div class="loading-img"></div>');
+                newFilterVal = $(this).attr('data-value') ;
+                $graph.attr('data-filter', newFilterVal);
+                loadGraph($graphUrl, $chartsPlaceholder, newFilterVal);
+            });
+        });
+        loadGraph($graphUrl, $chartsPlaceholder, $graphFilter);
+  	
+    }
+    
+    function loadGraph($graphUrl, $chartsPlaceholder, $graphFilter)
+    {
+        $graphUrl += "&filter="+$graphFilter;
+        var options = {
+            lines: {
+                show: true
+            },
+            points: {
+                show: false
+            },
+            xaxis: {
+                mode: "time",
+                timeformat: "%d/%m/%Y"
+            },
+            yaxis: [{position:'left', alignTicksWithAxis: 1}, {min: 0, position:'left', alignTicksWithAxis: 1}]
+        };
+        var data = [];
+        $.ajax({
+            type: 'GET',
+            url: $graphUrl,
+            success: function(series) {
+		//data.push({label:'test', data: [[1412288200000, 1698],[1412289200000,1728]]});
+		for (serie in series) {
+			data.push(series[serie]);
+		}
+		$.plot($chartsPlaceholder, data, options);
+                $chartsPlaceholder.bind("plothover", function (event, pos, item) {
+                    if (item) {
+                        var x = item.datapoint[0].toFixed(2),
+                                y = item.datapoint[1].toFixed(2);
+                        tmpDate = new Date();
+                        tmpDate.setTime(x);
+                        $("#tooltip").html(tmpDate.getDate()+'/'+(tmpDate.getMonth()+1)+'/'+tmpDate.getFullYear()+' : '+y)
+                                .css({top: item.pageY+5, left: item.pageX+5})
+                                .fadeIn(200);
+                    } else {
+                        $("#tooltip").hide();
+                    }
+		});
+                removeLoader($chartsPlaceholder.parent().parent());
+            }
+        });  
+    }
     
     function manageAjaxButton($button)
     {

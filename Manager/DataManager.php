@@ -30,6 +30,11 @@ class DataManager extends BaseManager
         return $this->getRepository()->findByRoom($params);
     }
     
+    public function findByParams($params = array())
+    {
+        return $this->getRepository()->findByParams($params);
+    }
+    
     public function getLastData($roomId)
     {
         return $this->getRepository()->getLastData($roomId);

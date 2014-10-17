@@ -3160,3 +3160,8 @@ fieldset[disabled] .btn-vk.active {
   color: #587ea3;
   background-color: #ffffff;
 }
+/* GRAPHS */
+.graph-placeholder{ min-height:250px; width:100%; height:100%; }
+.box-tools .graph-action{    font-size: 12px;
+    line-height: 14px;
+    padding: 3px 6px;}

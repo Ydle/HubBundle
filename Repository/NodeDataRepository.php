@@ -13,21 +13,29 @@ use Doctrine\ORM\EntityRepository;
 class NodeDataRepository extends EntityRepository
 {
     
-    public function findByRoom($params)
+    public function findByParams($params)
     {
         $qb = $this->createQueryBuilder("d");
         $qb->where('1=1');
         
-        $qb->join('d.node', 'n')
-           ->andWhere('n.room = :roomid')
-                ->setParameter('roomid', $params['room_id'])
-           ->andWhere('d.node = :nodeid')
-                ->setParameter('nodeid', $params['node_id'])
-           ->andWhere('d.type = :type')
-                ->setParameter('type', $params['type_id'])
-           ->andWhere('d.created > :startdate')
-                ->setParameter('startdate', $params['start_date'])
-           ->orderBy('d.created')
+        $qb->join('d.node', 'n');
+		if(!empty($params['room_id'])) {
+            $qb->andWhere('n.room = :roomid')
+               ->setParameter('roomid', $params['room_id']);
+		}
+		if(!empty($params['node_id'])) {
+            $qb->andWhere('d.node = :nodeid')
+               ->setParameter('nodeid', $params['node_id']);
+		}
+		if(!empty($params['type_id'])) {
+			$qb->andWhere('d.type = :type')
+                ->setParameter('type', $params['type_id']);
+		}
+		if(!empty($params['start_date'])) {
+            $qb->andWhere('d.created > :startdate')
+                ->setParameter('startdate', $params['start_date']);
+		}
+        $qb->orderBy('d.created')
         ;
         
         
