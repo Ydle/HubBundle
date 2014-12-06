@@ -1,7 +1,10 @@
 {% extends "YdleHubBundle::base.html.twig" %}
 
 {% block stylesheets %}
-        <link rel="stylesheet" href="/css/style.min.css" media="screen" type="text/css" />
+<link href="{{ asset('bundles/ydlehub/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/ydlehub/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/ydlehub/css/ionicons.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/ydlehub/css/ydle.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block title 'Ydle - Dashboard' %}
