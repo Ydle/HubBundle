@@ -46,7 +46,7 @@
                         <i class="fa fa-times"></i>
                     </a>
                         {% if entry.is_active %}
-                    <a href="/node/reset.json?node={{ entry.id }}" class="ajax-action btn btn-primary btn-warning btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to reset this node ?" data-action="reset">
+                    <a href="/node/link.json?node={{ entry.id }}" class="ajax-action btn btn-primary btn-warning btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to reset this node ?" data-action="reset">
                         {% else %}
                             <a href="" class="ajax-action btn btn-primary btn-warning btn-xs disabled" data-confirm="yes" data-confirmmessage="Are you sure to reset this node ?" data-action="reset">
                         {% endif %}
