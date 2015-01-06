@@ -1,8 +1,13 @@
 parameters:
   ydle.data.manager.class: Ydle\HubBundle\Manager\DataManager
+  ydle.logs.manager.class: Ydle\HubBundle\Manager\LogsManager
+  ydle.logs.entity.class: Ydle\HubBundle\Entity\Logs
 
-services:
+services:   
+  ydle.logger:
+    class: %ydle.logs.manager.class%
+    arguments: [%ydle.logs.entity.class%, "@doctrine"]
   ydle.data.manager:
     class: %ydle.data.manager.class%
     arguments: 
-      entityManager: "@doctrine.orm.entity_manager"
+      entityManager: "@doctrine.orm.entity_manager"   

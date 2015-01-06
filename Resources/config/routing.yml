@@ -37,12 +37,16 @@ configTypeNode:
 configTypeNodeForm:
   pattern: /conf/typenode/form/{type}
   defaults: { _controller: YdleHubBundle:Config:typenodeForm, type:0 }
+  
+  
+################
+#     Logs     #
+################
+logs:
+    pattern:  /logs
+    defaults: { _controller: YdleHubBundle:Logs:index }
+ 
+resetlogs:
+    pattern: /logs/reset
+    defaults: { _controller: YdleHubBundle:Logs:reset }
       
-      
-#      
-#configTypeRoomActivation:
-#    pattern:  /conf/typeroom/activation/{type}/{active}
-#    defaults: { _controller: YdleHubBundle:Config:typeroomactivation, type:0, active:0 } 
-#configTypeRoomDelete:
-#    pattern:  /conf/typeroom/delete/{type}
-#    defaults: { _controller: YdleHubBundle:Config:typeroomdelete, type:0 } 

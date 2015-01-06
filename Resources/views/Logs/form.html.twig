@@ -1,0 +1,18 @@
+{{ form_start(form, { 'action': '/logs/list.json', 'attr': {'class': 'ydle-form ajax-form filter-form', 'role': 'form', 'data-reload': 'logs-list', 'data-source': '/logs/list.json', 'data-refresh': true, 'novalidate': 'novalidate' } }) }}
+{{ form_errors(form) }}
+    <div class="box-body">
+        <div class="form-group">
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.type) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.source ) }}
+            {{ form_widget(form.source, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.source) }}
+        </div>
+    </div>
+    <div class="box-footer">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+{{ form_end(form) }}

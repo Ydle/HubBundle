@@ -1,0 +1,8 @@
+parameters:
+  ydle.logs_types.form.class: Ydle\HubBundle\Form\Type\LogsType
+
+services:
+  ydle.logs.form:
+    class: %ydle.logs_types.form.class%
+    tags:
+      - { name: form.type, alias: logsfilter_form }
