@@ -23,7 +23,7 @@ use Ydle\CoreBundle\Model\BaseEntityManager;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
-class HubManager extends BaseEntityManager implements RoomManagerInterface
+class RoomManager extends BaseEntityManager implements RoomManagerInterface
 {
 
     /**

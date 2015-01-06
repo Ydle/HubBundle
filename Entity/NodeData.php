@@ -33,7 +33,7 @@ class NodeData
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Ydle\NodesBundle\Entity\NodeType")
+     * @ORM\ManyToOne(targetEntity="Ydle\HubBundle\Entity\NodeType")
      * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $type;
@@ -41,7 +41,7 @@ class NodeData
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Ydle\NodesBundle\Entity\Node", inversedBy="nodes")
+     * @ORM\ManyToOne(targetEntity="Ydle\HubBundle\Entity\Node", inversedBy="nodes")
      * @ORM\JoinColumn(name="node_id", referencedColumnName="id")
      */
     private $node;

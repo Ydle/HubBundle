@@ -39,6 +39,32 @@ configTypeNodeForm:
   defaults: { _controller: YdleHubBundle:Config:typenodeForm, type:0 }
   
 ################
+#    Nodes     #
+################    
+nodes:
+    pattern:  /nodes
+    defaults: { _controller: YdleHubBundle:Nodes:index }
+nodesForm:
+  pattern: /nodes/form/{node}
+  defaults: { _controller: YdleHubBundle:Nodes:nodesForm, node:0 }
+submitNodeForm:
+  pattern: /nodes/form/{node}/submit
+  defaults: { _controller: YdleHubBundle:Nodes:submitNodeForm, node:0 } 
+ 
+##################
+#  Type Sensors  #
+##################
+configTypeSensor:
+    pattern:  /conf/typesensor/{type}
+    defaults: { _controller: YdleHubBundle:Config:typesensor, type:0 }
+configTypeSensorActivation:
+    pattern:  /conf/typesensor/activation/{type}/{active}
+    defaults: { _controller: YdleHubBundle:Config:typesensoractivation, type:0, active:0 } 
+configTypeSensorDelete:
+    pattern:  /conf/typesensor/delete/{type}
+    defaults: { _controller: YdleHubBundle:Config:typesensordelete, type:0 } 
+  
+################
 #    Rooms     #
 ################  
 rooms:

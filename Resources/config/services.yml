@@ -6,6 +6,11 @@ parameters:
   ydle.roomtype.entity.class: Ydle\HubBundle\Entity\RoomType
   ydle.room.manager.class: Ydle\HubBundle\Manager\RoomManager
   ydle.room.entity.class: Ydle\HubBundle\Entity\Room
+  ydle.node.manager.class: Ydle\HubBundle\Manager\NodeManager
+  ydle.node.entity.class: Ydle\HubBundle\Entity\Node
+  ydle.nodetype.manager.class: Ydle\HubBundle\Manager\NodeTypeManager
+  ydle.nodetype.entity.class: Ydle\HubBundle\Entity\NodeType
+  ydle.validator.unique.master.class: Ydle\HubBundle\Validator\Constraints\IsMasterValidator
 
 services:   
   ydle.logger:
@@ -21,3 +26,14 @@ services:
   ydle.room.manager:
     class: %ydle.room.manager.class%
     arguments: [%ydle.room.entity.class%, "@doctrine"]
+  ydle.nodetype.manager:
+    class: %ydle.nodetype.manager.class%
+    arguments: [%ydle.nodetype.entity.class%, "@doctrine"]
+  ydle.node.manager:
+    class: %ydle.node.manager.class%
+    arguments: [%ydle.node.entity.class%, "@doctrine"]
+  validator.unique.ismaster:
+    class: %ydle.validator.unique.master.class%   
+    arguments: ["@service_container"]   
+    tags:
+      - { name: "validator.constraint_validator", alias: master_validator }

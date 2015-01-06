@@ -2,6 +2,8 @@ parameters:
   ydle.logs_types.form.class: Ydle\HubBundle\Form\Type\LogsType
   ydle.room_types.form.class: Ydle\HubBundle\Form\Type\RoomTypesType
   ydle.room.form.class: Ydle\HubBundle\Form\Type\RoomType
+  ydle.node_types.form.class: Ydle\HubBundle\Form\Type\NodeTypesType
+  ydle.node.form.class: Ydle\HubBundle\Form\Type\NodeType
 
 services:
   ydle.logs.form:
@@ -16,3 +18,11 @@ services:
     class: %ydle.room.form.class%
     tags:
       - { name: form.type, alias: rooms_form }
+  ydle.node_types.form:
+    class: %ydle.node_types.form.class%
+    tags:
+      - { name: form.type, alias: nodetypes_form }
+  ydle.node.form:
+    class: %ydle.node.form.class%
+    tags:
+      - { name: form.type, alias: node_form }

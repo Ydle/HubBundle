@@ -19,15 +19,14 @@ namespace Ydle\HubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Room
+ * NodeType
  *
- * @ORM\Table(name="room")
- * @ORM\Entity(repositoryClass="Ydle\HubBundle\Repository\RoomRepository")
+ * @ORM\Table(name="sensortype")
+ * @ORM\Entity(repositoryClass="Ydle\HubBundle\Repository\NodeTypeRepository")
  */
-class Room
+class NodeType
 {
     /**
      * @var integer
@@ -42,7 +41,6 @@ class Room
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank()
      */
     private $name;
 
@@ -54,19 +52,18 @@ class Room
     private $description;
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="is_active", type="boolean", nullable=true)
+     * @ORM\Column(name="unit", type="string", length=50, nullable=true)
      */
-    private $isActive;
+    private $unit;
 
     /**
-     * @var integer
+     * @var boolean
      *
-     * @ORM\ManyToOne(targetEntity="\Ydle\HubBundle\Entity\RoomType", inversedBy="rooms")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * @ORM\Column(name="is_active", type="boolean")
      */
-    private $type;
+    private $isActive;
 
     /**
      * @var datetime $created
@@ -84,18 +81,7 @@ class Room
      */
     private $updated_at;
 
-    /**
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
-     */
-    private $slug;
-    
-    /**
-     * 
-     * @ORM\OneToMany(targetEntity="\Ydle\HubBundle\Entity\Node", mappedBy="room")
-     */
-    private $nodes;
-    
+
     /**
      * Get id
      *
@@ -110,7 +96,7 @@ class Room
      * Set name
      *
      * @param string $name
-     * @return Room
+     * @return SensorType
      */
     public function setName($name)
     {
@@ -133,7 +119,7 @@ class Room
      * Set description
      *
      * @param string $description
-     * @return Room
+     * @return SensorType
      */
     public function setDescription($description)
     {
@@ -153,10 +139,33 @@ class Room
     }
 
     /**
+     * Set unit
+     *
+     * @param string $unit
+     * @return SensorType
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+    
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
      * Set isActive
      *
      * @param boolean $isActive
-     * @return Room
+     * @return SensorType
      */
     public function setIsActive($isActive)
     {
@@ -174,28 +183,10 @@ class Room
     {
         return $this->isActive;
     }
-
-    /**
-     * Set type
-     *
-     * @param RoomType $typeId
-     * @return Room
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
     
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return RoomType
-     */
-    public function getType()
+    public function __toString()
     {
-        return $this->type;
+        return $this->getName();
     }
 
     /**
@@ -243,42 +234,19 @@ class Room
     {
         return $this->updated_at;
     }
-    
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-    
-    /**
-     * Add rooms
-     *
-     * @param \Ydle\HubBundle\Entity\Node $node
-     * @return Room
-     */
-    public function addNode(\Ydle\HubBundle\Entity\Node $node)
-    {
-        $this->nodes[] = $node;
-    
-        return $this;
-    }
 
     /**
-     * Remove rooms
-     *
-     * @param \Ydle\HubBundle\Entity\Node $node $node
-     */
-    public function removeNode(\Ydle\HubBundle\Entity\Node $node)
-    {
-        $this->nodes->removeElement($node);
-    }
-
-    /**
-     * Get rooms
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getNodes()
-    {
-        return $this->nodes;
+    * Custom toArray classe
+    * 
+    * @return array
+    */
+    public function toArray(){
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'is_active' => $this->getIsActive(),
+            'unit' => $this->getUnit()
+        );
     }
 }
