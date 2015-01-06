@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Ydle\NodesBundle\Entity\NodeType;
-use Ydle\RoomBundle\Entity\RoomType;
+use Ydle\HubBundle\Entity\RoomType;
 use Ydle\NodesBundle\Entity\Node;
 use Ydle\HubBundle\Entity\NodeData;
 

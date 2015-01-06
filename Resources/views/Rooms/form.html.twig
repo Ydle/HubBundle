@@ -1,0 +1,51 @@
+{#  This file is part of Ydle.
+
+    Ydle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU  Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Ydle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU  Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Ydle.  If not, see <http://www.gnu.org/licenses/>.
+
+#}
+
+{% if entry %}
+{% set dataformsource = '/room/form/' ~ entry.id %}
+{% else %}
+{% set dataformsource = '' %}
+{% endif %}
+
+{{ form_start(form, { 'action': action, 'attr': {'class': 'ydle-form ajax-form', 'role': 'form', 'data-reload': 'rooms-list', 'data-formsource': dataformsource, 'data-refresh': true, 'novalidate': 'novalidate', 'id': 'rooms-form' } }) }}
+{{ form_errors(form) }}
+    <div class="box-body">
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.name) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.type) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.is_active) }}
+            {{ form_widget(form.is_active, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.is_active) }}
+        </div>
+    </div>
+    <div class="box-footer">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+{{ form_end(form) }}

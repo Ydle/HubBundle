@@ -2,6 +2,10 @@ parameters:
   ydle.data.manager.class: Ydle\HubBundle\Manager\DataManager
   ydle.logs.manager.class: Ydle\HubBundle\Manager\LogsManager
   ydle.logs.entity.class: Ydle\HubBundle\Entity\Logs
+  ydle.roomtype.manager.class: Ydle\HubBundle\Manager\RoomTypeManager
+  ydle.roomtype.entity.class: Ydle\HubBundle\Entity\RoomType
+  ydle.room.manager.class: Ydle\HubBundle\Manager\RoomManager
+  ydle.room.entity.class: Ydle\HubBundle\Entity\Room
 
 services:   
   ydle.logger:
@@ -11,3 +15,9 @@ services:
     class: %ydle.data.manager.class%
     arguments: 
       entityManager: "@doctrine.orm.entity_manager"   
+  ydle.roomtype.manager:
+    class: %ydle.roomtype.manager.class%
+    arguments: [%ydle.roomtype.entity.class%, "@doctrine"]  
+  ydle.room.manager:
+    class: %ydle.room.manager.class%
+    arguments: [%ydle.room.entity.class%, "@doctrine"]

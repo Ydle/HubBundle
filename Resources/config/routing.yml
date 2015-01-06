@@ -38,6 +38,22 @@ configTypeNodeForm:
   pattern: /conf/typenode/form/{type}
   defaults: { _controller: YdleHubBundle:Config:typenodeForm, type:0 }
   
+################
+#    Rooms     #
+################  
+rooms:
+  pattern:  /rooms
+  defaults: { _controller: YdleHubBundle:Room:index }
+roomForm:
+  pattern: /room/form/{room}
+  defaults: { _controller: YdleHubBundle:Room:roomForm, room:0 }
+submitRoomForm:
+  pattern: /room/form/{room}/submit
+  defaults: { _controller: YdleHubBundle:Room:submitRoomForm, room:0 }
+roomDetail:
+  pattern: /room/detail/{room}
+  defaults: { _controller: YdleHubBundle:Room:roomDetail, room:0 }
+  
   
 ################
 #     Logs     #

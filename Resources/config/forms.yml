@@ -1,8 +1,18 @@
 parameters:
   ydle.logs_types.form.class: Ydle\HubBundle\Form\Type\LogsType
+  ydle.room_types.form.class: Ydle\HubBundle\Form\Type\RoomTypesType
+  ydle.room.form.class: Ydle\HubBundle\Form\Type\RoomType
 
 services:
   ydle.logs.form:
     class: %ydle.logs_types.form.class%
     tags:
       - { name: form.type, alias: logsfilter_form }
+  ydle.room_types.form:
+    class: %ydle.room_types.form.class%
+    tags:
+      - { name: form.type, alias: room_types }
+  ydle.room.form:
+    class: %ydle.room.form.class%
+    tags:
+      - { name: form.type, alias: rooms_form }

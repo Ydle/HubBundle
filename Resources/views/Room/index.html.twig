@@ -1,0 +1,47 @@
+{#  This file is part of Ydle.
+
+    Ydle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU  Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Ydle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU  Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Ydle.  If not, see <http://www.gnu.org/licenses/>.
+
+#}
+
+{% extends "YdleHubBundle::layout.html.twig" %}
+
+{% block title %}{{ "title.rooms" | trans}}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Rooms</h3>
+                <div class="box-tools pull-right">
+                    <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body ajax-loading table-responsive" id="rooms-list" data-endpoint="/rooms/list.json" data-template="rooms-list">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box" data-template="rooms-list">
+            <div class="box-header">
+                <h3 class="box-title">Add / Edit a new room</h3>
+            </div>
+
+            <div class="ajax-loading" data-endpoint="/room/form" data-template="room-form" id="room-form">
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}
