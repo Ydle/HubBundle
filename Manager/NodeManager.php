@@ -18,7 +18,7 @@
 namespace Ydle\HubBundle\Manager;
 
 use Ydle\HubBundle\Model\NodeManagerInterface;
-use Ydle\CoreBundle\Model\BaseEntityManager;
+use Ydle\HubBundle\Model\BaseEntityManager;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

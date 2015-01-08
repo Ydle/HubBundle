@@ -18,7 +18,7 @@
 namespace Ydle\HubBundle\Manager;
 
 use Ydle\HubBundle\Model\RoomTypeManagerInterface;
-use Ydle\CoreBundle\Model\BaseEntityManager;
+use Ydle\HubBundle\Model\BaseEntityManager;
 
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;

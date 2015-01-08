@@ -11,8 +11,8 @@
 
 namespace Ydle\HubBundle\Model;
 
-use Ydle\CoreBundle\Model\ManagerInterface;
-use Ydle\CoreBundle\Model\PageableManagerInterface;
+use Ydle\HubBundle\Model\ManagerInterface;
+use Ydle\HubBundle\Model\PageableManagerInterface;
 
 interface NodeManagerInterface extends ManagerInterface, PageableManagerInterface
 {
