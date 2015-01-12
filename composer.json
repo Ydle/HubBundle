@@ -15,7 +15,6 @@
     "require": {
             "php": ">=5.3.0",
             "ydle/user-bundle": "~0.5",
-            "ydle/settings-bundle": "~0.5"
     },
     "autoload": {
         "psr-0": { "Ydle\\HubBundle": "" }
