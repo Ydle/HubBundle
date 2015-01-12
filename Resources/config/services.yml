@@ -11,6 +11,12 @@ parameters:
   ydle.nodetype.manager.class: Ydle\HubBundle\Manager\NodeTypeManager
   ydle.nodetype.entity.class: Ydle\HubBundle\Entity\NodeType
   ydle.validator.unique.master.class: Ydle\HubBundle\Validator\Constraints\IsMasterValidator
+  
+  ydle.settings.roomtype.controller.class: Ydle\HubBundle\Controller\RestRoomTypeController
+  ydle.settings.nodetype.controller.class: Ydle\HubBundle\Controller\RestNodeTypeController
+  ydle.settings.logs.controller.class: Ydle\HubBundle\Controller\RestLogsController
+  ydle.settings.nodes.controller.class: Ydle\HubBundle\Controller\RestNodeController
+  ydle.settings.rooms.controller.class: Ydle\HubBundle\Controller\RestRoomController
 
 services:   
   ydle.logger:
@@ -37,3 +43,20 @@ services:
     arguments: ["@service_container"]   
     tags:
       - { name: "validator.constraint_validator", alias: master_validator }
+      
+  ydle.settings.roomtype.controller:
+    class: %ydle.settings.roomtype.controller.class%   
+    arguments: ["@ydle.roomtype.manager", "@service_container"] 
+  ydle.settings.nodetype.controller:
+    class: %ydle.settings.nodetype.controller.class%   
+    arguments: ["@ydle.nodetype.manager", "@service_container"] 
+  ydle.settings.logs.controller:
+    class: %ydle.settings.logs.controller.class%   
+    arguments: ["@ydle.logger", "@service_container"] 
+  ydle.settings.nodes.controller:
+    class: %ydle.settings.nodes.controller.class%   
+    arguments: ["@ydle.node.manager", "@service_container"] 
+  ydle.settings.rooms.controller:
+    class: %ydle.settings.rooms.controller.class%   
+    arguments: ["@ydle.room.manager", "@service_container"]   
+    
