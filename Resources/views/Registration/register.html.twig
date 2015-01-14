@@ -1,0 +1,11 @@
+{% extends "YdleHubBundle::layout_user.html.twig" %}
+
+{% block title "page.register.title" | trans  %}
+
+{% block fos_user_content %}
+<div class="row center-block">
+    <div class="center-block">
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    </div>
+</div>
+{% endblock fos_user_content %}

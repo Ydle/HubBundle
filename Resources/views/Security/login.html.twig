@@ -1,0 +1,43 @@
+{% extends "YdleHubBundle::layout_user.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div>{{ error|trans }}</div>
+{% endif %}
+<div class="row center-block">
+    <div class="center-block">
+    <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal" role="form">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <div class="form-group">
+            <label class="col-sm-5 control-label" for="username">{{ "pseudo.title" | trans }}</label>
+            <div class="col-xs-3">
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label" for="password">{{ "password.title" | trans }}</label>
+            <div class="col-xs-3">
+                <input type="password" id="password" name="_password" required="required" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-10">
+                <label for="remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    {{ "remember.me.title" | trans }}
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-10">
+              <input type="submit" id="_submit" name="_submit" value="{{ "action.connexion" | trans }}"  class="btn btn-default" />
+            </div>
+        </div>
+
+    </form>
+    </div>
+</div>
+{% endblock fos_user_content %}

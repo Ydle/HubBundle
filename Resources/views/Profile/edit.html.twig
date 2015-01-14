@@ -1,0 +1,15 @@
+{% extends "YdleHubBundle::layout_user.html.twig" %}
+
+{% block title %}{{ "title.config" | trans}}{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col-md-8">
+    <div class="box">
+    {% block fos_user_content %}
+    {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+    {% endblock fos_user_content %}
+    </div>
+</div>
+</div>
+{% endblock content %}

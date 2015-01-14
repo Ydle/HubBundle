@@ -1,5 +1,5 @@
 <?php
-// src/Ydle/HubBundle/Entity/User.php
+// src/Ydle/IhmBundle/Entity/User.php
 
 namespace Ydle\HubBundle\Entity;
 
@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="fos_user")
  */
 class User extends BaseUser
 {
@@ -21,6 +22,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->setRoles(array(static::ROLE_DEFAULT));
         // your own logic
     }
 
