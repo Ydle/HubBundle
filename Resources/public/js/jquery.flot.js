@@ -2466,7 +2466,7 @@ Licensed under the MIT license.
 
             var lw = series.lines.lineWidth,
                 sw = series.shadowSize;
-            // FIXME: consider another form of shadow when filling is turned on
+
             if (lw > 0 && sw > 0) {
                 // draw shadow as a thick and thin line with transparency
                 ctx.lineWidth = sw;

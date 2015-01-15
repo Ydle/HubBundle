@@ -7,9 +7,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
 use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\DependencyInjection\ContainerAware;
-use FOS\RestBundle\View\RouteRedirectView,
-    FOS\RestBundle\View\View,
-    FOS\RestBundle\Controller\Annotations\QueryParam,
+use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
 use Ydle\HubBundle\Manager\RoomTypeManager;
 
@@ -60,7 +58,6 @@ class RestRoomTypeController extends Controller
         
         if(!$result = $this->getRoomTypeManager()->find($roomtypeId)){
             return 'ok';
-            throw new HttpException(404, 'This room type does not exist');
         }
         
         return $result;

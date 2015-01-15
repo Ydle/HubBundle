@@ -249,7 +249,7 @@ class Node
      * Remove remote
      */
     public function removeType($key){
-        if($key!=null && array_key_exists($key, $this->types)){
+        if($key !== null && array_key_exists($key, $this->types)){
             unset($this->types[$key]);
         }
         unset($this->types);

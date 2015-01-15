@@ -20,9 +20,6 @@ namespace Ydle\HubBundle\Manager;
 use Ydle\HubBundle\Model\NodeTypeManagerInterface;
 use Ydle\HubBundle\Model\BaseEntityManager;
 
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
@@ -47,9 +44,7 @@ class NodeTypeManager extends BaseEntityManager implements NodeTypeManagerInterf
         $pager->setMaxPerPage($limit);
         $pager->setPage($page);
         $pager->init();
-
-//        echo '<pre>';
-//        \Doctrine\Common\Util\Debug::dump($pager);die();
+        
         return $pager;
     }
 

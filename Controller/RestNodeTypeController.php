@@ -6,12 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
 use FOS\RestBundle\Request\ParamFetcher;
-use Symfony\Component\DependencyInjection\ContainerAware;
-use FOS\RestBundle\View\RouteRedirectView,
-    FOS\RestBundle\View\View,
-    FOS\RestBundle\Controller\Annotations\QueryParam,
-    FOS\RestBundle\Request\ParamFetcherInterface;
-use Ydle\HubBundle\Manager\NodeTypeManager;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 
 class RestNodeTypeController extends Controller
 {    
@@ -60,7 +56,6 @@ class RestNodeTypeController extends Controller
         
         if(!$result = $this->getNodeTypeManager()->find($nodetypeId)){
             return 'ok';
-            throw new HttpException(404, 'This node type does not exist');
         }
         
         return $result;

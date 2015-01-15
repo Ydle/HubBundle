@@ -6,10 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerAware;
-use FOS\RestBundle\View\RouteRedirectView,
-    FOS\RestBundle\View\View,
-    FOS\RestBundle\Controller\Annotations\QueryParam,
+use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\Post;
 use Ydle\HubBundle\Manager\LogsManager;

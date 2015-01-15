@@ -43,9 +43,7 @@ class RoomTypeManager extends BaseEntityManager implements RoomTypeManagerInterf
         $pager->setMaxPerPage($limit);
         $pager->setPage($page);
         $pager->init();
-
-//        echo '<pre>';
-//        \Doctrine\Common\Util\Debug::dump($pager);die();
+        
         return $pager;
     }
     

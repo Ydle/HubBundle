@@ -41,12 +41,9 @@ class RoomManager extends BaseEntityManager implements RoomManagerInterface
 
         $pager = new Pager();
         $pager->setQuery(new ProxyQuery($query));
-        //$pager->setMaxPerPage($limit);
         $pager->setPage($page);
         $pager->init();
 
-//        echo '<pre>';
-//        \Doctrine\Common\Util\Debug::dump($pager);die();
         return $pager;
     }
     

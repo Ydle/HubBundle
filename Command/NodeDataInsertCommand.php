@@ -2,7 +2,6 @@
 
 namespace Ydle\HubBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -84,9 +83,9 @@ class NodeDataInsertCommand extends BaseCommand
                 $nodeData->setCreated($cleanDate);
                 $nodeData->setData($currData);
                 $this->em->persist($nodeData);
-                $this->em->flush();
                 $currDate += 1000;
             }
+            $this->em->flush();
         }
     }
 }

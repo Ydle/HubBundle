@@ -6,12 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\Container;
 use FOS\RestBundle\Request\ParamFetcher;
-use Symfony\Component\DependencyInjection\ContainerAware;
-use FOS\RestBundle\View\RouteRedirectView,
-    FOS\RestBundle\View\View,
-    FOS\RestBundle\Controller\Annotations\QueryParam,
+use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
-use Ydle\HubBundle\Manager\NodeTypeManager;
 use Ydle\HubBundle\Entity\NodeData;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -244,11 +240,10 @@ class RestNodeController extends Controller
             $result[$type->getId()]['data'][] = array((int)$data->getCreated()->format('U') * 1000, $value);
             $cpt++;
         }
-        //return new JsonResponse(array(array('label'=>'test', 'data' => array(array(1,10), array(2, 12)))));
         return new JsonResponse($result);
     }
     
-    public function getTranslator(){
+    private function getTranslator(){
         return $this->container->get('translator');
     }
     
@@ -317,7 +312,7 @@ class RestNodeController extends Controller
         $masterAddr = $this->container->getParameter('master_address');
         $masterCode = $this->container->getParameter('master_id');
         if(empty($masterAddr) || empty($masterAddr)){
-            $message = $this->getTranslator()->trans('node.reset.fail.nomaster');
+            $message = $this->getTranslator()->trans('node.link.fail.nomaster');
             $this->get('session')->getFlashBag()->add('error', $message);
             $statusCode = 404;
         }

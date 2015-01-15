@@ -20,9 +20,6 @@ namespace Ydle\HubBundle\Manager;
 use Ydle\HubBundle\Model\LogsManagerInterface;
 use Ydle\HubBundle\Model\BaseEntityManager;
 
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 use Ydle\HubBundle\Entity\Logs;

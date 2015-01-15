@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 use Ydle\HubBundle\Entity\Node;
-use Ydle\HubBundle\Entity\NodeData;
 
 class ConfigController extends Controller
 {
@@ -26,7 +25,6 @@ class ConfigController extends Controller
      */
     public function typeroomAction(Request $request)
     {
-        $setttings = $this->get('ydle.settings.roomtype.controller');
    	$roomType = new RoomType();
 
 	$form = $this->createForm("room_types", $roomType);

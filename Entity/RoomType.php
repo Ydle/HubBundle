@@ -19,7 +19,6 @@ namespace Ydle\HubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -91,15 +90,6 @@ class RoomType
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
-
-    
-
-    /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    private $locale;
 
     /**
      * Get id

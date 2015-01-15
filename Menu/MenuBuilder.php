@@ -35,20 +35,6 @@ class MenuBuilder
              ), 
             'childrenAttributes' => array('class' =>'treeview-menu')
         ));
-        //$menu->addChild('title.rooms')->setChildrenAttribute('class', 'test');
-        /*$menu->getChild('title.rooms')->addChild('title.rooms.all', array(
-            'route' => 'rooms',
-            'attributes' => array(
-                'icon' => 'fa fa-angle-double-right'
-            )
-        ));
-        $menu->getChild('title.rooms')->addChild('title.rooms.new', array(
-            'route' => 'rooms',
-            'attributes' => array(
-                'icon' => 'fa fa-angle-double-right'
-            )
-        ));
-        */
         // Nodes
         $menu->addChild('title.nodes', array(
             'route' => 'nodes', 
@@ -59,7 +45,6 @@ class MenuBuilder
         ));
         
         // Settings
-        $configNodesTitle = $translator->trans('title.config.nodes');
         $menu->addChild('title.config', array(
             'route' => 'configYdle', 
             'attributes' => array(
