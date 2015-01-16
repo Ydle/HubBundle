@@ -20,8 +20,6 @@ namespace Ydle\HubBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ydle\HubBundle\Entity\Room;
-use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Validator\Constraints as YdleNodesAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\ExecutionContextInterface;
@@ -46,7 +44,7 @@ class Node
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;   
+    private $id;
 
     /**
      * @var string
@@ -96,7 +94,7 @@ class Node
     /**
      * @var integer
      *
-     * @ORM\ManyToMany(targetEntity="NodeType", cascade={"persist"})  
+     * @ORM\ManyToMany(targetEntity="NodeType", cascade={"persist"})
      * @ORM\JoinTable(name="node_sensor",
      *                joinColumns={@ORM\JoinColumn(name="node_id", referencedColumnName="id", onDelete="CASCADE")},
      *                inverseJoinColumns={@ORM\JoinColumn(name="sensortype_id", referencedColumnName="id", onDelete="CASCADE")}
@@ -115,18 +113,17 @@ class Node
      * @Gedmo\Timestampable(on="update")
      */
     private $updated;
-    
+
     public function __construct()
     {
         // Si vous aviez déjà un constructeur, ajoutez juste cette ligne :
         $this->types = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -136,20 +133,20 @@ class Node
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Node
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -159,20 +156,20 @@ class Node
     /**
      * Set code
      *
-     * @param string $code
+     * @param  string $code
      * @return Node
      */
     public function setCode($code)
     {
         $this->code = $code;
-    
+
         return $this;
     }
 
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -182,20 +179,20 @@ class Node
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string $description
      * @return Node
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -205,94 +202,95 @@ class Node
     /**
      * Set isActive
      *
-     * @param boolean $isActive
+     * @param  boolean $isActive
      * @return Node
      */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
-    
+
         return $this;
     }
 
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
         return $this->isActive;
     }
-    
+
     /**
      * Add Type
-     * 
+     *
      * @param \Ydle\HubBundle\Entity\NodeType $type
      */
     public function addType(NodeType $type)
     {
         $this->types[] = $type;
     }
-   
+
      /**
      * Get types
      *
      * @return Doctrine\Common\Collections\Collection
      */
     public function getTypes()
-    {        
+    {
         return $this->types;
-    } 
-    
+    }
+
     /**
      * Remove remote
      */
-    public function removeType($key){
-        if($key !== null && array_key_exists($key, $this->types)){
+    public function removeType($key)
+    {
+        if ($key !== null && array_key_exists($key, $this->types)) {
             unset($this->types[$key]);
         }
         unset($this->types);
 
         return $this;
     }
-    
+
     /**
      * Check if a node got a specific type
-     * 
-     * @param Ydle\HubBundle\Entity\NodeType $type
+     *
+     * @param  Ydle\HubBundle\Entity\NodeType $type
      * @return boolean
      */
     public function hasType(NodeType $type)
     {
-    	foreach($this->types as $t)
-    	{
-    		if($t->getId() == $type->getId()){ return true; }
-    	}
-    	return false;
+        foreach ($this->types as $t) {
+            if ($t->getId() == $type->getId()) { return true; }
+        }
+
+        return false;
     }
-   
+
      /**
      * Set types
      *
      */
     public function setTypes($types)
-    {        
+    {
         $this->types = $types;
-    
+
         return $this;
-    } 
+    }
 
     /**
      * Set typeId
      *
-     * @param integer $typeId
+     * @param  integer $typeId
      * @return Room
      */
     public function setRoom($room)
     {
         $this->room = $room;
-    
+
         return $this;
     }
 
@@ -315,7 +313,7 @@ class Node
     {
         return $this->updated;
     }
-    
+
     public function hasTypes(ExecutionContextInterface $context)
     {
         if ($this->getTypes()->count() == 0) {

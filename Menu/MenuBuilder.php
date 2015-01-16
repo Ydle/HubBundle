@@ -24,31 +24,31 @@ class MenuBuilder
 
         // home
         $menu->addChild('title.dashboard', array('route' => 'homeYdle', 'attributes' => array('icon' => 'fa fa-bar-chart-o')));
-        
+
         // Rooms
         $menu->addChild('title.rooms', array(
-            'route' => 'rooms', 
+            'route' => 'rooms',
             'attributes' => array(
-                'class' => '', 
+                'class' => '',
                 'icon' => 'fa fa-home',
         //        'treeview' => true
-             ), 
+             ),
             'childrenAttributes' => array('class' =>'treeview-menu')
         ));
         // Nodes
         $menu->addChild('title.nodes', array(
-            'route' => 'nodes', 
+            'route' => 'nodes',
             'attributes' => array(
                 'icon' => 'fa fa-dot-circle-o',
                 'treeview' => true
              )
         ));
-        
+
         // Settings
         $menu->addChild('title.config', array(
-            'route' => 'configYdle', 
+            'route' => 'configYdle',
             'attributes' => array(
-                'class' => 'treeview', 
+                'class' => 'treeview',
                 'icon' => 'fa fa-cogs',
                 'treeview' => true
             ),
@@ -72,15 +72,15 @@ class MenuBuilder
                 'icon' => 'fa fa-angle-double-right'
             )
         ));
-        
+
         // Logs
         $menu->addChild('title.logs', array(
-            'route' => 'logs', 
+            'route' => 'logs',
             'attributes' => array(
                 'icon' => 'fa fa-list'
             )
         ));
-        
+
         // About
         $menu->addChild('title.about', array(
             'route' => 'pagesAbout',

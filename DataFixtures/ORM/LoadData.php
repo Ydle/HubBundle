@@ -16,18 +16,16 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Ydle\Bundle\Entity\User;
-
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class LoadData implements FixtureInterface, ContainerAwareInterface
-{ 
+{
     /**
      * @var ContainerInterface
      */
     private $container;
-        
+
     /**
      * {@inheritDoc}
      */
@@ -35,7 +33,7 @@ class LoadData implements FixtureInterface, ContainerAwareInterface
     {
         $this->container = $container;
     }
-    
+
     /**
      * Load data fixtures with the passed EntityManager
      *
@@ -43,6 +41,6 @@ class LoadData implements FixtureInterface, ContainerAwareInterface
      */
     public function load(ObjectManager $manager)
     {
-        
+
     }
 }

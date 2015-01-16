@@ -2,26 +2,26 @@ homeYdle:
     pattern:  /
     defaults: { _controller: YdleHubBundle:Home:index }
 
-    
+
 pagesAbout:
     pattern:  /pages/about
     defaults: { _controller: YdleHubBundle:Pages:index }
-    
-    
+
+
 configDashboard:
     pattern:  /conf/dashboard
     defaults: { _controller: YdleHubBundle:Config:dashboard }
-    
+
 
 Populate:
     pattern:  /conf/populate
     defaults: { _controller: YdleHubBundle:Config:populate }
-    
 
-    
-  
-  
-  
+
+
+
+
+
 configYdle:
     pattern:  /conf
     defaults: { _controller: YdleHubBundle:Config:index }
@@ -37,10 +37,10 @@ configTypeNode:
 configTypeNodeForm:
   pattern: /conf/typenode/form/{type}
   defaults: { _controller: YdleHubBundle:Config:typenodeForm, type:0 }
-  
+
 ################
 #    Nodes     #
-################    
+################
 nodes:
     pattern:  /nodes
     defaults: { _controller: YdleHubBundle:Nodes:index }
@@ -49,8 +49,8 @@ nodesForm:
   defaults: { _controller: YdleHubBundle:Nodes:nodesForm, node:0 }
 submitNodeForm:
   pattern: /nodes/form/{node}/submit
-  defaults: { _controller: YdleHubBundle:Nodes:submitNodeForm, node:0 } 
- 
+  defaults: { _controller: YdleHubBundle:Nodes:submitNodeForm, node:0 }
+
 ##################
 #  Type Sensors  #
 ##################
@@ -59,14 +59,14 @@ configTypeSensor:
     defaults: { _controller: YdleHubBundle:Config:typesensor, type:0 }
 configTypeSensorActivation:
     pattern:  /conf/typesensor/activation/{type}/{active}
-    defaults: { _controller: YdleHubBundle:Config:typesensoractivation, type:0, active:0 } 
+    defaults: { _controller: YdleHubBundle:Config:typesensoractivation, type:0, active:0 }
 configTypeSensorDelete:
     pattern:  /conf/typesensor/delete/{type}
-    defaults: { _controller: YdleHubBundle:Config:typesensordelete, type:0 } 
-  
+    defaults: { _controller: YdleHubBundle:Config:typesensordelete, type:0 }
+
 ################
 #    Rooms     #
-################  
+################
 rooms:
   pattern:  /rooms
   defaults: { _controller: YdleHubBundle:Room:index }
@@ -79,16 +79,15 @@ submitRoomForm:
 roomDetail:
   pattern: /room/detail/{room}
   defaults: { _controller: YdleHubBundle:Room:roomDetail, room:0 }
-  
-  
+
+
 ################
 #     Logs     #
 ################
 logs:
     pattern:  /logs
     defaults: { _controller: YdleHubBundle:Logs:index }
- 
+
 resetlogs:
     pattern: /logs/reset
     defaults: { _controller: YdleHubBundle:Logs:reset }
-      

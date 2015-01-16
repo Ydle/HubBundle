@@ -32,7 +32,7 @@ class RoomType extends AbstractType
                 ->add('type', 'entity', array(
                     'class' => 'YdleHubBundle:RoomType',
                     'property' => 'name',
-                    'query_builder' => function(EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                                 ->where('t.isActive = 1')
                                 ->orderBy('t.name', 'ASC');

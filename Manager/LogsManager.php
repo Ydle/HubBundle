@@ -38,16 +38,16 @@ class LogsManager extends BaseEntityManager implements LogsManagerInterface
             ->createQueryBuilder('l')
             ->select('l')
             ->where('1=1');
-        
-        if(!empty($criteria['type']) && $criteria['type'] != "all"){ 
+
+        if (!empty($criteria['type']) && $criteria['type'] != "all") {
            $query->andWhere('l.type = :type');
            $parameters['type'] = $criteria['type'];
                 //->setParameter('type', $criteria['type']);
         }
-        if(!empty($criteria['source']) && $criteria['source'] != "all"){ 
+        if (!empty($criteria['source']) && $criteria['source'] != "all") {
            $query->andWhere('l.source = :source');
            $parameters['source'] = $criteria['source'];
-                //->setParameter('source', $criteria['source']);            
+                //->setParameter('source', $criteria['source']);
         }
 
         $query->setParameters($parameters);
@@ -60,10 +60,10 @@ class LogsManager extends BaseEntityManager implements LogsManagerInterface
 
         return $pager;
     }
-    
+
     /**
     * Save a log in database
-    * 
+    *
     * @param string $type
     * @param string $text
     * @return Logs
@@ -74,18 +74,18 @@ class LogsManager extends BaseEntityManager implements LogsManagerInterface
         $log->setType($type);
         $log->setSource($source);
         $log->setContent($text);
-        
+
         $this->em->persist($log);
         $this->em->flush();
-        
+
         return $log;
     }
-    
+
     public function createViewLogQuery()
     {
         return $this->getRepository()->createViewLogQuery();
     }
-    
+
     public function reset()
     {
         return $this->getRepository()->reset();

@@ -3,7 +3,6 @@
 namespace Ydle\HubBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Ydle\HubBundle\Manager\BaseManager;
 
 class DataManager extends BaseManager
 {
@@ -24,17 +23,17 @@ class DataManager extends BaseManager
     {
         return $this->em->getRepository('YdleHubBundle:NodeData');
     }
-    
+
     public function findByRoom($params = array())
     {
         return $this->getRepository()->findByRoom($params);
     }
-    
+
     public function findByParams($params = array())
     {
         return $this->getRepository()->findByParams($params);
     }
-    
+
     public function getLastData($roomId)
     {
         return $this->getRepository()->getLastData($roomId);

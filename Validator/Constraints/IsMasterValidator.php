@@ -6,13 +6,14 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class IsMasterValidator extends ConstraintValidator
-{  
+{
     private $container;
 
-    public function __construct(Container $container) {
+    public function __construct(Container $container)
+    {
         $this->container = $container;
     }
-    
+
     public function validate($value, Constraint $constraint)
     {
         $masterId = $this->container->getParameter('master_id');
@@ -21,4 +22,3 @@ class IsMasterValidator extends ConstraintValidator
         }
     }
 }
-?>

@@ -33,7 +33,7 @@ class Logs
     const SOURCE_API    = 'api';
     const SOURCE_MASTER = 'master';
     const SOURCE_HUB    = 'hub';
-    
+
     /**
      * @var integer
      *
@@ -81,11 +81,11 @@ class Logs
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -95,20 +95,20 @@ class Logs
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string $type
      * @return Logs
      */
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -118,20 +118,20 @@ class Logs
     /**
      * Set content
      *
-     * @param string $content
+     * @param  string $content
      * @return Logs
      */
     public function setContent($content)
     {
         $this->content = $content;
-    
+
         return $this;
     }
 
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -141,20 +141,20 @@ class Logs
     /**
      * Set created_at
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Period
      */
     public function setCreatedAt($createdAt)
     {
         $this->created_at = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -164,20 +164,20 @@ class Logs
     /**
      * Set updated_at
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Period
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updated_at = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -187,20 +187,20 @@ class Logs
     /**
      * Set source
      *
-     * @param string $source
+     * @param  string $source
      * @return Logs
      */
     public function setSource($source)
     {
         $this->source = $source;
-    
+
         return $this;
     }
 
     /**
      * Get source
      *
-     * @return string 
+     * @return string
      */
     public function getSource()
     {

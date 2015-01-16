@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class NodeData
 {
     /**
-     * @var integer 
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -57,11 +57,10 @@ class NodeData
      */
     private $updated;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,20 +70,20 @@ class NodeData
     /**
      * Set data
      *
-     * @param integer $data
+     * @param  integer  $data
      * @return NodeData
      */
     public function setData($data)
     {
         $this->data = $data;
-    
+
         return $this;
     }
 
     /**
      * Get data
      *
-     * @return integer 
+     * @return integer
      */
     public function getData()
     {
@@ -94,20 +93,20 @@ class NodeData
     /**
      * Set type
      *
-     * @param integer $type
+     * @param  integer  $type
      * @return NodeData
      */
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
      * Get type
      *
-     * @return integer 
+     * @return integer
      */
     public function getType()
     {
@@ -117,20 +116,20 @@ class NodeData
     /**
      * Set node
      *
-     * @param integer $node
+     * @param  integer  $node
      * @return NodeData
      */
     public function setNode($node)
     {
         $this->node = $node;
-    
+
         return $this;
     }
 
     /**
      * Get node
      *
-     * @return integer 
+     * @return integer
      */
     public function getNode()
     {
@@ -146,12 +145,12 @@ class NodeData
     {
         return $this->updated;
     }
-    
+
     public function setCreated($created)
     {
         $this->created = $created;
     }
-    
+
     public function setUpdated($updated)
     {
         $this->updated = $updated;

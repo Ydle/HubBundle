@@ -61,11 +61,11 @@ class RoomType
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
-    
+
     /**
      * @var ArrayCollection
-     * 
-     * @ORM\OneToMany(targetEntity="Room", mappedBy="type") 
+     *
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="type")
      */
     protected $rooms;
 
@@ -94,7 +94,7 @@ class RoomType
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -104,20 +104,20 @@ class RoomType
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string   $name
      * @return RoomType
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -127,20 +127,20 @@ class RoomType
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string   $description
      * @return RoomType
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -150,20 +150,20 @@ class RoomType
     /**
      * Set isActive
      *
-     * @param boolean $isActive
+     * @param  boolean  $isActive
      * @return RoomType
      */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
-    
+
         return $this;
     }
 
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -176,17 +176,17 @@ class RoomType
     {
         $this->rooms = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add rooms
      *
-     * @param \Ydle\HubBundle\Entity\Room $rooms
+     * @param  \Ydle\HubBundle\Entity\Room $rooms
      * @return RoomType
      */
     public function addRoom(\Ydle\HubBundle\Entity\Room $rooms)
     {
         $this->rooms[] = $rooms;
-    
+
         return $this;
     }
 
@@ -203,7 +203,7 @@ class RoomType
     /**
      * Get rooms
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRooms()
     {
@@ -213,20 +213,20 @@ class RoomType
     /**
      * Set created_at
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Period
      */
     public function setCreatedAt($createdAt)
     {
         $this->created_at = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -236,42 +236,43 @@ class RoomType
     /**
      * Set updated_at
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Period
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updated_at = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
         return $this->updated_at;
     }
-    
+
     public function countRooms()
     {
         return $this->getRooms()->count();
     }
-    
+
     public function getSlug()
     {
         return $this->slug;
     }
-    
+
     /**
     * Custom toArray classe
-    * 
+    *
     * @return array
     */
-    public function toArray(){
+    public function toArray()
+    {
         return array(
             'id' => $this->getId(),
             'name' => $this->getName(),
@@ -280,7 +281,7 @@ class RoomType
             'nb_rooms' => $this->getRooms()->count()
         );
     }
-    
+
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;

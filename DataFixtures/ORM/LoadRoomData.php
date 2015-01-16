@@ -40,19 +40,19 @@ class LoadRoomData implements FixtureInterface
         $typeBedroom = new RoomType();
         $typeBedroom->setName('Bedroom');
         $typeBedroom->setIsActive(true);
-		
+
         $typeAttic = new RoomType();
         $typeAttic->setName('Attic');
         $typeAttic->setIsActive(true);
-		
+
         $typeGarage = new RoomType();
         $typeGarage->setName('Garage');
         $typeGarage->setIsActive(true);
-		
+
         $typeBathroom = new RoomType();
         $typeBathroom->setName('Bathroom');
         $typeBathroom->setIsActive(true);
-		
+
         $typeToilet = new RoomType();
         $typeToilet->setName('Toilet');
         $typeToilet->setIsActive(true);
@@ -60,11 +60,11 @@ class LoadRoomData implements FixtureInterface
 	$typeOffice = new RoomType();
         $typeOffice->setName('Office');
         $typeOffice->setIsActive(true);
-		
+
         $typeCellar = new RoomType();
         $typeCellar->setName('Cellar');
         $typeCellar->setIsActive(true);
-		
+
         $typeDressing = new RoomType();
         $typeDressing->setName('Dressing');
         $typeDressing->setIsActive(true);

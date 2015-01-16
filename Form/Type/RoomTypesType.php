@@ -22,7 +22,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RoomTypesType extends AbstractType
-{    
+{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -44,4 +44,3 @@ class RoomTypesType extends AbstractType
         ));
     }
 }
-?>

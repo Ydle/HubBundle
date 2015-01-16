@@ -89,17 +89,17 @@ class Room
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
-    
+
     /**
-     * 
+     *
      * @ORM\OneToMany(targetEntity="\Ydle\HubBundle\Entity\Node", mappedBy="room")
      */
     private $nodes;
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -109,20 +109,20 @@ class Room
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Room
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -132,20 +132,20 @@ class Room
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string $description
      * @return Room
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -155,20 +155,20 @@ class Room
     /**
      * Set isActive
      *
-     * @param boolean $isActive
+     * @param  boolean $isActive
      * @return Room
      */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
-    
+
         return $this;
     }
 
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -178,13 +178,13 @@ class Room
     /**
      * Set type
      *
-     * @param RoomType $typeId
+     * @param  RoomType $typeId
      * @return Room
      */
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
@@ -201,20 +201,20 @@ class Room
     /**
      * Set created_at
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Period
      */
     public function setCreatedAt($createdAt)
     {
         $this->created_at = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -224,41 +224,41 @@ class Room
     /**
      * Set updated_at
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Period
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updated_at = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
         return $this->updated_at;
     }
-    
+
     public function getSlug()
     {
         return $this->slug;
     }
-    
+
     /**
      * Add rooms
      *
-     * @param \Ydle\HubBundle\Entity\Node $node
+     * @param  \Ydle\HubBundle\Entity\Node $node
      * @return Room
      */
     public function addNode(\Ydle\HubBundle\Entity\Node $node)
     {
         $this->nodes[] = $node;
-    
+
         return $this;
     }
 
@@ -275,7 +275,7 @@ class Room
     /**
      * Get rooms
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getNodes()
     {

@@ -19,7 +19,6 @@ namespace Ydle\HubBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ydle\HubBundle\Entity\Node;
 use Ydle\HubBundle\Entity\NodeType;
 
 class LoadNodesData implements FixtureInterface
@@ -30,7 +29,7 @@ class LoadNodesData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-	$nodeTypeTemperature = new NodeType();
+    $nodeTypeTemperature = new NodeType();
         $nodeTypeTemperature->setName('Temperature');
         $nodeTypeTemperature->setUnit('°C');
         $nodeTypeTemperature->setIsActive(true);
@@ -44,7 +43,7 @@ class LoadNodesData implements FixtureInterface
         $nodeTypePressure->setName('Pressure');
         $nodeTypePressure->setUnit('Pa');
         $nodeTypePressure->setIsActive(true);
-        
+
         $nodeTypeLuminosity = new NodeType();
         $nodeTypeLuminosity->setName('Luminosity');
         $nodeTypeLuminosity->setUnit('lux');
@@ -55,7 +54,6 @@ class LoadNodesData implements FixtureInterface
         $manager->persist($nodeTypePressure);
         $manager->persist($nodeTypeLuminosity);
         $manager->flush();
-
 
     }
 }

@@ -22,8 +22,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class LogsType extends AbstractType
-{    
-    
+{
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $typeChoices = array(
@@ -41,7 +41,7 @@ class LogsType extends AbstractType
         );
         $builder
                 ->add('type', 'choice', array(
-                    'choices' => $typeChoices))                 
+                    'choices' => $typeChoices))
                 ->add('source', 'choice', array(
                     'choices' => $sourcesChoices))
         ;
@@ -60,4 +60,3 @@ class LogsType extends AbstractType
         ));
     }
 }
-?>

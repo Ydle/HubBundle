@@ -29,7 +29,7 @@ class NodeDataInsertCommand extends BaseCommand
     /**
      * Execute the current console command
      *
-     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -39,42 +39,42 @@ class NodeDataInsertCommand extends BaseCommand
         $nodeCode = $input->getArgument('node');
         $this->em = $this->getContainer()->get('doctrine')->getManager();
 
-        if(null === ($type = $this->getNodeTypeManager()->find($typeId))){
+        if (null === ($type = $this->getNodeTypeManager()->find($typeId))) {
             $output->writeln('<error>Unknown node type</error>');
+
             return;
-	}
-        if(null === ($node = $this->getNodeManager()->findOneBy(array('code' => $nodeCode)))){
+    }
+        if (null === ($node = $this->getNodeManager()->findOneBy(array('code' => $nodeCode)))) {
             $output->writeln('<error>Unknown node</error>');
+
             return;
-	}
-        
-        if($autopopulate) {
+    }
+
+        if ($autopopulate) {
             $startDate = 1409582400 ;
             $currDate = $startDate;
             $now = time();
             $currData = 1500;
             // Initialize first data
-            switch($type->getUnit()){
+            switch ($type->getUnit()) {
                 case '%':
                     $currData = mt_rand(4000,6000);
                 break;
             }
 
-            // Populate data 
+            // Populate data
             while ($currDate < $now) {
                 $nodeData = new NodeData();
                 $cleanDate = \DateTime::createFromFormat("U", $currDate);
-        
-                switch($type->getUnit()){
+
+                switch ($type->getUnit()) {
                     case '°C':
-                        if(date("H", $currDate) == 0) { $currData = mt_rand(1450, 1650); }
-                        else {
+                        if (date("H", $currDate) == 0) { $currData = mt_rand(1450, 1650); } else {
                             $currData += mt_rand(10,50);
                         }
                     break;
                     case '%':
-                        if(date("H", $currDate) == 0 || $currData >= 10000) { $currData = mt_rand(4000, 6000); }
-                        else { $currData += mt_rand(10, 50); }
+                        if (date("H", $currDate) == 0 || $currData >= 10000) { $currData = mt_rand(4000, 6000); } else { $currData += mt_rand(10, 50); }
                     break;
                 }
 

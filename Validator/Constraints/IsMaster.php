@@ -1,4 +1,4 @@
-<?php    
+<?php
 namespace Ydle\HubBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
@@ -8,12 +8,10 @@ use Symfony\Component\Validator\Constraint;
  */
 class IsMaster extends Constraint
 {
-    public $message = 'This code is already used by the master'; 
-    
-    
+    public $message = 'This code is already used by the master';
+
     public function validatedBy()
     {
         return 'master_validator';
     }
 }
-?>

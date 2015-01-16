@@ -81,11 +81,10 @@ class NodeType
      */
     private $updated_at;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -95,20 +94,20 @@ class NodeType
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string     $name
      * @return SensorType
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -118,20 +117,20 @@ class NodeType
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string     $description
      * @return SensorType
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -141,20 +140,20 @@ class NodeType
     /**
      * Set unit
      *
-     * @param string $unit
+     * @param  string     $unit
      * @return SensorType
      */
     public function setUnit($unit)
     {
         $this->unit = $unit;
-    
+
         return $this;
     }
 
     /**
      * Get unit
      *
-     * @return string 
+     * @return string
      */
     public function getUnit()
     {
@@ -164,26 +163,26 @@ class NodeType
     /**
      * Set isActive
      *
-     * @param boolean $isActive
+     * @param  boolean    $isActive
      * @return SensorType
      */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
-    
+
         return $this;
     }
 
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
         return $this->isActive;
     }
-    
+
     public function __toString()
     {
         return $this->getName();
@@ -192,20 +191,20 @@ class NodeType
     /**
      * Set created_at
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Period
      */
     public function setCreatedAt($createdAt)
     {
         $this->created_at = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -215,20 +214,20 @@ class NodeType
     /**
      * Set updated_at
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Period
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updated_at = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -237,10 +236,11 @@ class NodeType
 
     /**
     * Custom toArray classe
-    * 
+    *
     * @return array
     */
-    public function toArray(){
+    public function toArray()
+    {
         return array(
             'id' => $this->getId(),
             'name' => $this->getName(),

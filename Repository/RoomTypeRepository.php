@@ -27,7 +27,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class RoomTypeRepository extends EntityRepository
 {
-	/**
+    /**
 	 * Return all types ordered by names
 	 * @Return Doctrine_Collection
 	 */

@@ -18,7 +18,7 @@ class RestLogsController extends Controller
      */
     protected $logsManager;
     protected $container;
-    
+
     public function __construct(\Ydle\HubBundle\Manager\LogsManager $logsManager, Container $container)
     {
         $this->logsManager = $logsManager;
@@ -27,7 +27,7 @@ class RestLogsController extends Controller
 
     /**
      * Allow to create log for master
-     * 
+     *
      * @QueryParam(name="message", requirements="\w+", default="test", description="message")
      * @QueryParam(name="level", requirements="\w+", default="info", description="level")
      * @Post("/api/log/add")
@@ -37,21 +37,21 @@ class RestLogsController extends Controller
         $message = $paramFetcher->get('message');
         $level = $paramFetcher->get('level');
 
-        if(empty($message)){             
+        if (empty($message)) {
             $error = $this->getTranslator()->trans('log.empty.message');
             throw new HttpException(404, $error);
-        } 
-    	$this->getLogger()->log($level, $message, 'master'); 
+        }
+        $this->getLogger()->log($level, $message, 'master');
     }
-    
+
     /**
      * Retrieve the list of available node types
-     * 
+     *
      * @QueryParam(name="page", requirements="\d+", default="1", description="Page for node types list pagination")
      * @QueryParam(name="count", requirements="\d+", default="10", description="Number of nodes by page")
      * @QueryParam(name="type", requirements="\w+", default="", description="type of log")
      * @QueryParam(name="source", requirements="\w+", default="", description="source of log")
-     * 
+     *
      * @param ParamFetcher $paramFetcher
      */
     public function getLogsListAction(ParamFetcher $paramFetcher)
@@ -60,25 +60,25 @@ class RestLogsController extends Controller
         $count  = $paramFetcher->get('count');
         $type   = $paramFetcher->get('type');
         $source = $paramFetcher->get('source');
-        
+
         $pager = $this->getLogsManager()->getPager($this->filterCriteria($paramFetcher), $page, $count);
-       
+
         return $pager;
     }
-    
+
     /**
-     * 
+     *
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
      */
     public function deleteLogsListAction(ParamFetcher $paramFetcher)
-    {    
+    {
         $this->getLogsManager()->reset();
-        
+
         $message = $this->getTranslator()->trans('logs.table.empty');
         $this->getLogger()->log('info', $message, 'hub');
-        
+
     }
-    
+
     /**
      * Wrapper for logger
      */
@@ -86,7 +86,7 @@ class RestLogsController extends Controller
     {
         return $this->container->get('ydle.logger');
     }
-    
+
     /**
      * Wrapper for nodetype manager
      */
@@ -94,12 +94,11 @@ class RestLogsController extends Controller
     {
         return $this->logsManager;
     }
-    
+
     private function getTranslator()
     {
         return $this->container->get('translator');
     }
-
 
     /**
     * Filters criteria from $paramFetcher to be compatible with the Pager criteria

@@ -32,13 +32,13 @@ class NodeManager extends BaseEntityManager implements NodeManagerInterface
     public function getPager(array $criteria, $page, $limit = 10, array $sort = array())
     {
         $parameters = array();
-        
+
         $query = $this->getRepository()
             ->createQueryBuilder('n')
             ->select('n')
             ->where('1=1');
-        
-        if(!empty($criteria['room_id'])){
+
+        if (!empty($criteria['room_id'])) {
             $parameters['room_id'] = $criteria['room_id'];
             $query->andWhere('n.room = :room_id');
         }
@@ -53,29 +53,30 @@ class NodeManager extends BaseEntityManager implements NodeManagerInterface
 
         return $pager;
     }
-    
+
     /**
      * Change the state of a node
-     * 
-     * @param integer $id
-     * @param boolean $newState
+     *
+     * @param  integer $id
+     * @param  boolean $newState
      * @return boolean
      */
     public function changeState($id, $newState = 0)
     {
-        if(!$object = $this->find($id)){
+        if (!$object = $this->find($id)) {
             return false;
         }
         $object->setIsActive($newState);
         $this->save($object);
+
         return true;
     }
-    
+
     public function find($id)
     {
         return $this->getRepository()->find($id);
     }
-    
+
     public function findOneBy(array $criteria, array $orderBy = null)
     {
         return $this->getRepository()->findOneBy($criteria);

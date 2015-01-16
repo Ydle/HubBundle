@@ -34,19 +34,21 @@ class LogsRepository extends EntityRepository
     public function createViewLogQuery()
     {
         $query = $this->createQueryBuilder('l')
-                    ->addOrderBy('l.created_at', "DESC")  
+                    ->addOrderBy('l.created_at', "DESC")
         ;
+
         return $query;
     }
-    
+
     /**
      * Delete all data from the logs table
-     * 
+     *
      * @return integer
      */
     public function reset()
     {
         $query = $this->getEntityManager()->createQuery('DELETE FROM YdleHubBundle:Logs');
+
         return $query->execute();
     }
 }

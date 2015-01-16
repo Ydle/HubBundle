@@ -11,9 +11,6 @@
 
 namespace Ydle\HubBundle\Model;
 
-use Ydle\HubBundle\Model\ManagerInterface;
-use Ydle\HubBundle\Model\PageableManagerInterface;
-
 interface LogsManagerInterface extends ManagerInterface, PageableManagerInterface
 {
 }

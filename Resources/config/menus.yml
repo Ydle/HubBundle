@@ -2,7 +2,7 @@ services:
     ydle.menu_builder:
         class: Ydle\HubBundle\Menu\MenuBuilder
         arguments: ["@knp_menu.factory"]
-        
+
     ydle.menu.main:
         class: Knp\Menu\MenuItem # the service definition requires setting the class
         factory_service: ydle.menu_builder

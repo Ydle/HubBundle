@@ -2,22 +2,22 @@ roomtypeController:
   type: rest
   resource: ydle.settings.roomtype.controller
   name-prefix: ydle_api_
-  
+
 nodetypeController:
   type: rest
   resource: ydle.settings.nodetype.controller
   name-prefix: ydle_api_
-  
+
 logsController:
   type: rest
   resource: ydle.settings.logs.controller
   name-prefix: ydle_api_
-  
+
 nodesController:
   type: rest
   resource: ydle.settings.nodes.controller
   name-prefix: ydle_api_
-  
+
 roomsController:
   type: rest
   resource: ydle.settings.rooms.controller

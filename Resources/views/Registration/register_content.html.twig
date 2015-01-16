@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST"  class="form-horizontal fos_user_registration_register">
-    
+
     <div class="form-group">
         {{ form_label(form.email,  "email.title" | trans , {'label_attr':{'class': 'col-sm-5 control-label'}} ) }}
         <div class="col-xs-3">

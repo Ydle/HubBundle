@@ -27,20 +27,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class RoomRepository extends EntityRepository
 {
-    
+
     public function retrieve($params = array())
     {
         $qb = $this->createQueryBuilder("r");
         $qb->where('1=1');
         $qb->orderBy('r.created_at', 'DESC');
-        
-        if(!empty($params['limit'])) {
+
+        if (!empty($params['limit'])) {
             $qb->setMaxResults($params['limit']);
         }
-        
+
         $q = $qb->getQuery();
         try {
-            if(isset($params['querybuilder'])){
+            if (isset($params['querybuilder'])) {
                 return $qb;
             } else {
                 return $q->getResult();

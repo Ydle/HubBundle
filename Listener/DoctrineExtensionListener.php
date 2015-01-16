@@ -33,4 +33,3 @@ class DoctrineExtensionListener implements ContainerAwareInterface
         }
     }
 }
-

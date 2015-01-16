@@ -25,23 +25,19 @@ use Ydle\HubBundle\Entity\Room;
 
 use Symfony\Component\HttpFoundation\Response;
 
-
 class RoomController extends Controller
 {
 
     /**
      * Homepage for rooms managment
-     * 
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function indexAction(Request $request)
     {
-        
         return $this->render('YdleHubBundle:Room:index.html.twig', array(
         ));
     }
-   
-
 
     /**
      * Display a form to create or edit a room
@@ -53,41 +49,40 @@ class RoomController extends Controller
         $room = new Room();
         // Manage edition mode
         $this->currentRoom = $request->get('room');
-        if($this->currentRoom){
+        if ($this->currentRoom) {
             $room = $this->get("ydle.room.manager")->find($request->get('room'));
         }
         $action = $this->get('router')->generate('submitRoomForm', array('room' => $this->currentRoom));
 
         $form = $this->createForm("rooms_form", $room);
         $form->handleRequest($request);
-        
-       
-	return $this->render('YdleHubBundle:Rooms:form.html.twig', array(
+
+    return $this->render('YdleHubBundle:Rooms:form.html.twig', array(
             'action' => $action,
             'form' => $form->createView()
         ));
     }
-   
+
     public function submitRoomFormAction(Request $request)
     {
         $statusCode = 200;
         $room = new Room();
         // Manage edition mode
         $this->currentRoom = $request->get('room');
-        if($this->currentRoom){
+        if ($this->currentRoom) {
             $room = $this->get("ydle.room.manager")->find($request->get('room'));
         }
         $action = $this->get('router')->generate('submitRoomForm', array('room' => $this->currentRoom));
 
         $form = $this->createForm("rooms_form", $room);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($room);
             $em->flush();
             $message = $this->get('translator')->trans('room.add.success');
-            if($room->getId()){
+            if ($room->getId()) {
                 $message = $this->get('translator')->trans('room.edit.success');
             }
             $this->get('session')->getFlashBag()->add('notice', $message);
@@ -106,36 +101,37 @@ class RoomController extends Controller
         $response->setContent($html);
         $response->setStatusCode($statusCode);
         $response->headers->set('Content-Type', 'text/html');
+
         return $response;
     }
-    
-    
+
     public function roomDetailAction(Request $request)
     {
         $room = $this->get("ydle.room.manager")->findBySlug($request->get('room'));
-        
+
         $lastData = $this->get('ydle.data.manager')->getLastData($room->getId());
-	$cleanData = array();
-        foreach($lastData as $data){
+    $cleanData = array();
+        foreach ($lastData as $data) {
             $unit = $data->getType()->getUnit();
             $tmpData = array(
                 'unit' => $unit,
                 'data' => $data->getData()
             );
-            switch($unit){
+            switch ($unit) {
                 case '%':
                 case '°C':
                     $tmpData['data'] = round($tmpData['data'] / 100, 1);
                 break;
             }
             $cleanData[$data->getType()->getId()] = $tmpData;
-        } 
+        }
+
         return $this->render('YdleHubBundle:Room:detail.html.twig', array(
             'room' => $room,
             'data' => $cleanData
         ));
     }
-    
+
     public function dataAction(Request $request)
     {
         $msg = 'ok';
@@ -145,7 +141,7 @@ class RoomController extends Controller
         $typeId = $request->get('type');
         $startDate = date("2014-01-27 00:00:00");
         $label = '';
-        if(!$type = $this->get('ydle.sensortypes.manager')->getRepository()->find($typeId)){
+        if (!$type = $this->get('ydle.sensortypes.manager')->getRepository()->find($typeId)) {
             $msg = 'ko';
         } else {
 
@@ -157,9 +153,9 @@ class RoomController extends Controller
             );
             $data = $this->get("ydle.data.manager")->findByRoom($params);
 
-            foreach($data as $res){
+            foreach ($data as $res) {
                 $data = $res->getData();
-                switch($type->getUnit()){
+                switch ($type->getUnit()) {
                     case '°':
                         $data = $data / 100;
                         break;
@@ -171,6 +167,7 @@ class RoomController extends Controller
             }
             $label = $type->getName();
         }
+
         return new JsonResponse(array('msgReturn' => $msg, 'label' => $label, 'data' => $result, 'roomId' => $roomId, 'nodeId' => $nodeId));
     }
 }

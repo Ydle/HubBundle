@@ -23,17 +23,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 
 class NodeType extends AbstractType
-{    
+{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder                                                   
+        $builder
                 ->add('name', 'text', array('required' => true))
                 ->add('code', 'integer', array('required' => true))
                 ->add('description', 'textarea', array('required' => false))
                 ->add('room', 'entity', array(
                     'class' => 'YdleHubBundle:Room',
                     'property' => 'name',
-                    'query_builder' => function(EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                                 ->where('t.isActive = 1')
                                 ->orderBy('t.name', 'ASC');
@@ -43,7 +43,7 @@ class NodeType extends AbstractType
                     'class' => 'YdleHubBundle:NodeType',
                     'property' => 'name',
                     'multiple' => true,
-                    'query_builder' => function(EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                                 ->where('t.isActive = 1')
                                 ->orderBy('t.name', 'ASC');
@@ -65,4 +65,3 @@ class NodeType extends AbstractType
         ));
     }
 }
-?>

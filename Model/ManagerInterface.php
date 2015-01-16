@@ -91,5 +91,5 @@ interface ManagerInterface
     *
     * @return Connection
     */
-    public function getConnection(); 
+    public function getConnection();
 }

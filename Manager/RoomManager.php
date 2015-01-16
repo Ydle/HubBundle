@@ -46,31 +46,32 @@ class RoomManager extends BaseEntityManager implements RoomManagerInterface
 
         return $pager;
     }
-    
+
     public function find($id)
     {
         return $this->getRepository()->find($id);
     }
-    
+
     public function findBySlug($slug)
     {
         return $this->getRepository()->findOneBy(array('slug' => $slug));
     }
-    
+
     /**
      * Change the state of a room type
-     * 
-     * @param integer $id
-     * @param boolean $newState
+     *
+     * @param  integer $id
+     * @param  boolean $newState
      * @return boolean
      */
     public function changeState($id, $newState = 0)
     {
-        if(!$object = $this->find($id)){
+        if (!$object = $this->find($id)) {
             return false;
         }
         $object->setIsActive($newState);
         $this->save($object);
+
         return true;
     }
 }

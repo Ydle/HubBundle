@@ -44,29 +44,28 @@ class NodeTypeManager extends BaseEntityManager implements NodeTypeManagerInterf
         $pager->setMaxPerPage($limit);
         $pager->setPage($page);
         $pager->init();
-        
+
         return $pager;
     }
 
-
-    
     /**
      * Change the state of a room type
-     * 
-     * @param integer $id
-     * @param boolean $newState
+     *
+     * @param  integer $id
+     * @param  boolean $newState
      * @return boolean
      */
     public function changeState($id, $newState = 0)
     {
-        if(!$object = $this->find($id)){
+        if (!$object = $this->find($id)) {
             return false;
         }
         $object->setIsActive($newState);
         $this->save($object);
+
         return true;
     }
-    
+
     public function find($id)
     {
         return $this->getRepository()->find($id);

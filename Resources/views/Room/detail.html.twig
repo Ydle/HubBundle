@@ -45,7 +45,7 @@
             {% else %}
             <a href="" class="label label-primary">{{ "label.no" | trans }}</a>
             {% endif %}<br />
-            {{ "room.nodes" | trans }} : 
+            {{ "room.nodes" | trans }} :
             {% if room.nodes|length %}
               {% for node in room.nodes %}
                 {{ node.name }}<br />
@@ -58,7 +58,7 @@
             {% endif %}
             </div>
         </div>
-    </div> 
+    </div>
 </div>
 {% if room.nodes|length %}
 <div class="row">
