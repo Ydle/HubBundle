@@ -3,7 +3,7 @@
 namespace Ydle\HubBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Ydle\HubBundle\Entity\NodeData;
+
 
 class DefaultController extends Controller
 {
