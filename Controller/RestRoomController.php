@@ -35,7 +35,7 @@ class RestRoomController extends Controller
      */
     public function getRoomsListAction(ParamFetcher $paramFetcher)
     {
-    $page  = $paramFetcher->get('page');
+        $page  = $paramFetcher->get('page');
         $count = $paramFetcher->get('count');
 
         $pager = $this->getRoomManager()->getPager($this->filterCriteria($paramFetcher), $page, $count);

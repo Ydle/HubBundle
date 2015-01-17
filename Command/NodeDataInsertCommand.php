@@ -43,12 +43,12 @@ class NodeDataInsertCommand extends BaseCommand
             $output->writeln('<error>Unknown node type</error>');
 
             return;
-    }
+        }
         if (null === ($node = $this->getNodeManager()->findOneBy(array('code' => $nodeCode)))) {
             $output->writeln('<error>Unknown node</error>');
 
             return;
-    }
+        }
 
         if ($autopopulate) {
             $startDate = 1409582400 ;

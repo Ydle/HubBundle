@@ -57,7 +57,7 @@ class RoomController extends Controller
         $form = $this->createForm("rooms_form", $room);
         $form->handleRequest($request);
 
-    return $this->render('YdleHubBundle:Rooms:form.html.twig', array(
+        return $this->render('YdleHubBundle:Rooms:form.html.twig', array(
             'action' => $action,
             'form' => $form->createView()
         ));
@@ -110,7 +110,7 @@ class RoomController extends Controller
         $room = $this->get("ydle.room.manager")->findBySlug($request->get('room'));
 
         $lastData = $this->get('ydle.data.manager')->getLastData($room->getId());
-    $cleanData = array();
+        $cleanData = array();
         foreach ($lastData as $data) {
             $unit = $data->getType()->getUnit();
             $tmpData = array(

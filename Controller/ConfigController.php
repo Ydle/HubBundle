@@ -24,9 +24,9 @@ class ConfigController extends Controller
      */
     public function typeroomAction(Request $request)
     {
-    $roomType = new RoomType();
+        $roomType = new RoomType();
 
-    $form = $this->createForm("room_types", $roomType);
+        $form = $this->createForm("room_types", $roomType);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -56,13 +56,13 @@ class ConfigController extends Controller
     public function typeroomFormAction(Request $request)
     {
         $result = "ok";
-    $roomType = new RoomType();
+        $roomType = new RoomType();
         if ($typeId = $request->get('type')) {
             $roomType = $this->get("ydle.roomtype.manager")->find($typeId);
         }
         $action = $this->get('router')->generate('configTypeRoomForm', array('type' => $typeId));
 
-    $form = $this->createForm("room_types", $roomType);
+        $form = $this->createForm("room_types", $roomType);
         if ($request->isMethod('POST')) {
             $form->bind($request);
             if ($form->isValid()) {
@@ -183,7 +183,4 @@ class ConfigController extends Controller
         return $this->render('YdleHubBundle:Config:dashboard.html.twig', array('current' => 'dashboard', 'mainpage' => 'config'));
     }
 
-    public function populateAction()
-    {
-    }
 }

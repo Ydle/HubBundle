@@ -24,7 +24,7 @@ abstract class BaseCommand extends ContainerAwareCommand
 
     public function getNodeManager()
     {
-    return $this->getContainer()->get('ydle.node.manager');
+        return $this->getContainer()->get('ydle.node.manager');
     }
 
     public function getNodeTypeManager()

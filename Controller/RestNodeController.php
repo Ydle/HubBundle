@@ -36,7 +36,7 @@ class RestNodeController extends Controller
      */
     public function getNodesListAction(ParamFetcher $paramFetcher)
     {
-    $page  = $paramFetcher->get('page');
+        $page  = $paramFetcher->get('page');
         $count = $paramFetcher->get('count');
 
         $pager = $this->getNodeManager()->getPager($this->filterCriteria($paramFetcher), $page, $count);
@@ -55,7 +55,7 @@ class RestNodeController extends Controller
      */
     public function getRoomNodesListAction(ParamFetcher $paramFetcher)
     {
-    $page   = $paramFetcher->get('page');
+        $page   = $paramFetcher->get('page');
         $count  = $paramFetcher->get('count');
 
         $pager = $this->getNodeManager()->getPager($this->filterCriteria($paramFetcher), $page, $count);
@@ -322,7 +322,7 @@ class RestNodeController extends Controller
         $address .= $masterCode;
 
         $ch = curl_init($address);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_exec($ch);
         curl_close($ch);
         $message = $this->getTranslator()->trans('node.link.success', array('%nodeCode%' => $node->getCode()));

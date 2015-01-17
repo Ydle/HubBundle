@@ -68,10 +68,10 @@ class NodesController extends Controller
         }
         $action = $this->get('router')->generate('submitNodeForm', array('node' => $this->currentNode));
 
-    $form = $this->createForm("node_form", $node);
+        $form = $this->createForm("node_form", $node);
         $form->handleRequest($request);
 
-    if ($form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($node);
             $em->flush();
@@ -86,7 +86,7 @@ class NodesController extends Controller
             $statusCode = 400;
         }
 
-    $html =  $this->renderView('YdleHubBundle:Nodes:form.html.twig', array(
+        $html =  $this->renderView('YdleHubBundle:Nodes:form.html.twig', array(
             'action' => $action,
             'form' => $form->createView()
         ));

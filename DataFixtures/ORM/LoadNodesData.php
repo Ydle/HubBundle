@@ -29,7 +29,7 @@ class LoadNodesData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-    $nodeTypeTemperature = new NodeType();
+        $nodeTypeTemperature = new NodeType();
         $nodeTypeTemperature->setName('Temperature');
         $nodeTypeTemperature->setUnit('°C');
         $nodeTypeTemperature->setIsActive(true);
