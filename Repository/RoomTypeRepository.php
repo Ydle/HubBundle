@@ -28,9 +28,9 @@ use Doctrine\ORM\EntityRepository;
 class RoomTypeRepository extends EntityRepository
 {
     /**
-	 * Return all types ordered by names
-	 * @Return Doctrine_Collection
-	 */
+     * Return all types ordered by names
+     * @Return Doctrine_Collection
+     */
     public function findAllOrderedByName()
     {
         return $this->getEntityManager()

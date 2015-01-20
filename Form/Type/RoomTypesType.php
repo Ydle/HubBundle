@@ -28,7 +28,6 @@ class RoomTypesType extends AbstractType
         $builder
                 ->add('name', 'text', array('required' => true))
                 ->add('description', 'textarea', array('required' => false))
-                ->add('is_active', 'checkbox', array('label' => 'Actif ?', 'required' => false))
         ;
     }
 

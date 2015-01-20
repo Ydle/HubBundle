@@ -34,11 +34,9 @@ class RoomType extends AbstractType
                     'property' => 'name',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
-                                ->where('t.isActive = 1')
                                 ->orderBy('t.name', 'ASC');
                     },
                 ))
-                ->add('is_active', 'checkbox', array('label' => 'Actif ?', 'required' => false))
         ;
     }
 

@@ -80,6 +80,11 @@ class NodeType
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+    
+    public function __construct()
+    {
+        $this->isActive = true;
+    }
 
     /**
      * Get id
@@ -163,12 +168,12 @@ class NodeType
     /**
      * Set isActive
      *
-     * @param  boolean    $isActive
+     * @param boolean $active
      * @return SensorType
      */
-    public function setIsActive($isActive)
+    public function setIsActive($active)
     {
-        $this->isActive = $isActive;
+        $this->isActive = $active;
 
         return $this;
     }

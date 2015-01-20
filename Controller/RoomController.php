@@ -35,7 +35,7 @@ class RoomController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('YdleHubBundle:Room:index.html.twig', array(
+        return $this->render('YdleHubBundle:Rooms:index.html.twig', array(
         ));
     }
 
@@ -126,7 +126,7 @@ class RoomController extends Controller
             $cleanData[$data->getType()->getId()] = $tmpData;
         }
 
-        return $this->render('YdleHubBundle:Room:detail.html.twig', array(
+        return $this->render('YdleHubBundle:Rooms:detail.html.twig', array(
             'room' => $room,
             'data' => $cleanData
         ));

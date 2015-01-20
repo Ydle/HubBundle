@@ -29,7 +29,6 @@ class NodeTypesType extends AbstractType
                 ->add('name', 'text', array('required' => true))
                 ->add('unit', 'text', array('required' => false))
                 ->add('description', 'textarea', array('required' => false))
-                ->add('is_active', 'checkbox', array('label' => 'Actif ?', 'required' => false))
         ;
     }
 

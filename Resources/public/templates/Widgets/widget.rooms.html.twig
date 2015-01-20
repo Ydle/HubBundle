@@ -4,7 +4,6 @@
 	<tr>
                 <th>Nom</th>
 		<th>Type</th>
-		<th>Active</th>
 		<th>Action</th>
 	</tr>
 	</thead>
@@ -12,7 +11,6 @@
 	<tr>
                 <th>Nom</th>
 		<th>Type</th>
-		<th>Active</th>
 		<th>Action</th>
 	</tr>
 	</tfoot>
@@ -21,13 +19,6 @@
 	<tr>
 		<td><a href="/room/detail/{{ entry.slug }}" >{{ entry.name }}</a></td>
                 <td>{{ entry.type.name }}</td>
-                <td>
-                     {% if entry.is_active %}
-                     <a class="label label-success ajax-action" data-action="deactivate" href="/room/state.json?room_id={{ entry.id }}&state=0">Yes</a>
-                     {% else %}
-                     <a class="label label-default ajax-action" data-action="activate" href="/room/state.json?room_id={{ entry.id }}&state=1">No</a>
-                     {% endif %}
-                </td>
                 <td>
                      <a href="/room/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="room-form">
                          <i class="fa fa-pencil"></i>

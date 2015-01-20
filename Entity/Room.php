@@ -155,12 +155,12 @@ class Room
     /**
      * Set isActive
      *
-     * @param  boolean $isActive
+     * @param  boolean $active
      * @return Room
      */
-    public function setIsActive($isActive)
+    public function setIsActive($active)
     {
-        $this->isActive = $isActive;
+        $this->isActive = $active;
 
         return $this;
     }

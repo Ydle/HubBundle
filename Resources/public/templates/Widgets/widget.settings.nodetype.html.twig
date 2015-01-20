@@ -6,7 +6,6 @@
                 <th>Unit</th>
 		<th>Description</th>
 		<th>Nb nodes</th>
-		<th>Is active</th>
 		<th>Action</th>
 	</tr>
 	</thead>
@@ -16,7 +15,6 @@
                 <th>Unit</th>
 		<th>Description</th>
 		<th>Nb nodes</th>
-		<th>Is active</th>
 		<th>Action</th>
 	</tr>
 	</tfoot>
@@ -28,13 +26,6 @@
 		<td>{{ entry.description }}</td>
 		<td></td>
 		<td>
-                    {% if entry.is_active %}
-                    <a class="label label-success ajax-action" data-action="deactivate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=0">Yes</a>
-                    {% else %}
-                    <a class="label label-default ajax-action" data-action="activate" href="/node/type/state.json?nodetype_id={{ entry.id }}&state=1">No</a>
-                    {% endif %}
-                </td>
-		<td>
                     <a href="/conf/typenode/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="nodetype-form">
                         <i class="fa fa-pencil"></i>
                     </a>
@@ -45,7 +36,7 @@
 	</tr>
 	{% else %}
 	<tr>
-	    <td colspan="6">No entries</td>
+	    <td colspan="5">No entries</td>
 	<tr/>
 	{% endfor %}
 	</tbody>

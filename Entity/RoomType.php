@@ -150,12 +150,12 @@ class RoomType
     /**
      * Set isActive
      *
-     * @param  boolean  $isActive
+     * @param boolean $active
      * @return RoomType
      */
-    public function setIsActive($isActive)
+    public function setIsActive($active)
     {
-        $this->isActive = $isActive;
+        $this->isActive = $active;
 
         return $this;
     }
@@ -175,6 +175,7 @@ class RoomType
     public function __construct()
     {
         $this->rooms = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isActive = true;
     }
 
     /**
