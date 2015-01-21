@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
 use Ydle\HubBundle\Entity\NodeData;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class RestNodeController extends Controller
 {
@@ -133,19 +134,16 @@ class RestNodeController extends Controller
         return $result;
     }
 
+
+
     /**
-     *
-     * @QueryParam(name="sender", requirements="\d+", default="0", description="Code of the node sending data")
-     * @QueryParam(name="type", requirements="\d+", default="0", description="type of data sent")
-     * @QueryParam(name="data", requirements="\d+", default="1", description="New state for this node")
-     *
-     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
+     * @var Request $request
      */
-    public function postNodesDatasAction(ParamFetcher $paramFetcher)
+    public function postNodesDatasAction(Request $request)
     {
-        $sender   = $paramFetcher->get('sender');
-        $type     = $paramFetcher->get('type');
-        $data     = $paramFetcher->get('data');
+        $sender   = $request->get('sender');
+        $type     = $request->get('type');
+        $data     = $request->get('data');
 
         if (!$node = $this->getNodeManager()->findOneBy(array('code' => $sender))) {
             $message = $this->getTranslator()->trans('node.not.found');
