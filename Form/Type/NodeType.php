@@ -35,7 +35,6 @@ class NodeType extends AbstractType
                     'property' => 'name',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
-                                ->where('t.isActive = 1')
                                 ->orderBy('t.name', 'ASC');
                     },
                 ))
@@ -45,7 +44,6 @@ class NodeType extends AbstractType
                     'multiple' => true,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
-                                ->where('t.isActive = 1')
                                 ->orderBy('t.name', 'ASC');
                     },
                 ))
