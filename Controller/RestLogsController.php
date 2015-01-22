@@ -5,7 +5,6 @@ namespace Ydle\HubBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Request\ParamFetcher;
-use Symfony\Component\DependencyInjection\Container;
 use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -17,12 +16,14 @@ class RestLogsController extends Controller
      * @var CategoryManagerInterface
      */
     protected $logsManager;
-    protected $container;
+    protected $logger;
+    protected $translator;
 
-    public function __construct(\Ydle\HubBundle\Manager\LogsManager $logsManager, Container $container)
+    public function __construct(\Ydle\HubBundle\Manager\LogsManager $logsManager, $logger, $translator)
     {
         $this->logsManager = $logsManager;
-        $this->container = $container;
+        $this->logger = $logger;
+        $this->translator = $translator;
     }
 
     /**
@@ -84,7 +85,7 @@ class RestLogsController extends Controller
      */
     private function getLogger()
     {
-        return $this->container->get('ydle.logger');
+        return $this->logger;
     }
 
     /**
@@ -97,7 +98,7 @@ class RestLogsController extends Controller
 
     private function getTranslator()
     {
-        return $this->container->get('translator');
+        return $this->translator;
     }
 
     /**

@@ -4,7 +4,6 @@ namespace Ydle\HubBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\DependencyInjection\Container;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
@@ -20,15 +19,24 @@ class RestNodeController extends Controller
     protected $nodeManager;
 
     protected $container;
+    
+    protected $nodeTypeManager;
+    protected $nodeDataManager;
+    protected $logger;
+    protected $translator;
 
-    public function __construct(\Ydle\HubBundle\Manager\NodeManager $nodeTypeManager, Container $container)
+    public function __construct(\Ydle\HubBundle\Manager\NodeManager $nodeManager, 
+                                $nodeTypeManager, $nodeDataManager, $logger, $translator)
     {
-        $this->nodeManager = $nodeTypeManager;
-        $this->container = $container;
+        $this->nodeManager = $nodeManager;
+        $this->nodeTypeManager = $nodeTypeManager;
+        $this->nodeDataManager = $nodeDataManager;
+        $this->logger = $logger;
+        $this->translator = $translator;
     }
 
     /**
-     * Retrieve the list of available node types
+     * Retrieve the list of available nodes 
      *
      * @QueryParam(name="page", requirements="\d+", default="0", description="Number of page")
      * @QueryParam(name="count", requirements="\d+", default="0", description="Number of nodes by page")
@@ -46,7 +54,7 @@ class RestNodeController extends Controller
     }
 
     /**
-     * Retrieve the list of available node types
+     * Retrieve the list of available nodes
      *
      * @QueryParam(name="room_id", requirements="\d+", default="0", description="Id of the room")
      * @QueryParam(name="page", requirements="\d+", default="0", description="Number of page")
@@ -77,12 +85,12 @@ class RestNodeController extends Controller
      */
     private function getNodeTypeManager()
     {
-        return $this->container->get('ydle.nodetype.manager');
+        return $this->nodeTypeManager;
     }
 
     private function getNodeDataManager()
     {
-        return $this->container->get('ydle.data.manager');
+        return $this->nodeDataManager;
     }
 
     /**
@@ -169,7 +177,7 @@ class RestNodeController extends Controller
         $em->persist($nodeData);
         $em->flush();
 
-        $this->get('ydle.logger')->log('data', 'Data received from node #'.$sender.' : '.$data, 'node');
+        $this->getLogger()->log('data', 'Data received from node #'.$sender.' : '.$data, 'node');
 
         return new JsonResponse(array('code' => 0, 'result' => 'data sent'));
 
@@ -242,7 +250,7 @@ class RestNodeController extends Controller
 
     private function getTranslator()
     {
-        return $this->container->get('translator');
+        return $this->translator;
     }
 
     /**
@@ -250,7 +258,7 @@ class RestNodeController extends Controller
      */
     private function getLogger()
     {
-        return $this->container->get('ydle.logger');
+        return $this->logger;
     }
 
     /**
@@ -285,7 +293,7 @@ class RestNodeController extends Controller
         curl_exec($ch);
         curl_close($ch);
         $message = $this->getTranslator()->trans('node.reset.success', array('%nodeCode%' => $node->getCode()));
-        $this->get('ydle.logger')->log('info', $message);
+        $this->getLogger()->log('info', $message);
         $this->get('session')->getFlashBag()->add('notice', 'Reset envoyé');
 
         return $statusCode;
@@ -324,20 +332,20 @@ class RestNodeController extends Controller
         curl_exec($ch);
         curl_close($ch);
         $message = $this->getTranslator()->trans('node.link.success', array('%nodeCode%' => $node->getCode()));
-        $this->get('ydle.logger')->log('info', $message);
+        $this->getLogger()->log('info', $message);
         $this->get('session')->getFlashBag()->add('notice', 'Link envoyé');
 
         return $statusCode;
     }
     /**
      *
-     * @QueryParam(name="node_id", requirements="\d+", default="0", description="Id of the node")
+     * @QueryParam(name="node", requirements="\d+", default="0", description="Id of the node")
      *
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
      */
     public function deleteNodeAction(ParamFetcher $paramFetcher)
     {
-        $nodeId = $paramFetcher->get('node_id');
+        $nodeId = $paramFetcher->get('node');
 
         if (!$object = $this->getNodeManager()->find($nodeId)) {
             throw new HttpException(404, 'This node does not exist');

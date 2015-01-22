@@ -4,7 +4,6 @@ namespace Ydle\HubBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\DependencyInjection\Container;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -16,12 +15,14 @@ class RestNodeTypeController extends Controller
      */
     protected $nodeTypeManager;
 
-    protected $container;
+    protected $logger;
+    protected $translator;
 
-    public function __construct(\Ydle\HubBundle\Manager\NodeTypeManager $nodeTypeManager, Container $container)
+    public function __construct(\Ydle\HubBundle\Manager\NodeTypeManager $nodeTypeManager, $logger, $translator)
     {
         $this->nodeTypeManager = $nodeTypeManager;
-        $this->container = $container;
+        $this->logger = $logger;
+        $this->translator = $translator;
     }
 
     /**
@@ -64,32 +65,6 @@ class RestNodeTypeController extends Controller
     /**
      *
      * @QueryParam(name="nodetype_id", requirements="\d+", default="0", description="Id of the node type")
-     * @QueryParam(name="state", requirements="\d+", default="1", description="New state for this node type")
-     *
-     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
-     */
-    public function putNodeTypeStateAction(ParamFetcher $paramFetcher)
-    {
-        $nodetypeId = $paramFetcher->get('nodetype_id');
-        $state = $paramFetcher->get('state');
-
-        if (!$result = $this->getNodeTypeManager()->changeState($nodetypeId, $state)) {
-            throw new HttpException(404, 'This node type does not exist');
-        }
-        if ($state == 1) {
-            $message = $this->getTranslator()->trans('nodetype.activate.success');
-            $this->getLogger()->log('info', $message, 'hub');
-        } elseif ($state == 0) {
-            $message = $this->getTranslator()->trans('nodetype.deactivate.success');
-            $this->getLogger()->log('info', $message, 'hub');
-        }
-
-        return $result;
-    }
-
-    /**
-     *
-     * @QueryParam(name="nodetype_id", requirements="\d+", default="0", description="Id of the node type")
      *
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
      */
@@ -121,7 +96,7 @@ class RestNodeTypeController extends Controller
      */
     private function getTranslator()
     {
-        return $this->container->get('translator');
+        return $this->translator;
     }
 
     /**
@@ -129,7 +104,7 @@ class RestNodeTypeController extends Controller
      */
     private function getLogger()
     {
-        return $this->container->get('ydle.logger');
+        return $this->logger;
     }
 
     /**

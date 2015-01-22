@@ -17,12 +17,14 @@ class RestRoomTypeController extends Controller
      */
     protected $roomTypeManager;
 
-    protected $container;
+    protected $logger;
+    protected $translator;
 
-    public function __construct(\Ydle\HubBundle\Manager\RoomTypeManager $roomTypeManager, Container $container)
+    public function __construct(\Ydle\HubBundle\Manager\RoomTypeManager $roomTypeManager, $logger, $translator)
     {
         $this->roomTypeManager = $roomTypeManager;
-        $this->container = $container;
+        $this->logger = $logger;
+        $this->translator = $translator;
     }
 
     /**
@@ -103,8 +105,8 @@ class RestRoomTypeController extends Controller
         }
         $result = $this->getRoomTypeManager()->delete($object);
 
-        $message = $this->get('translator')->trans('roomtype.delete.success');
-        $this->get('ydle.logger')->log('info', $message, 'hub');
+        $message = $this->getTranslator()->trans('roomtype.delete.success');
+        $this->getLogger()->log('info', $message, 'hub');
 
         return $result;
     }
@@ -122,7 +124,7 @@ class RestRoomTypeController extends Controller
      */
     private function getTranslator()
     {
-        return $this->container->get('translator');
+        return $this->translator;
     }
 
     /**
@@ -130,7 +132,7 @@ class RestRoomTypeController extends Controller
      */
     private function getLogger()
     {
-        return $this->container->get('ydle.logger');
+        return $this->logger;
     }
 
     /**

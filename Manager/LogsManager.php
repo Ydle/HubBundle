@@ -37,7 +37,8 @@ class LogsManager extends BaseEntityManager implements LogsManagerInterface
         $query = $this->getRepository()
             ->createQueryBuilder('l')
             ->select('l')
-            ->where('1=1');
+            ->where('1=1')
+            ->addOrderBy('l.created_at', "DESC");
 
         if (!empty($criteria['type']) && $criteria['type'] != "all") {
            $query->andWhere('l.type = :type');

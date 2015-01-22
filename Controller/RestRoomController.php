@@ -4,7 +4,6 @@ namespace Ydle\HubBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\DependencyInjection\Container;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
@@ -17,12 +16,14 @@ class RestRoomController extends Controller
      */
     protected $roomManager;
 
-    protected $container;
+    protected $logger;
+    protected $translator;
 
-    public function __construct(\Ydle\HubBundle\Manager\RoomManager $roomManager, Container $container)
+    public function __construct(\Ydle\HubBundle\Manager\RoomManager $roomManager, $logger, $translator)
     {
         $this->roomManager = $roomManager;
-        $this->container = $container;
+        $this->logger = $logger;
+        $this->translator = $translator;
     }
 
     /**
@@ -101,7 +102,7 @@ class RestRoomController extends Controller
 
     private function getTranslator()
     {
-        return $this->container->get('translator');
+        return $this->translator;
     }
 
     /**
@@ -109,7 +110,7 @@ class RestRoomController extends Controller
      */
     private function getLogger()
     {
-        return $this->container->get('ydle.logger');
+        return $this->logger;
     }
 
     /**

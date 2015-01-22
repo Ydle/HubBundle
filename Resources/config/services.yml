@@ -46,16 +46,16 @@ services:
 
   ydle.settings.roomtype.controller:
     class: %ydle.settings.roomtype.controller.class%
-    arguments: ["@ydle.roomtype.manager", "@service_container"]
+    arguments: ["@ydle.roomtype.manager", "@ydle.logger", "@translator"]
   ydle.settings.nodetype.controller:
     class: %ydle.settings.nodetype.controller.class%
-    arguments: ["@ydle.nodetype.manager", "@service_container"]
+    arguments: ["@ydle.nodetype.manager", "@ydle.logger", "@translator"]
   ydle.settings.logs.controller:
     class: %ydle.settings.logs.controller.class%
-    arguments: ["@ydle.logger", "@service_container"]
+    arguments: ["@ydle.logger", "@ydle.logger", "@translator"]
   ydle.settings.nodes.controller:
     class: %ydle.settings.nodes.controller.class%
-    arguments: ["@ydle.node.manager", "@service_container"]
+    arguments: ["@ydle.node.manager", "@ydle.nodetype.manager", "@ydle.data.manager", "@ydle.logger", "@translator"]
   ydle.settings.rooms.controller:
     class: %ydle.settings.rooms.controller.class%
-    arguments: ["@ydle.room.manager", "@service_container"]
+    arguments: ["@ydle.room.manager", "@ydle.logger", "@translator"]
