@@ -9,6 +9,8 @@ use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\Post;
 use Ydle\HubBundle\Manager\LogsManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class RestLogsController extends Controller
 {
@@ -27,22 +29,21 @@ class RestLogsController extends Controller
     }
 
     /**
-     * Allow to create log for master
-     *
-     * @QueryParam(name="message", requirements="\w+", default="test", description="message")
-     * @QueryParam(name="level", requirements="\w+", default="info", description="level")
-     * @Post("/api/log/add")
+     * @var Request $request
+     * @Post("api/log/add")
      */
-    public function postApiLogAction(ParamFetcher $paramFetcher)
+    public function postApiLogAddAction(Request $request)
     {
-        $message = $paramFetcher->get('message');
-        $level = $paramFetcher->get('level');
-
+        $message = $request->get('message');
+        $level = $request->get('level');
+        
         if (empty($message)) {
             $error = $this->getTranslator()->trans('log.empty.message');
             throw new HttpException(404, $error);
         }
         $this->getLogger()->log($level, $message, 'master');
+        
+        return 'ok';
     }
 
     /**
