@@ -118,6 +118,7 @@ class Node
     {
         // Si vous aviez déjà un constructeur, ajoutez juste cette ligne :
         $this->types = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isActive = true;
     }
 
     /**

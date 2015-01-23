@@ -270,7 +270,7 @@ class RestNodeController extends Controller
     public function putNodeResetAction(ParamFetcher $paramFetcher)
     {
         $statusCode = 200;
-        $nodeId = $paramFetcher->get('node');
+        $nodeId  = $paramFetcher->get('node');
 
         if (!$node = $this->getNodeManager()->find($nodeId)) {
             $message = $this->getTranslator()->trans('node.not.found');
@@ -337,6 +337,7 @@ class RestNodeController extends Controller
 
         return $statusCode;
     }
+    
     /**
      *
      * @QueryParam(name="node", requirements="\d+", default="0", description="Id of the node")
@@ -347,10 +348,39 @@ class RestNodeController extends Controller
     {
         $nodeId = $paramFetcher->get('node');
 
-        if (!$object = $this->getNodeManager()->find($nodeId)) {
+        if (!$node = $this->getNodeManager()->find($nodeId)) {
+            return new JsonResponse('This node does not exist', 404);
+        }
+        
+        if($node->getIsActive()){
+            return new JsonResponse('This node is still active', 403);
+        }
+        
+        $dataParams = array('node_id' => $nodeId, 'limit' => 1);
+        $currentData = $this->getNodeDataManager()->findByParams($dataParams);
+        if(!empty($currentData)){
+            return new JsonResponse('This node still has data', 403);
+        }
+        $result = $this->getNodeManager()->delete($node);
+
+        return $result;
+    }
+    
+    /**
+     *
+     * @QueryParam(name="node", requirements="\d+", default="0", description="Id of the node")
+     *
+     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
+     */
+    public function deleteNodeDataAction(ParamFetcher $paramFetcher)
+    {
+        $nodeId = $paramFetcher->get('node');
+
+        if (!$node = $this->getNodeManager()->find($nodeId)) {
             throw new HttpException(404, 'This node does not exist');
         }
-        $result = $this->getNodeManager()->delete($object);
+        
+        $result = $this->getNodeDataManager()->deleteNodeData($node->getId());
 
         return $result;
     }

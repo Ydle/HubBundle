@@ -234,7 +234,7 @@
                 var editMode = false;
                 $actionType = "PUT";
                 if($(this).attr('data-action').length){
-                    if($(this).attr('data-action') == "delete"){ $actionType = "DELETE" ; }
+                    if($(this).attr('data-action') == "delete" || $(this).attr('data-action') == "flush"){ $actionType = "DELETE" ; }
                     if($(this).attr('data-action') == "edit"){ $actionType = "GET" ; editMode = true}
                 }
                 if(!editMode){
@@ -268,6 +268,18 @@
                         url: $target,
                         success: function(data){
                            loadElement($element, '', true);
+                        },
+                        error: function(){
+                            loadElement($element, '', true);
+                        },
+                        statusCode: {
+                            403: function(xhr, status, error){
+                                if(xhr.responseJSON) {
+                                    displayError(xhr.responseJSON);
+                                } else {
+                                    displayError(error);
+                                }
+                            }
                         }
                     })
                 }
@@ -275,6 +287,16 @@
             e.stopPropagation();
             return false;
         });
+    }
+    
+    function displayError(errorMessage)
+    {
+        $errorDiv = "<div class=\"alert alert-danger alert-dismissable\"> \
+                                        <i class=\"fa fa-ban\"></i> \
+                                        <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button> \
+                                        "+errorMessage+" \
+                                    </div>";
+        $("#logsmessages").append($errorDiv);
     }
         
     function cleanFieldName(fieldName, formName)

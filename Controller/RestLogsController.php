@@ -59,8 +59,6 @@ class RestLogsController extends Controller
     {
         $page   = $paramFetcher->get('page');
         $count  = $paramFetcher->get('count');
-        $type   = $paramFetcher->get('type');
-        $source = $paramFetcher->get('source');
 
         $pager = $this->getLogsManager()->getPager($this->filterCriteria($paramFetcher), $page, $count);
 

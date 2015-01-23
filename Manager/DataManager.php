@@ -38,5 +38,10 @@ class DataManager extends BaseManager
     {
         return $this->getRepository()->getLastData($roomId);
     }
+    
+    public function deleteNodeData($nodeId)
+    {
+        return $this->getRepository()->deleteNodeData($nodeId);
+    }
 
 }

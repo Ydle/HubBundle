@@ -45,13 +45,14 @@
                     <a href="/node.json?node={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
                         <i class="fa fa-times"></i>
                     </a>
-                        {% if entry.is_active %}
+                    {% if entry.is_active %}
                     <a href="/node/link.json?node={{ entry.id }}" class="ajax-action btn btn-primary btn-warning btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to reset this node ?" data-action="reset">
-                        {% else %}
-                            <a href="" class="ajax-action btn btn-primary btn-warning btn-xs disabled" data-confirm="yes" data-confirmmessage="Are you sure to reset this node ?" data-action="reset">
-                        {% endif %}
-                        <i class="fa fa-star"></i>
+                    {% else %}
+                    <a href="" class="ajax-action btn btn-primary btn-warning btn-xs disabled" data-confirm="yes" data-confirmmessage="Are you sure to reset this node ?" data-action="reset">
+                    {% endif %}
+                    <i class="fa fa-star"></i>
                     </a>
+                    <a href="/node/data.json?node={{ entry.id }}" class="ajax-action btn btn-primary btn-warning btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to flush this node ?" data-action="flush" title="flush"><i class="fa fa-fw fa-trash-o"></i></a>
                    </td>
 	</tr>
 	{% else %}

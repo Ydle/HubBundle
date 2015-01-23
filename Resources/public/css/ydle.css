@@ -3202,3 +3202,7 @@ fieldset[disabled] .btn-vk.active {
 .icon-icon_51984:before {
 	content: "\e602";
 }
+
+
+/* MESSAGES */
+#logsmessages{margin:5px 220px 0 250px;}

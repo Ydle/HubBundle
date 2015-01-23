@@ -37,6 +37,11 @@ class NodeDataRepository extends EntityRepository
         }
         $qb->orderBy('d.created')
         ;
+        
+        
+        if (!empty($params['limit'])) {
+            $qb->setMaxResults($params['limit']);
+        }
 
         $q = $qb->getQuery();
         try {
@@ -67,5 +72,18 @@ class NodeDataRepository extends EntityRepository
         } catch (\Doctrine\ORM\NoResultException $e) {
             return null;
         }
+    }
+    
+    /**
+     * Delete all data for a specific node
+     * 
+     * @param integer $nodeId
+     * @return integer
+     */
+    public function deleteNodeData($nodeId)
+    {
+        $query = $this->getEntityManager()->createQuery('DELETE FROM YdleHubBundle:NodeData d WHERE d.node = :node')->setParameter('node', $nodeId);
+        
+        return $query->execute();
     }
 }
