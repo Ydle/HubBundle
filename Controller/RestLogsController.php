@@ -30,7 +30,7 @@ class RestLogsController extends Controller
 
     /**
      * @var Request $request
-     * @Post("api/log/add")
+     * @Post("api/logs/add")
      */
     public function postApiLogAddAction(Request $request)
     {
@@ -43,7 +43,7 @@ class RestLogsController extends Controller
         }
         $this->getLogger()->log($level, $message, 'master');
         
-        return 'ok';
+        return new JsonResponse(array('result' => 'ok'));
     }
 
     /**
