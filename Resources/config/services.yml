@@ -10,6 +10,8 @@ parameters:
   ydle.node.entity.class: Ydle\HubBundle\Entity\Node
   ydle.nodetype.manager.class: Ydle\HubBundle\Manager\NodeTypeManager
   ydle.nodetype.entity.class: Ydle\HubBundle\Entity\NodeType
+  ydle.nodedata.entity.class: Ydle\HubBundle\Entity\NodeData
+
   ydle.validator.unique.master.class: Ydle\HubBundle\Validator\Constraints\IsMasterValidator
 
   ydle.settings.roomtype.controller.class: Ydle\HubBundle\Controller\RestRoomTypeController
@@ -24,8 +26,7 @@ services:
     arguments: [%ydle.logs.entity.class%, "@doctrine"]
   ydle.data.manager:
     class: %ydle.data.manager.class%
-    arguments:
-      entityManager: "@doctrine.orm.entity_manager"
+    arguments: [%ydle.nodedata.entity.class%, "@doctrine"]
   ydle.roomtype.manager:
     class: %ydle.roomtype.manager.class%
     arguments: [%ydle.roomtype.entity.class%, "@doctrine"]
@@ -55,7 +56,7 @@ services:
     arguments: ["@ydle.logger", "@ydle.logger", "@translator"]
   ydle.settings.nodes.controller:
     class: %ydle.settings.nodes.controller.class%
-    arguments: ["@ydle.node.manager", "@ydle.nodetype.manager", "@ydle.data.manager", "@ydle.logger", "@translator"]
+    arguments: ["@ydle.node.manager", "@ydle.nodetype.manager", "@ydle.data.manager", "@ydle.logger", "@translator", "@doctrine.orm.entity_manager"]
   ydle.settings.rooms.controller:
     class: %ydle.settings.rooms.controller.class%
     arguments: ["@ydle.room.manager", "@ydle.logger", "@translator"]

@@ -3,16 +3,11 @@
 namespace Ydle\HubBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
+use Ydle\HubBundle\Model\DataManagerInterface;
+use Ydle\HubBundle\Model\BaseEntityManager;
 
-class DataManager extends BaseManager
+class DataManager extends BaseEntityManager  implements DataManagerInterface
 {
-
-    protected $em;
-
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
 
     public function findAllByName()
     {

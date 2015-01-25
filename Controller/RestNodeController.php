@@ -24,15 +24,17 @@ class RestNodeController extends Controller
     protected $nodeDataManager;
     protected $logger;
     protected $translator;
+    protected $doctrine;
 
     public function __construct(\Ydle\HubBundle\Manager\NodeManager $nodeManager, 
-                                $nodeTypeManager, $nodeDataManager, $logger, $translator)
+                                $nodeTypeManager, $nodeDataManager, $logger, $translator, $doctrine)
     {
         $this->nodeManager = $nodeManager;
         $this->nodeTypeManager = $nodeTypeManager;
         $this->nodeDataManager = $nodeDataManager;
         $this->logger = $logger;
         $this->translator = $translator;
+        $this->doctrine = $doctrine;
     }
 
     /**
@@ -70,6 +72,11 @@ class RestNodeController extends Controller
         $pager = $this->getNodeManager()->getPager($this->filterCriteria($paramFetcher), $page, $count);
 
         return $pager;
+    }
+
+    public function getDoctrine()
+    {
+        return $this->doctrine;
     }
 
     /**
@@ -173,9 +180,7 @@ class RestNodeController extends Controller
         $nodeData->setData($data);
         $nodeData->setType($type);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($nodeData);
-        $em->flush();
+        $this->getNodeDataManager()->save($nodeData);
 
         $this->getLogger()->log('data', 'Data received from node #'.$sender.' : '.$data, 'node');
 
