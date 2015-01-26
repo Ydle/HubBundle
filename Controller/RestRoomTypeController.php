@@ -8,6 +8,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
 use Ydle\HubBundle\Manager\RoomTypeManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RestRoomTypeController extends Controller
 {
@@ -106,8 +107,9 @@ class RestRoomTypeController extends Controller
 
         $message = $this->getTranslator()->trans('roomtype.delete.success');
         $this->getLogger()->log('info', $message, 'hub');
-
-        return $result;
+        
+        
+        return new JsonResponse('Room type deleted successfully', 200);
     }
 
     /**

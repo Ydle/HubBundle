@@ -4,6 +4,7 @@ namespace Ydle\HubBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
@@ -62,6 +63,7 @@ class ConfigController extends Controller
         }
         $action = $this->get('router')->generate('configTypeRoomForm', array('type' => $typeId));
 
+        $response = new Response();
         $form = $this->createForm("room_types", $roomType);
         if ($request->isMethod('POST')) {
             $form->bind($request);
@@ -73,25 +75,18 @@ class ConfigController extends Controller
                 }
                 $em->persist($roomType);
                 $em->flush();
-
-                $response = new JsonResponse();
-                $result = 'success';
-                $data = array(
-                    'result' => $result,
-                    'message' => $message
-                );
-                $response->setData($data);
+                
                 $this->get('ydle.logger')->log('info', $message, 'hub');
-
-                return $response;
+                
+                return new JsonResponse('Type room saved successfully', 200);
             } else {
-                $result = 'error';
+                $response->setStatusCode(400);
             }
         }
 
         return $this->render('YdleHubBundle:Config:typeroomForm.html.twig', array(
             'action' => $action,
-            'form' => $form->createView())
+            'form' => $form->createView()), $response
         );
     }
 
@@ -104,6 +99,7 @@ class ConfigController extends Controller
         }
         $action = $this->get('router')->generate('configTypeNodeForm', array('type' => $typeId));
 
+        $response = new Response();
         $form = $this->createForm("nodetypes_form", $nodeType);
         if ($request->isMethod('POST')) {
             $form->bind($request);
@@ -116,25 +112,17 @@ class ConfigController extends Controller
                 $em->persist($nodeType);
                 $em->flush();
 
-                $response = new JsonResponse();
-                $result = 'success';
-                $data = array(
-                    'result' => $result,
-                    'message' => $message
-                );
-                $response->setData($data);
-
                 $this->get('ydle.logger')->log('info', $message, 'hub');
-
-                return $response;
+                
+                return new JsonResponse('Type node saved successfully', 200);
             } else {
-                $result = 'error';
+                $response->setStatusCode(400);
             }
         }
 
         return $this->render('YdleHubBundle:Config:typenodeForm.html.twig', array(
             'action' => $action,
-            'form' => $form->createView())
+            'form' => $form->createView()), $response
         );
     }
 

@@ -87,7 +87,8 @@ class RoomController extends Controller
             }
             $this->get('session')->getFlashBag()->add('notice', $message);
             $this->get('ydle.logger')->log('info', $message, 'hub');
-            $statusCode = 201;
+            
+            return new JsonResponse('Room saved successfully', 200);
         } else {
             $statusCode = 400;
         }

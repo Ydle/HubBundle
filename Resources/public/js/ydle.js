@@ -279,6 +279,15 @@
                                 } else {
                                     displayError(error);
                                 }
+                            },
+                            500: function(xhr, status, error)
+                            {
+                                    displayError('Internal error');
+                            },
+                            200: function(message){
+                                if(message.length){
+                                    displaySuccess(message);
+                                }
                             }
                         }
                     })
@@ -297,6 +306,16 @@
                                         "+errorMessage+" \
                                     </div>";
         $("#logsmessages").append($errorDiv);
+    }
+    
+    function displaySuccess(successMessage)
+    {
+        $successDiv = "<div class=\"alert alert-success alert-dismissable\"> \
+                                        <i class=\"fa fa-ban\"></i> \
+                                        <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button> \
+                                        "+successMessage+" \
+                                    </div>";
+        $("#logsmessages").append($successDiv);
     }
         
     function cleanFieldName(fieldName, formName)
@@ -373,7 +392,7 @@
      * Manage action todo after any ajax form submissions
      */
     function manageFormResponse(responseText, statusText, xhr, $form){
-        if(statusText == "success"){
+        if(statusText == "success") {
             if($form.attr('data-reload')){
                 $reloadElement = $('#'+$form.attr('data-reload'));
                 loadElement($reloadElement);
@@ -382,18 +401,23 @@
                 $form.resetForm();
                 $form.clearForm();
             }
-            
+
+            displaySuccess(responseText);
+
             removeLoader($form.parent());
             loadElement($form.parent());
-        }
+        } 
         if(statusText == "error"){
-	    $tmpFormId = $form.attr('id');
-	    $form.replaceWith(responseText.responseText);
-	    $form = $('#'+$tmpFormId);
-            console.log($form);
-            console.log($form.parent());
-            removeLoader($form.parent());
-            manageAjaxForm($form);
+            switch(responseText.status){
+                case 400:
+                    $tmpFormId = $form.attr('id');
+                    displayError("Form error");
+                    $form.replaceWith(responseText.responseText);
+                    $form = $('#'+$tmpFormId);
+                    removeLoader($form.parent());
+                    manageAjaxForm($form);
+                    break;
+            }
         }
     };
 })(jQuery);

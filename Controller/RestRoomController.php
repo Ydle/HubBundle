@@ -8,6 +8,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam,
     FOS\RestBundle\Request\ParamFetcherInterface;
 use Ydle\HubBundle\Manager\RoomManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RestRoomController extends Controller
 {
@@ -123,11 +124,15 @@ class RestRoomController extends Controller
     {
         $roomId = $paramFetcher->get('room_id');
 
-        if (!$object = $this->getRoomManager()->find($roomId)) {
-            throw new HttpException(404, 'This room does not exist');
+        if (!$room = $this->getRoomManager()->find($roomId)) {
+            return new JsonResponse('This room does not exist', 404);
         }
-        $result = $this->getRoomManager()->delete($object);
-
-        return $result;
+        
+        if(count($room->getNodes())){
+            return new JsonResponse('There are nodes in this room', 403);
+        }
+        $result = $this->getRoomManager()->delete($room);
+        
+        return new JsonResponse('Room deleted successfully', 200);
     }
 }
