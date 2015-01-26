@@ -25,9 +25,12 @@ class RestNodeController extends Controller
     protected $logger;
     protected $translator;
     protected $doctrine;
+    protected $masterAddress;
+    protected $masterId;
 
     public function __construct(\Ydle\HubBundle\Manager\NodeManager $nodeManager, 
-                                $nodeTypeManager, $nodeDataManager, $logger, $translator, $doctrine)
+                                $nodeTypeManager, $nodeDataManager, $logger, $translator, $doctrine,
+                                $masterAddress, $masterId)
     {
         $this->nodeManager = $nodeManager;
         $this->nodeTypeManager = $nodeTypeManager;
@@ -35,6 +38,8 @@ class RestNodeController extends Controller
         $this->logger = $logger;
         $this->translator = $translator;
         $this->doctrine = $doctrine;
+        $this->masterAddress = $masterAddress;
+        $this->masterId = $masterId;
     }
 
     /**
@@ -265,43 +270,25 @@ class RestNodeController extends Controller
     {
         return $this->logger;
     }
-
+    
     /**
-     *
-     * @QueryParam(name="node", requirements="\d+", default="0", description="Id of the node")
-     *
-     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
+     * Wrapper for master address
+     * 
+     * @return string
      */
-    public function putNodeResetAction(ParamFetcher $paramFetcher)
+    private function getMasterAddress()
     {
-        $statusCode = 200;
-        $nodeId  = $paramFetcher->get('node');
-
-        if (!$node = $this->getNodeManager()->find($nodeId)) {
-            $message = $this->getTranslator()->trans('node.not.found');
-            throw new HttpException(404, $message);
-        }
-        // Check if the required options are set in the parameters.yml file
-        $masterAddr = $this->container->getParameter('master_address');
-        $masterCode = $this->container->getParameter('master_id');
-        if (empty($masterAddr) || empty($masterAddr)) {
-            $message = $this->getTranslator()->trans('node.reset.fail.nomaster');
-            $this->get('session')->getFlashBag()->add('error', $message);
-            $statusCode = 404;
-        }
-
-        $address = $masterAddr;
-        $address .= ':8888/node/reset?target='.$node->getCode().'&sender=';
-        $address .= $masterCode;
-
-        $ch = curl_init($address);
-        curl_exec($ch);
-        curl_close($ch);
-        $message = $this->getTranslator()->trans('node.reset.success', array('%nodeCode%' => $node->getCode()));
-        $this->getLogger()->log('info', $message);
-        $this->get('session')->getFlashBag()->add('notice', 'Reset envoyé');
-
-        return $statusCode;
+        return $this->masterAddress;
+    }
+    
+    /**
+     * Wrapper for master Id
+     * 
+     * @return integer
+     */
+    private function getMasterId()
+    {
+        return $this->masterId;
     }
 
     /**

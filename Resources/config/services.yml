@@ -56,7 +56,7 @@ services:
     arguments: ["@ydle.logger", "@ydle.logger", "@translator"]
   ydle.settings.nodes.controller:
     class: %ydle.settings.nodes.controller.class%
-    arguments: ["@ydle.node.manager", "@ydle.nodetype.manager", "@ydle.data.manager", "@ydle.logger", "@translator", "@doctrine.orm.entity_manager"]
+    arguments: ["@ydle.node.manager", "@ydle.nodetype.manager", "@ydle.data.manager", "@ydle.logger", "@translator", "@doctrine.orm.entity_manager", %master_address%, %master_id%]
   ydle.settings.rooms.controller:
     class: %ydle.settings.rooms.controller.class%
     arguments: ["@ydle.room.manager", "@ydle.logger", "@translator"]
