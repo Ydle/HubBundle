@@ -151,7 +151,7 @@ class RestNodeController extends Controller
             $this->getLogger()->log('info', $message, 'hub');
         }
 
-        return $result;
+        return new JsonResponse('Node status changed successfully', 200);
     }
 
 
@@ -299,20 +299,19 @@ class RestNodeController extends Controller
      */
     public function putNodeLinkAction(ParamFetcher $paramFetcher)
     {
-        $statusCode = 200;
         $nodeId = $paramFetcher->get('node');
 
         if (!$node = $this->getNodeManager()->find($nodeId)) {
             $message = $this->getTranslator()->trans('node.not.found');
-            throw new HttpException(404, $message);
+            return new JsonResponse('No node found', 404);
         }
         // Check if the required options are set in the parameters.yml file
-        $masterAddr = $this->container->getParameter('master_address');
-        $masterCode = $this->container->getParameter('master_id');
+        $masterAddr = $this->getMasterAddress();
+        $masterCode = $this->getMasterId();
         if (empty($masterAddr) || empty($masterAddr)) {
             $message = $this->getTranslator()->trans('node.link.fail.nomaster');
             $this->get('session')->getFlashBag()->add('error', $message);
-            $statusCode = 404;
+            return new JsonResponse('No master address found', 404);
         }
 
         $address = $masterAddr;
@@ -325,9 +324,8 @@ class RestNodeController extends Controller
         curl_close($ch);
         $message = $this->getTranslator()->trans('node.link.success', array('%nodeCode%' => $node->getCode()));
         $this->getLogger()->log('info', $message);
-        $this->get('session')->getFlashBag()->add('notice', 'Link envoyé');
 
-        return $statusCode;
+        return new JsonResponse('Node linked', 200);
     }
     
     /**
@@ -355,7 +353,7 @@ class RestNodeController extends Controller
         }
         $result = $this->getNodeManager()->delete($node);
 
-        return $result;
+        return new JsonResponse('Node deleted successfully', 200);
     }
     
     /**
@@ -369,11 +367,11 @@ class RestNodeController extends Controller
         $nodeId = $paramFetcher->get('node');
 
         if (!$node = $this->getNodeManager()->find($nodeId)) {
-            throw new HttpException(404, 'This node does not exist');
+            return new JsonResponse('This node does not exist', 404);
         }
         
         $result = $this->getNodeDataManager()->deleteNodeData($node->getId());
 
-        return $result;
+        return new JsonResponse('Node flush successfully', 200);
     }
 }

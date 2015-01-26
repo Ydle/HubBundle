@@ -7,6 +7,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RestNodeTypeController extends Controller
 {
@@ -80,7 +81,7 @@ class RestNodeTypeController extends Controller
         $message = $this->getTranslator()->trans('nodetype.delete.success');
         $this->getLogger()->log('info', $message, 'hub');
 
-        return $result;
+        return new JsonResponse('Node type deleted successfully', 200);
     }
 
     /**

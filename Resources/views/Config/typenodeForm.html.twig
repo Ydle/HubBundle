@@ -4,7 +4,7 @@
 {% set dataformsource = '' %}
 {% endif %}
 
-{{ form_start(form, { 'action': action, 'attr': {'class': 'ydle-form ajax-form', 'role': 'form', 'data-reload': 'nodetype-list', 'data-formsource': dataformsource, 'data-refresh': true, 'novalidate': 'novalidate' } }) }}
+{{ form_start(form, { 'action': action, 'attr': {'class': 'ydle-form ajax-form', 'role': 'form', 'data-reload': 'nodetype-list', 'data-formsource': dataformsource, 'data-refresh': true, 'novalidate': 'novalidate', 'id': 'typeroom-form' } }) }}
 {{ form_errors(form) }}
     <div class="box-body">
         <div class="form-group">
