@@ -24,6 +24,7 @@
             <div class="box-header">
                 <h3 class="box-title">Nodes</h3>
                 <div class="box-tools pull-right">
+                    <button class="btn btn-primary btn-xs btn-reload" data-target="room-nodes-list"><i class="fa fa-refresh"></i></button>
                     <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
@@ -67,10 +68,11 @@
                     <button class="graph-action btn btn-primary disabled" data-value="day">Day</button>
                     <button class="graph-action btn btn-primary" data-value="week">Week</button>
                     <button class="graph-action btn btn-primary" data-value="month">Month</button>
+                    <button class="btn btn-primary btn-xs btn-reload" data-graph="graph-node-{{ node.id }}"><i class="fa fa-refresh"></i></button>
                     <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
-            <div class="box-body ajax-graph" data-endpoint="/room/node/stats.json?node={{ node.code }}" data-filter="day">
+            <div class="box-body ajax-graph" data-endpoint="/room/node/stats.json?node={{ node.code }}" data-filter="day" id="graph-node-{{ node.id }}">
                 <div class="graph-placeholder"></div>
             </div>
         </div>

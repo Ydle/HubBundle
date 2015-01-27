@@ -47,13 +47,28 @@
                 "background-color": "#fee",
                 opacity: 0.80
         }).appendTo("body");
+        
+        
+        if($(".btn-reload").length){
+            $(".btn-reload").click(function(){
+                $targetId = $(this).attr('data-target');
+                $graphId = $(this).attr('data-graph');
+                if($targetId && $targetId.length){
+                    $target = $('#'+$targetId);
+                    loadElement($target);
+                }
+                if($graphId && $graphId.length){
+                    $graph = $('#'+$graphId);
+                    manageAjaxGraph($graph);
+                }
+            });
+        }
 
       
         if($(".ajax-loading").length){
             $(".ajax-loading").each(function(){
                 $element = $(this);
-                if($element.hasClass('form-loading')){
-                } else {
+                if(!$element.hasClass('form-loading')){
                     loadElement($element);
                 }
             });

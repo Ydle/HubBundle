@@ -39,8 +39,7 @@ class MenuBuilder
         $menu->addChild('title.nodes', array(
             'route' => 'nodes',
             'attributes' => array(
-                'icon' => 'fa fa-dot-circle-o',
-                'treeview' => true
+                'icon' => 'fa fa-dot-circle-o'
              )
         ));
 
