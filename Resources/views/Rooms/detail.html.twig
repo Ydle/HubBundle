@@ -68,11 +68,11 @@
                     <button class="graph-action btn btn-primary disabled" data-value="day">Day</button>
                     <button class="graph-action btn btn-primary" data-value="week">Week</button>
                     <button class="graph-action btn btn-primary" data-value="month">Month</button>
-                    <button class="btn btn-primary btn-xs btn-reload" data-graph="graph-node-{{ node.id }}"><i class="fa fa-refresh"></i></button>
+                    <button class="btn btn-primary btn-xs btn-reload" data-graph="graph-node-{{ node.code }}"><i class="fa fa-refresh"></i></button>
                     <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
-            <div class="box-body ajax-graph" data-endpoint="/room/node/stats.json?node={{ node.code }}" data-filter="day" id="graph-node-{{ node.id }}">
+            <div class="box-body ajax-graph" data-endpoint="/room/node/stats.json?node={{ node.code }}" data-filter="day" id="graph-node-{{ node.code }}">
                 <div class="graph-placeholder"></div>
             </div>
         </div>
@@ -85,27 +85,20 @@
                 {% if type.unit == "°C" %}
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Current temperature</h3>
+                        <h3 class="box-title">Last temperature</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-primary btn-xs btn-reload" data-target="node-{{node.code }}-last-data-temperature"><i class="fa fa-refresh"></i></button>
+                        </div>
                     </div>
-                    <div class="box-body">
-                        {% if data is not empty and data[type.id] is not empty %}
-                        <span class="glyphicon icon-icon_52631"> {{ data[type.id].data }} {{ data[type.id].unit }}</span>
-                        {% else %}
-                        <span class="glyphicon icon-icon_52631">No data</span>
-                        {% endif %}
+                    <div class="box-body ajax-loading" data-endpoint="/node/last/data.json?node={{ node.code }}&type={{ type.id }}"data-template="node-last-data-temperature" id="node-{{node.code }}-last-data-temperature">
                     </div>
                 </div>
                 {% elseif type.unit == "%" %}
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Current humidity</h3>
+                        <h3 class="box-title">Last humidity</h3>
                     </div>
-                    <div class="box-body">
-                        {% if data is not empty and data[type.id] is not empty %}
-                        <span class="glyphicon icon-icon_51985"> {{ data[type.id].data }} {{ data[type.id].unit }}</span>
-                        {% else %}
-                        <span class="glyphicon icon-icon_52631">No data</span>
-                        {% endif %}
+                    <div class="box-body ajax-loading" data-endpoint="/node/last/data.json?node={{ node.code }}&type={{ type.id }}"data-template="node-last-data-temperature">
                     </div>
                 </div>
                 {% endif %}

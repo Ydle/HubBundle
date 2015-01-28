@@ -257,6 +257,46 @@ class RestNodeController extends Controller
 
         return new JsonResponse($result);
     }
+        
+    /**
+     *
+     * @QueryParam(name="node", requirements="\d+", default="0", description="Code of the node")
+     * @QueryParam(name="type", requirements="\d+", default="day", description="Id of the data type")
+     *
+     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
+     */
+    public function getNodeLastDataAction(ParamFetcher $paramFetcher)
+    {
+        $code = $paramFetcher->get('node');
+        $type = $paramFetcher->get('type');
+
+        if (!$node = $this->getNodeManager()->findOneBy(array('code' => $code))) {
+            $message = $this->getTranslator()->trans('node.not.found');
+            throw new HttpException(404, $message);
+        }
+
+        if (!$type = $this->getNodeTypeManager()->find($type)) {
+            $message = $this->getTranslator()->trans('nodetype.not.found');
+            throw new HttpException(404, $message);
+        }
+        
+        $return = array(
+            'data' => null,
+            'date' => null,
+            'unit' => null
+        );
+        $params = array('type_id' => $type);
+        $lastData = $this->getNodeDataManager()->getNodeLastData($node->getId(), $params);
+        
+        if(!empty($lastData)){
+            $return = array(
+                'data' => $lastData->getData(),
+                'date' => (int)$lastData->getCreated()->format("U"),
+                'unit' => $lastData->getType()->getUnit()
+            );
+        }
+        return new JsonResponse($return);
+    }
 
     private function getTranslator()
     {

@@ -33,6 +33,11 @@ class DataManager extends BaseEntityManager  implements DataManagerInterface
     {
         return $this->getRepository()->getLastData($roomId);
     }
+
+    public function getNodeLastData($nodeId, $params = array())
+    {
+        return $this->getRepository()->getNodeLastData($nodeId, $params);
+    }
     
     public function deleteNodeData($nodeId)
     {

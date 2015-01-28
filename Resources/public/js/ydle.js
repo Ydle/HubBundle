@@ -36,6 +36,18 @@
         id: "room-nodes-list", // id is optional, but useful for referencing the template later
         href: "/bundles/ydlehub/templates/Widgets/widget.room-nodes.html.twig"  
     });
+    ydleTemplates["node-last-data-temperature"] = twig(
+    {
+        cache: false, 
+        id: "node-last-data-temperature", // id is optional, but useful for referencing the template later
+        href: "/bundles/ydlehub/templates/Widgets/widget.node.temperature.data.last.html.twig"  
+    });
+    ydleTemplates["node-last-data-humidity"] = twig(
+    {
+        cache: false, 
+        id: "node-last-data-humidity", // id is optional, but useful for referencing the template later
+        href: "/bundles/ydlehub/templates/Widgets/widget.node.humidity.data.last.html.twig"  
+    });
 
     $(document).ready(function() {
         

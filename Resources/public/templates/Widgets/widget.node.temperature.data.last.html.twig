@@ -1,0 +1,6 @@
+{% if data is not empty %}
+<span class="glyphicon icon-icon_52631"> {{ data }} {{ unit }}</span>
+<span class="date-data"> {{ date | date("d/m/Y") }} </span>
+{% else %}
+<span class="glyphicon icon-icon_52631">No data</span>
+{% endif %}

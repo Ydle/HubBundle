@@ -54,6 +54,26 @@ class NodeDataRepository extends EntityRepository
             return null;
         }
     }
+    
+    public function getNodeLastData($nodeId, $params)
+    {
+        $qb = $this->createQueryBuilder("d")
+                ->where('d.node = :nodeid')
+                    ->setParameter('nodeid', $nodeId);
+        if(!empty($params['type_id'])){
+            $qb->andWhere('d.type = :type')
+                ->setParameter('type', $params['type_id']);
+        }
+        $qb->orderBy('d.created', 'DESC')
+                ->setMaxResults(1)
+                ;
+        $q = $qb->getQuery();        
+        try {
+            return $q->getOneOrNullResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 
     public function getLastData($roomId)
     {
