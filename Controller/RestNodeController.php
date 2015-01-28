@@ -246,11 +246,6 @@ class RestNodeController extends Controller
                 );
             }
             $value = $data->getData();
-            switch ($type->getUnit()) {
-                case '°C':
-                case '%':
-                    $value = round($value / 100, 1);
-            }
             $result[$type->getId()]['data'][] = array((int) $data->getCreated()->format('U') * 1000, $value);
             $cpt++;
         }
