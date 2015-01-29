@@ -1,5 +1,5 @@
 (function($) {
-    var ydleTemplates = new Array();
+    var ydleTemplates = [];
     ydleTemplates["roomtype-list"] = twig(
     {
         cache: false, 
@@ -48,7 +48,9 @@
         id: "node-last-data-humidity", // id is optional, but useful for referencing the template later
         href: "/bundles/ydlehub/templates/Widgets/widget.node.humidity.data.last.html.twig"  
     });
-
+    
+    var timeouts = [];
+    
     $(document).ready(function() {
         
         $("<div id='tooltip'></div>").css({
@@ -114,6 +116,15 @@
         $graphUrl = $graph.attr('data-endpoint');
         $graphFilter = $graph.attr('data-filter');
         $chartsPlaceholder = $('.graph-placeholder', $graph);
+       
+        if($graph.attr('data-autoreload')) {
+           if(timeouts[$graph.attr('id')] !== undefined){
+               window.clearTimeout(timeouts[$graph.attr('id')]);
+           }
+           timeoutId = window.setTimeout(manageAjaxGraph, 5000, $graph);
+           timeouts[$graph.attr('id')] = timeoutId;
+        }
+        
         $graph.parent().find('.graph-action').each(function(){
             $(this).click(function(){
                 $(this).parent().find('.graph-action.disabled').removeClass('disabled');
@@ -204,6 +215,15 @@
             $element.parent().append('<div class="overlay"></div>');
             $element.parent().append('<div class="loading-img"></div>');
         }
+       
+        if($element.attr('data-autoreload')){
+           if(timeouts[$element.attr('id')] !== undefined){
+               window.clearTimeout(timeouts[$element.attr('id')]);
+           }
+           timeoutId = window.setTimeout(loadElement, 5000, $element, $target, $forcePagination);
+           timeouts[$element.attr('id')] = timeoutId;
+        }
+       
         if($forcePagination){
             $currentPage = $element.find('.ajax-pagitation').attr('data-page');
             if($target.lastIndexOf("page=") != -1){

@@ -72,7 +72,7 @@
                     <button data-widget="collapse" class="btn btn-primary btn-xs"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
-            <div class="box-body ajax-graph" data-endpoint="/room/node/stats.json?node={{ node.code }}" data-filter="day" id="graph-node-{{ node.code }}">
+            <div class="box-body ajax-graph" data-endpoint="/room/node/stats.json?node={{ node.code }}" data-filter="day" id="graph-node-{{ node.code }}" data-autoreload="true">
                 <div class="graph-placeholder"></div>
             </div>
         </div>
@@ -90,15 +90,18 @@
                             <button class="btn btn-primary btn-xs btn-reload" data-target="node-{{node.code }}-last-data-temperature"><i class="fa fa-refresh"></i></button>
                         </div>
                     </div>
-                    <div class="box-body ajax-loading" data-endpoint="/node/last/data.json?node={{ node.code }}&type={{ type.id }}"data-template="node-last-data-temperature" id="node-{{node.code }}-last-data-temperature">
+                    <div class="box-body ajax-loading" data-endpoint="/node/last/data.json?node={{ node.code }}&type={{ type.id }}" data-template="node-last-data-temperature" id="node-{{node.code }}-last-data-temperature" data-autoreload="true">
                     </div>
                 </div>
                 {% elseif type.unit == "%" %}
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">Last humidity</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-primary btn-xs btn-reload" data-target="node-{{node.code }}-last-data-humidity"><i class="fa fa-refresh"></i></button>
+                        </div>
                     </div>
-                    <div class="box-body ajax-loading" data-endpoint="/node/last/data.json?node={{ node.code }}&type={{ type.id }}"data-template="node-last-data-temperature">
+                    <div class="box-body ajax-loading" data-endpoint="/node/last/data.json?node={{ node.code }}&type={{ type.id }}" data-template="node-last-data-humidity">
                     </div>
                 </div>
                 {% endif %}
