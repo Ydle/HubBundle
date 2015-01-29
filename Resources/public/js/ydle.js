@@ -1,4 +1,6 @@
 (function($) {
+    
+    var delayTimer = 60000;
     var ydleTemplates = [];
     ydleTemplates["roomtype-list"] = twig(
     {
@@ -121,7 +123,7 @@
            if(timeouts[$graph.attr('id')] !== undefined){
                window.clearTimeout(timeouts[$graph.attr('id')]);
            }
-           timeoutId = window.setTimeout(manageAjaxGraph, 5000, $graph);
+           timeoutId = window.setTimeout(manageAjaxGraph, delayTimer, $graph);
            timeouts[$graph.attr('id')] = timeoutId;
         }
         
@@ -220,7 +222,7 @@
            if(timeouts[$element.attr('id')] !== undefined){
                window.clearTimeout(timeouts[$element.attr('id')]);
            }
-           timeoutId = window.setTimeout(loadElement, 5000, $element, $target, $forcePagination);
+           timeoutId = window.setTimeout(loadElement, delayTimer, $element, $target, $forcePagination);
            timeouts[$element.attr('id')] = timeoutId;
         }
        
