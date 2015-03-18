@@ -16,7 +16,7 @@ use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Ydle\HubBundle\Tests;
 
-class ConfigControllerTest extends DataBaseTestCase
+class ConfigControllerNodeTypeTest extends DataBaseTestCase
 {
     protected $client;
     protected $crawler;
@@ -69,79 +69,7 @@ class ConfigControllerTest extends DataBaseTestCase
     }
 
     /**
-     * @group configTest
-     */
-    public function testDashboard()
-    {
-        $this->client->request('GET', '/conf/dashboard');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('Ydle\HubBundle\Controller\ConfigController::dashboardAction', $this->client->getRequest()->attributes->get('_controller'));
-    }
-
-    /**
-     * @group configTest
-     */
-    public function testIndex()
-    {
-        $this->client->request('GET', '/conf');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('Ydle\HubBundle\Controller\ConfigController::indexAction', $this->client->getRequest()->attributes->get('_controller'));
-    }
-
-    /**
-     * @group configTest
-     */
-    public function testTypeRoom()
-    {
-	$this->crawler = $this->client->request('GET', '/conf/typeroom');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-	$this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typeroomAction', $this->client->getRequest()->attributes->get('_controller'));
-    }
-	
-    /**
-     * @group configTest
-     */
-    public function testCreateOrEditRoom()
-    {
-	$this->client->request('GET', '/room/type.json');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-	$this->assertEquals('ydle.settings.roomtype.controller:getRoomTypeAction', $this->client->getRequest()->attributes->get('_controller'));
-	
-        $formDatas = array(
-            'submit' => 'submit',
-            'datas' => array(
-                'room_types[name]' => 'Nom Test',
-                'room_types[description]' => 'Room Description'
-            ),
-            'token' => 'room_types[_token]'
-        );
-        
-	// Création d'un roomType
-        $this->crawler = $this->checkForm('/conf/typeroom/form','POST',$formDatas);
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('{"result":"success","message":"Room type added successfully"}', $this->client->getResponse()->getContent());
-	$this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typeroomFormAction', $this->client->getRequest()->attributes->get('_controller'));
-        
-	// Edition d'un roomType
-        $this->crawler = $this->checkForm('/conf/typeroom/form/4','POST',$formDatas);
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('{"result":"success","message":"Room type modified successfully"}', $this->client->getResponse()->getContent());
-    }
-    
-    /**
-     * @group configTest
-     */
-    public function testDeleteRoomtype()
-    {	
-	$this->client->request('DELETE', '/room/type.json?roomtype_id=4');
-        // TODO : Avant le code retour était 200 avec en plus un message de retour. Régression ?
-        $this->assertEquals(204, $this->client->getResponse()->getStatusCode());
-        //$this->assertEquals('"Room type deleted successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('ydle.settings.roomtype.controller:deleteRoomTypeAction', $this->client->getRequest()->attributes->get('_controller'));
-    } 
-
-    /**
-     * @group configTest
+     * @group configNodeTypeTest
      */
     public function testTypenode()
     {
@@ -151,7 +79,7 @@ class ConfigControllerTest extends DataBaseTestCase
     }
     
     /**
-     * @group configTest
+     * @group configNodeTypeTest
      */
     public function testTypeCreateOrEditnode()
     {	
@@ -183,7 +111,7 @@ class ConfigControllerTest extends DataBaseTestCase
     }
     
     /**
-     * @group configTest
+     * @group configNodeTypeTest
      */
     public function testDeleteNode()
     {

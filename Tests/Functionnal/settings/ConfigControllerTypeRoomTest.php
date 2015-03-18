@@ -10,14 +10,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
-use Ydle\HubBundle\Entity\Room;
 
 use Ydle\HubBundle\Tests\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Ydle\HubBundle\Tests;
 
-class RoomsTest extends DataBaseTestCase
+class ConfigControllerTypeRoomTest extends DataBaseTestCase
 {
     protected $client;
     protected $crawler;
@@ -41,12 +40,9 @@ class RoomsTest extends DataBaseTestCase
         $this->truncateTable('fos_user');
         $this->truncateTable('roomtype');
         $this->truncateTable('sensortype');
-        $this->truncateTable('room');
-        $this->truncateTable('node');
-        $this->truncateTable('node_sensor');
         $this->loadContext();
         
-        $this->helper->logIn($this->client, 'adminTest','test');
+        $crawler = $this->helper->logIn($this->client, 'adminTest','test');
     }
 	
     public function tearDown()
@@ -73,59 +69,55 @@ class RoomsTest extends DataBaseTestCase
     }
 
     /**
-     * @group roomsTest
+     * @group configTypeRoomTest
      */
-    public function testIndex()
+    public function testTypeRoom()
     {
-        $this->client->request('GET', '/rooms');
+	$this->crawler = $this->client->request('GET', '/conf/typeroom');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('Ydle\HubBundle\Controller\RoomController::indexAction', $this->client->getRequest()->attributes->get('_controller'));
+	$this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typeroomAction', $this->client->getRequest()->attributes->get('_controller'));
     }
 	
     /**
-     * @group roomsTest
+     * @group configTypeRoomTest
      */
     public function testCreateOrEditRoom()
     {
-	$this->client->request('GET', '/rooms/list.json');
+	$this->client->request('GET', '/room/type.json');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-	$this->assertEquals('ydle.settings.rooms.controller:getRoomsListAction', $this->client->getRequest()->attributes->get('_controller'));
+	$this->assertEquals('ydle.settings.roomtype.controller:getRoomTypeAction', $this->client->getRequest()->attributes->get('_controller'));
 	
         $formDatas = array(
             'submit' => 'submit',
             'datas' => array(
-                'rooms_form[name]' => 'Room Test',
-                'rooms_form[description]' => 'Room Description',
-                'rooms_form[type]' => '1',
-                'rooms_form[is_active]' => '1'
+                'room_types[name]' => 'Nom Test',
+                'room_types[description]' => 'Room Description'
             ),
-            'token' => 'rooms_form[_token]'
+            'token' => 'room_types[_token]'
         );
         
 	// Création d'un roomType
-        $this->crawler = $this->checkForm('/room/form/0/submit','POST',$formDatas);
-        $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
-        // TODO : Renvoi le formulaire et plus de message de confirmation. Régression ?
-        //$this->assertEquals('"Room saved successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('Ydle\HubBundle\Controller\RoomController::submitRoomFormAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->crawler = $this->checkForm('/conf/typeroom/form','POST',$formDatas);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('{"result":"success","message":"Room type added successfully"}', $this->client->getResponse()->getContent());
+	$this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typeroomFormAction', $this->client->getRequest()->attributes->get('_controller'));
         
 	// Edition d'un roomType
-        $this->crawler = $this->checkForm('/room/form/1','POST',$formDatas);
-        $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
-        // TODO : Renvoi le formulaire et plus de message de confirmation. Régression ?
-        //$this->assertEquals('"Room saved successfully"', $this->client->getResponse()->getContent());
+        $this->crawler = $this->checkForm('/conf/typeroom/form/4','POST',$formDatas);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('{"result":"success","message":"Room type modified successfully"}', $this->client->getResponse()->getContent());
     }
     
     /**
-     * @group roomsTest
+     * @group configTypeRoomTest
      */
-    public function testDeleteRoom()
+    public function testDeleteRoomtype()
     {	
-	$this->client->request('DELETE', '/room.json?room_id=1');
+	$this->client->request('DELETE', '/room/type.json?roomtype_id=4');
+        // TODO : Avant le code retour était 200 avec en plus un message de retour. Régression ?
         $this->assertEquals(204, $this->client->getResponse()->getStatusCode());
-        // TODO : Ne renvoi plus de réponse. Régression ?
         //$this->assertEquals('"Room type deleted successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('ydle.settings.rooms.controller:deleteRoomAction', $this->client->getRequest()->attributes->get('_controller'));
+	$this->assertEquals('ydle.settings.roomtype.controller:deleteRoomTypeAction', $this->client->getRequest()->attributes->get('_controller'));
     }
     
     private function loadContext()
@@ -194,22 +186,6 @@ class RoomsTest extends DataBaseTestCase
         $nt4->setIsActive(true);
         $nt4->setCreatedAt(new \DateTime('now'));
         $this->em->persist($nt4);
-        
-        $room1 = new Room();
-        $room1->setName("Salon");
-        $room1->setCreatedAt(new \DateTime('now'));
-        $room1->setDescription('Description du salon');
-        $room1->setIsActive(true);
-        $room1->setType($rt1);
-        $this->em->persist($room1);
-        
-        $room2 = new Room();
-        $room2->setName("Chambre");
-        $room2->setCreatedAt(new \DateTime('now'));
-        $room2->setDescription('Description de la chambre');
-        $room2->setIsActive(true);
-        $room2->setType($rt2);
-        $this->em->persist($room2);
         
         $this->em->flush();
     }
