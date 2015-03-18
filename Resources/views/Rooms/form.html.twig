@@ -15,7 +15,7 @@
 
 #}
 
-{% if entry %}
+{% if entry is defined %}
 {% set dataformsource = '/room/form/' ~ entry.id %}
 {% else %}
 {% set dataformsource = '' %}
@@ -39,13 +39,8 @@
             {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.type) }}
         </div>
-        <div class="form-group">
-            {{ form_label(form.is_active) }}
-            {{ form_widget(form.is_active, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.is_active) }}
-        </div>
     </div>
     <div class="box-footer">
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit" name="submit">Submit</button>
     </div>
 {{ form_end(form) }}

@@ -42,7 +42,7 @@
                     <a href="/nodes/form/{{ entry.id }}" class="ajax-action btn btn-primary btn-info btn-xs" data-action="edit" data-form="nodes-form">
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a href="/node.json?node={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
+                    <a href="/node.json?node_id={{ entry.id }}" class="ajax-action btn btn-primary btn-danger btn-xs" data-confirm="yes" data-confirmmessage="Are you sure to delete this item ?" data-action="delete">
                         <i class="fa fa-times"></i>
                     </a>
                         {% if entry.is_active %}
