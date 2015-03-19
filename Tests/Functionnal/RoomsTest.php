@@ -128,6 +128,20 @@ class RoomsTest extends DataBaseTestCase
 	$this->assertEquals('ydle.settings.rooms.controller:deleteRoomAction', $this->client->getRequest()->attributes->get('_controller'));
     }
     
+    /**
+     * @group roomsTest
+     */
+    public function testActiveNode()
+    {
+	$this->client->request('PUT', '/room/state.json?room_id=1&state=0');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('true', $this->client->getResponse()->getContent());
+        
+	$this->client->request('PUT', '/room/state.json?room_id=1&state=1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('true', $this->client->getResponse()->getContent());
+    }
+    
     private function loadContext()
     {
         $this->createAdmin('adminTest', 'test');

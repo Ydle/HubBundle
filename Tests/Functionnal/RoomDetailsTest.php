@@ -11,14 +11,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 use Ydle\HubBundle\Entity\Room;
-use Ydle\HubBundle\Entity\Node;
 
 use Ydle\HubBundle\Tests\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Ydle\HubBundle\Tests;
 
-class NodesTest extends DataBaseTestCase
+class RoomDetailsTest extends DataBaseTestCase
 {
     protected $client;
     protected $crawler;
@@ -43,8 +42,8 @@ class NodesTest extends DataBaseTestCase
         $this->truncateTable('roomtype');
         $this->truncateTable('sensortype');
         $this->truncateTable('room');
-        $this->truncateTable('node_sensor');
         $this->truncateTable('node');
+        $this->truncateTable('node_sensor');
         $this->loadContext();
         
         $this->helper->logIn($this->client, 'adminTest','test');
@@ -74,105 +73,17 @@ class NodesTest extends DataBaseTestCase
     }
 
     /**
-     * @group nodesTest
+     * @group roomDetailsTest
      */
     public function testIndex()
     {
-        $this->client->request('GET', '/nodes');
+        $repository = $this->em->getRepository('YdleHubBundle:Room');
+        $room = $repository->find(1);
+        $this->client->request('GET', '/room/detail/'.$room->getSlug());
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('Ydle\HubBundle\Controller\NodesController::indexAction', $this->client->getRequest()->attributes->get('_controller'));
-    }
-	
-    /**
-     * @group nodesTest
-     */
-    public function testCreateOrEditNode()
-    {
-	$this->client->request('GET', '/nodes/list.json');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-	$this->assertEquals('ydle.settings.nodes.controller:getNodesListAction', $this->client->getRequest()->attributes->get('_controller'));
-        
-        $formDatas1 = array(
-            'submit' => 'submit',
-            'datas' => array(
-                'node_form[name]' => 'Node Test',
-                'node_form[code]' => '3',
-                'node_form[room]' => '1',
-                'node_form[types]' => array('1','3'),
-                'node_form[description]' => 'Node Description',
-                'node_form[is_active]' => '1'
-            ),
-            'token' => 'node_form[_token]'
-        );
-        
-	// Création d'un node
-        $this->crawler = $this->checkForm('/nodes/form/0/submit','POST',$formDatas1);
-        $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
-        // TODO : Renvoi le formulaire et plus de message de confirmation. Régression ?
-        //$this->assertEquals('"Node saved successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('Ydle\HubBundle\Controller\NodesController::submitNodeFormAction', $this->client->getRequest()->attributes->get('_controller'));
-        
-        
-        $formDatas2 = array(
-            'submit' => 'submit',
-            'datas' => array(
-                'node_form[name]' => 'Node Test',
-                'node_form[code]' => '4',
-                'node_form[room]' => '1',
-                'node_form[types]' => array('1','3'),
-                'node_form[description]' => 'Node Description',
-                'node_form[is_active]' => '1'
-            ),
-            'token' => 'node_form[_token]'
-        );
-	// Edition d'un node
-        $this->crawler = $this->checkForm('/nodes/form/1','POST',$formDatas2);
-        $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
-        // TODO : Renvoi le formulaire et plus de message de confirmation. Régression ?
-        //$this->assertEquals('"Type room saved successfully"', $this->client->getResponse()->getContent());
+        $this->assertEquals('Ydle\HubBundle\Controller\RoomController::roomDetailAction', $this->client->getRequest()->attributes->get('_controller'));
     }
     
-    /**
-     * @group nodesTest
-     */
-    public function testDeleteNode()
-    {
-	$this->client->request('DELETE', '/node.json?node_id=2');
-        $this->assertEquals(204, $this->client->getResponse()->getStatusCode());
-        // TODO : Ne renvoi plus rien, plus de message de confirmation. Régression ?
-        //$this->assertEquals('"Node type deleted successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('ydle.settings.nodes.controller:deleteNodeAction', $this->client->getRequest()->attributes->get('_controller'));
-    }
-    
-    /**
-     * @group nodesTest
-     */
-    public function testActiveNode()
-    {
-	$this->client->request('PUT', '/node/state.json?node_id=1&state=0');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('true', $this->client->getResponse()->getContent());
-        
-	$this->client->request('PUT', '/node/state.json?node_id=1&state=1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('true', $this->client->getResponse()->getContent());
-    }
-    
-    /**
-     * @group nodesTest
-     */
-    public function testLinkNode()
-    {
-	$this->client->request('PUT', '/node/link.json?node=1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(200, $this->client->getResponse()->getContent());
-        /*
-	$this->client->request('PUT', '/node/state.json?node_id=1&state=1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('true', $this->client->getResponse()->getContent());
-         * */
-    }
-        
     private function loadContext()
     {
         $this->createAdmin('adminTest', 'test');
@@ -255,24 +166,6 @@ class NodesTest extends DataBaseTestCase
         $room2->setIsActive(true);
         $room2->setType($rt2);
         $this->em->persist($room2);
-        
-        $node1 = new Node();
-        $node1->setCode(5);
-        $node1->setDescription('Description du node de la chambre');
-        $node1->setIsActive(true);
-        $node1->setName("Température Chambre");
-        $node1->setRoom($room2);
-        $node1->addType($nt1);
-        $this->em->persist($node1);
-        
-        $node2 = new Node();
-        $node2->setCode(6);
-        $node2->setDescription('Description du deuwième node de la chambre');
-        $node2->setIsActive(true);
-        $node2->setName("Humidité Chambre");
-        $node2->setRoom($room2);
-        $node2->addType($nt2);
-        $this->em->persist($node2);
         
         $this->em->flush();
     }
