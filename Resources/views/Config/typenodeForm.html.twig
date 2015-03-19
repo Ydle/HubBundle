@@ -1,4 +1,4 @@
-{% if entry %}
+{% if entry is defined %}
 {% set dataformsource = '/conf/typenode/form/' ~ entry.id %}
 {% else %}
 {% set dataformsource = '' %}
@@ -24,6 +24,6 @@
         </div>
     </div>
     <div class="box-footer">
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" name="submit" type="submit">Submit</button>
     </div>
 {{ form_end(form) }}
