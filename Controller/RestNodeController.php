@@ -273,7 +273,7 @@ class RestNodeController extends Controller
         // Check if the required options are set in the parameters.yml file
         $masterAddr = $this->container->getParameter('master_address');
         $masterCode = $this->container->getParameter('master_id');
-        if (empty($masterAddr) || empty($masterAddr)) {
+        if (empty($masterAddr) || empty($masterCode)) {
             $message = $this->getTranslator()->trans('node.reset.fail.nomaster');
             $this->get('session')->getFlashBag()->add('error', $message);
             $statusCode = 404;

@@ -81,6 +81,16 @@ class ConfigControllerNodeTypeTest extends DataBaseTestCase
     /**
      * @group configNodeTypeTest
      */
+    public function testListBadParamNodeType()
+    {
+	$this->client->request('GET', '/node/type.json?page=2&count=1&room_id=');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+	$this->assertEquals('ydle.settings.nodetype.controller:getNodeTypeAction', $this->client->getRequest()->attributes->get('_controller'));
+    }
+    
+    /**
+     * @group configNodeTypeTest
+     */
     public function testTypeCreateOrEditnode()
     {	
 	$this->client->request('GET', '/node/type.json');
@@ -120,7 +130,38 @@ class ConfigControllerNodeTypeTest extends DataBaseTestCase
         $this->assertEquals(204, $this->client->getResponse()->getStatusCode());
         //$this->assertEquals('"Node type deleted successfully"', $this->client->getResponse()->getContent());
 	$this->assertEquals('ydle.settings.nodetype.controller:deleteNodeTypeAction', $this->client->getRequest()->attributes->get('_controller'));
+        
+	$this->client->request('DELETE', '/node/type.json?nodetype_id=999');
+        // TODO : Avant le code retour était 200 avec en plus un message de retour. Régression ?
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('This node type does not exist', $this->client->getResponse()->getContent());
+	$this->assertEquals('ydle.settings.nodetype.controller:deleteNodeTypeAction', $this->client->getRequest()->attributes->get('_controller'));
     }
+
+    /**
+     * @group configNodeTypeTest2
+     */
+        /*
+    public function testTypenodeDetails()
+    {
+	$this->client->request('PUT', '/node/type.json?nodetype_id=4&state=0');
+        $this->assertEquals(405, $this->client->getResponse()->getStatusCode());
+	$this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typenodeAction', $this->client->getRequest()->attributes->get('_controller'));
+        
+	$this->client->request('PUT', '/node/type.json?nodetype_id=4&state=1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+	$this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typenodeAction', $this->client->getRequest()->attributes->get('_controller'));
+        
+	$this->client->request('PUT', '/node/type.json?nodetype_id=999&state=0');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+	$this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typenodeAction', $this->client->getRequest()->attributes->get('_controller'));
+        
+	$this->client->request('PUT', '/node/type.json?nodetype_id=999&state=1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+	$this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typenodeAction', $this->client->getRequest()->attributes->get('_controller'));
+    }
+         * 
+         */
     
     private function loadContext()
     {

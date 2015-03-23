@@ -103,7 +103,7 @@ class NodesTest extends DataBaseTestCase
                 'node_form[is_active]' => '1'
             ),
             'token' => 'node_form[_token]'
-        );
+        );    
         
 	// Création d'un node
         $this->crawler = $this->checkForm('/nodes/form/0/submit','POST',$formDatas1);
@@ -142,6 +142,12 @@ class NodesTest extends DataBaseTestCase
         // TODO : Ne renvoi plus rien, plus de message de confirmation. Régression ?
         //$this->assertEquals('"Node type deleted successfully"', $this->client->getResponse()->getContent());
 	$this->assertEquals('ydle.settings.nodes.controller:deleteNodeAction', $this->client->getRequest()->attributes->get('_controller'));
+        
+	$this->client->request('DELETE', '/node.json?node_id=999');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        // TODO : Améliorer le getContent pour avoir un test plus propre.
+        $this->assertContains('This node does not exist', $this->client->getResponse()->getContent());
+	$this->assertEquals('ydle.settings.nodes.controller:deleteNodeAction', $this->client->getRequest()->attributes->get('_controller'));
     }
     
     /**
@@ -156,6 +162,11 @@ class NodesTest extends DataBaseTestCase
 	$this->client->request('PUT', '/node/state.json?node_id=1&state=1');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('true', $this->client->getResponse()->getContent());
+        
+        
+	$this->client->request('PUT', '/node/state.json?node_id=999&state=0');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('node.not.found', $this->client->getResponse()->getContent());
     }
     
     /**
@@ -166,11 +177,26 @@ class NodesTest extends DataBaseTestCase
 	$this->client->request('PUT', '/node/link.json?node=1');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(200, $this->client->getResponse()->getContent());
-        /*
-	$this->client->request('PUT', '/node/state.json?node_id=1&state=1');
+        
+	$this->client->request('PUT', '/node/link.json?node=999');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        // TODO : Améliorer le getContent pour avoir un test plus propre.
+        $this->assertContains("node.not.found", $this->client->getResponse()->getContent());
+    }
+    
+    /**
+     * @group nodesTest
+     */
+    public function testResetNode()
+    {
+	$this->client->request('PUT', '/node/reset.json?node=1');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('true', $this->client->getResponse()->getContent());
-         * */
+        $this->assertEquals(200, $this->client->getResponse()->getContent());
+        
+	$this->client->request('PUT', '/node/reset.json?node=999');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        // TODO : Améliorer le getContent pour avoir un test plus propre.
+        $this->assertContains("node.not.found", $this->client->getResponse()->getContent());
     }
         
     private function loadContext()

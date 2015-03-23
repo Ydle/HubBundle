@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 use Ydle\HubBundle\Entity\Room;
+use Ydle\HubBundle\Entity\Node;
 
 use Ydle\HubBundle\Tests\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
@@ -82,6 +83,16 @@ class RoomDetailsTest extends DataBaseTestCase
         $this->client->request('GET', '/room/detail/'.$room->getSlug());
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('Ydle\HubBundle\Controller\RoomController::roomDetailAction', $this->client->getRequest()->attributes->get('_controller'));
+    }
+    
+    /**
+     * @group roomDetailsTest
+     */
+    public function testListBadParamNode()
+    {
+	$this->client->request('GET', '/room/nodes/list.json?page=2&count=1&room_id=');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+	$this->assertEquals('ydle.settings.nodes.controller:getRoomNodesListAction', $this->client->getRequest()->attributes->get('_controller'));
     }
     
     private function loadContext()
@@ -166,6 +177,16 @@ class RoomDetailsTest extends DataBaseTestCase
         $room2->setIsActive(true);
         $room2->setType($rt2);
         $this->em->persist($room2);
+        
+        $node1 = new Node();
+        $node1->setCode(5);
+        $node1->setDescription('Description du node de la chambre');
+        $node1->setIsActive(true);
+        $node1->setName("Température Chambre");
+        //$node1->setRoom($room1);
+        $node1->addType($nt1);
+        $room1->addNode($node1);
+        $this->em->persist($node1);
         
         $this->em->flush();
     }
