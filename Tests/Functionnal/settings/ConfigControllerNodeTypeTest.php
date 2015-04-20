@@ -2,19 +2,10 @@
 
 namespace Ydle\HubBundle\Tests;
 
-// A voir si on ne peux pas le supprimer
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 
-use Ydle\HubBundle\Tests\WebTestCase;
-use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Ydle\HubBundle\Tests;
+use Ydle\HubBundle\Tests\Helper;
 
 class ConfigControllerNodeTypeTest extends DataBaseTestCase
 {
@@ -28,7 +19,7 @@ class ConfigControllerNodeTypeTest extends DataBaseTestCase
     public function setup()
     {
         parent::setup();
-        $this->helper = new \Ydle\HubBundle\Tests\Helper();
+        $this->helper = new Helper();
         $this->client = static::createClient();
         $this->client->followRedirects();
         $this->container = $this->client->getContainer();
@@ -47,24 +38,6 @@ class ConfigControllerNodeTypeTest extends DataBaseTestCase
     public function tearDown()
     {
         parent::tearDown();
-    }
-
-    protected function checkForm($url, $method, $formDatas)
-    {
-        // TODO : Récup du token à mettre ailleurs
-        $this->crawler = $this->client->request($method, $url);
-        $extract = $this->crawler->filter('input[name="'.$formDatas['token'].'"]')->extract(array('value'));
-
-        $csrf_token = $extract[0];
-        $formDatas['datas'] = array_merge($formDatas['datas'], array($formDatas['token'] => $csrf_token));
-
-        $buttonCrawler = $this->crawler->selectButton($formDatas['submit']);
-        $form = $buttonCrawler->form();
-
-        foreach($formDatas['datas'] as $key => $value){
-            $form[$key] = $value;
-        }
-        $this->client->submit($form);
     }
 
     /**

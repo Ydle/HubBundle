@@ -2,22 +2,13 @@
 
 namespace Ydle\HubBundle\Tests;
 
-// A voir si on ne peux pas le supprimer
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 use Ydle\HubBundle\Entity\Room;
 use Ydle\HubBundle\Entity\Node;
 use Ydle\HubBundle\Entity\NodeData;
 
-use Ydle\HubBundle\Tests\WebTestCase;
-use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Ydle\HubBundle\Tests;
+use Ydle\HubBundle\Tests\Helper;
 
 class NodesTest extends DataBaseTestCase
 {
@@ -33,7 +24,7 @@ class NodesTest extends DataBaseTestCase
     public function setup()
     {
         parent::setup();
-        $this->helper = new \Ydle\HubBundle\Tests\Helper();
+        $this->helper = new Helper();
         $this->client = static::createClient();
         $this->client->followRedirects();
         $this->container = $this->client->getContainer();
@@ -58,26 +49,8 @@ class NodesTest extends DataBaseTestCase
         parent::tearDown();
     }
 
-    protected function checkForm($url, $method, $formDatas)
-    {
-        // TODO : Récup du token à mettre ailleurs
-        $this->crawler = $this->client->request($method, $url);
-        $extract = $this->crawler->filter('input[name="'.$formDatas['token'].'"]')->extract(array('value'));
-
-        $csrf_token = $extract[0];
-        $formDatas['datas'] = array_merge($formDatas['datas'], array($formDatas['token'] => $csrf_token));
-
-        $buttonCrawler = $this->crawler->selectButton($formDatas['submit']);
-        $form = $buttonCrawler->form();
-
-        foreach($formDatas['datas'] as $key => $value){
-            $form[$key] = $value;
-        }
-        $this->client->submit($form);
-    }
-
     /**
-     * @group nodesTest
+     * @group nodes
      */
     public function testIndex()
     {
@@ -85,9 +58,9 @@ class NodesTest extends DataBaseTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('Ydle\HubBundle\Controller\NodesController::indexAction', $this->client->getRequest()->attributes->get('_controller'));
     }
-	
+
     /**
-     * @group nodesTest
+     * @group nodes
      */
     public function testCreateOrEditNode()
     {
@@ -107,7 +80,7 @@ class NodesTest extends DataBaseTestCase
             ),
             'token' => 'node_form[_token]'
         );    
-        
+
 	// Création d'un node
         $this->crawler = $this->checkForm('/nodes/form/0/submit','POST',$formDatas1);
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
@@ -151,7 +124,7 @@ class NodesTest extends DataBaseTestCase
         $this->assertContains('This node does not exist', $this->client->getResponse()->getContent());
 	$this->assertEquals('ydle.settings.nodes.controller:deleteNodeAction', $this->client->getRequest()->attributes->get('_controller'));
     }
-    
+
     /**
      * @group nodes
      */
@@ -169,7 +142,7 @@ class NodesTest extends DataBaseTestCase
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         $this->assertContains('node.not.found', $this->client->getResponse()->getContent());
     }
-    
+
     /**
      * @group nodes
      */
@@ -184,7 +157,7 @@ class NodesTest extends DataBaseTestCase
         // TODO : Améliorer le getContent pour avoir un test plus propre.
         $this->assertContains("node.not.found", $this->client->getResponse()->getContent());
     }
-    
+
     /**
      * @group nodes
      */

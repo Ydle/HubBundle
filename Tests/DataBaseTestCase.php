@@ -58,7 +58,7 @@ class DataBaseTestCase extends WTC
         $actual = json_decode($content, true);
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function createAdmin($user, $passwd)
     {        
         $adm = new User();
@@ -71,16 +71,22 @@ class DataBaseTestCase extends WTC
         $adm->setPlainPassword($passwd);
         $this->em->persist($adm);
         $this->em->flush();
-    }    
-    
-    
-/*
-    protected function logIn($username, $password)
-    {
-        $this->client->setServerParameters(array(
-            'PHP_AUTH_USER' => $username,
-            'PHP_AUTH_PW'   => $password,
-        ));
     }
- * */
+
+    protected function checkForm($url, $method, $formDatas)
+    {
+        $this->crawler = $this->client->request($method, $url);
+        $extract = $this->crawler->filter('input[name="'.$formDatas['token'].'"]')->extract(array('value'));
+
+        $csrf_token = $extract[0];
+        $formDatas['datas'] = array_merge($formDatas['datas'], array($formDatas['token'] => $csrf_token));
+
+        $buttonCrawler = $this->crawler->selectButton($formDatas['submit']);
+        $form = $buttonCrawler->form();
+
+        foreach($formDatas['datas'] as $key => $value){
+            $form[$key] = $value;
+        }
+        $this->client->submit($form);
+    }
 }
