@@ -51,7 +51,7 @@ class NodeDataInsertCommand extends BaseCommand
         }
 
         if ($autopopulate) {
-            $startDate = 1409582400 ;
+            $startDate = 1429566600 ;
             $currDate = $startDate;
             $now = time();
             $currData = 1500;
