@@ -50,7 +50,7 @@ class NodeTypeTest extends \PHPUnit_Framework_TestCase
         $unit = "unit";
 
         $nodeType->setUnit($unit);
-        $this->assertEquals($unit,$nodeType->getUnit());
+        $this->assertEquals($unit, $nodeType->getUnit());
     }
 
     public function testSetIsActive()
@@ -63,13 +63,14 @@ class NodeTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(TRUE, $nodeType->getIsActive());
     }
 
-    public function testToString() {
+    public function testToString()
+    {
         $nodeType = new NodeType();
         $name = "NodeType Name";
         
         $nodeType->setName($name);
 
-        $this->assertEquals($name,$nodeType->__toString());
+        $this->assertEquals($name, $nodeType->__toString());
     }
 
     public function testSetCreatedAt()
@@ -107,7 +108,7 @@ class NodeTypeTest extends \PHPUnit_Framework_TestCase
             'unit' => 'nodeTypeUnit'
         );
 
-        $this->assertEquals($nodeTypeComparative,$nodeType->toArray());
+        $this->assertEquals($nodeTypeComparative, $nodeType->toArray());
     }
 
 }

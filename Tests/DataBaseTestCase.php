@@ -78,13 +78,13 @@ class DataBaseTestCase extends WTC
         $this->crawler = $this->client->request($method, $url);
         $extract = $this->crawler->filter('input[name="'.$formDatas['token'].'"]')->extract(array('value'));
 
-        $csrf_token = $extract[0];
-        $formDatas['datas'] = array_merge($formDatas['datas'], array($formDatas['token'] => $csrf_token));
+        $csrfToken = $extract[0];
+        $formDatas['datas'] = array_merge($formDatas['datas'], array($formDatas['token'] => $csrfToken));
 
         $buttonCrawler = $this->crawler->selectButton($formDatas['submit']);
         $form = $buttonCrawler->form();
 
-        foreach($formDatas['datas'] as $key => $value){
+        foreach ($formDatas['datas'] as $key => $value) {
             $form[$key] = $value;
         }
         $this->client->submit($form);

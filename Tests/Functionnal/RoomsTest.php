@@ -36,7 +36,7 @@ class RoomsTest extends DataBaseTestCase
         $this->truncateTable('node_sensor');
         $this->loadContext();
 
-        $this->helper->logIn($this->client, 'adminTest','test');
+        $this->helper->logIn($this->client, 'adminTest', 'test');
     }
 
     public function tearDown()
@@ -59,9 +59,9 @@ class RoomsTest extends DataBaseTestCase
      */
     public function testCreateOrEditRoom()
     {
-	$this->client->request('GET', '/rooms/list.json');
+        $this->client->request('GET', '/rooms/list.json');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-	$this->assertEquals('ydle.settings.rooms.controller:getRoomsListAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('ydle.settings.rooms.controller:getRoomsListAction', $this->client->getRequest()->attributes->get('_controller'));
 
         $formDatas = array(
             'submit' => 'submit',
@@ -74,15 +74,15 @@ class RoomsTest extends DataBaseTestCase
             'token' => 'rooms_form[_token]'
         );
 
-	// Création d'un roomType
-        $this->crawler = $this->checkForm('/room/form/0/submit','POST',$formDatas);
+        // Création d'un roomType
+        $this->crawler = $this->checkForm('/room/form/0/submit', 'POST', $formDatas);
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
         // TODO : Renvoi le formulaire et plus de message de confirmation. Régression ?
         //$this->assertEquals('"Room saved successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('Ydle\HubBundle\Controller\RoomController::submitRoomFormAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('Ydle\HubBundle\Controller\RoomController::submitRoomFormAction', $this->client->getRequest()->attributes->get('_controller'));
 
-	// Edition d'un roomType
-        $this->crawler = $this->checkForm('/room/form/1','POST',$formDatas);
+        // Edition d'un roomType
+        $this->crawler = $this->checkForm('/room/form/1', 'POST', $formDatas);
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
         // TODO : Renvoi le formulaire et plus de message de confirmation. Régression ?
         //$this->assertEquals('"Room saved successfully"', $this->client->getResponse()->getContent());
@@ -92,12 +92,12 @@ class RoomsTest extends DataBaseTestCase
      * @group rooms
      */
     public function testDeleteRoom()
-    {	
-	$this->client->request('DELETE', '/room.json?room_id=1');
+    {
+        $this->client->request('DELETE', '/room.json?room_id=1');
         $this->assertEquals(204, $this->client->getResponse()->getStatusCode());
         // TODO : Ne renvoi plus de réponse. Régression ?
         //$this->assertEquals('"Room type deleted successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('ydle.settings.rooms.controller:deleteRoomAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('ydle.settings.rooms.controller:deleteRoomAction', $this->client->getRequest()->attributes->get('_controller'));
     }
     
     /**
@@ -105,11 +105,11 @@ class RoomsTest extends DataBaseTestCase
      */
     public function testActiveNode()
     {
-	$this->client->request('PUT', '/room/state.json?room_id=1&state=0');
+        $this->client->request('PUT', '/room/state.json?room_id=1&state=0');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('true', $this->client->getResponse()->getContent());
 
-	$this->client->request('PUT', '/room/state.json?room_id=1&state=1');
+        $this->client->request('PUT', '/room/state.json?room_id=1&state=1');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('true', $this->client->getResponse()->getContent());
     }
@@ -118,84 +118,84 @@ class RoomsTest extends DataBaseTestCase
     {
         $this->createAdmin('adminTest', 'test');
 
-        $rt1 = new RoomType();
-        $rt1->setName("Living Room");
-        $rt1->setDescription("Living Room Desc");
-        $rt1->setIsActive(true);
-        $rt1->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt1);
+        $rtA = new RoomType();
+        $rtA->setName("Living Room");
+        $rtA->setDescription("Living Room Desc");
+        $rtA->setIsActive(true);
+        $rtA->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtA);
 
-        $rt2 = new RoomType();
-        $rt2->setName("Bedroom");
-        $rt2->setDescription("Bedroom Desc");
-        $rt2->setIsActive(true);
-        $rt2->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt2);
+        $rtB = new RoomType();
+        $rtB->setName("Bedroom");
+        $rtB->setDescription("Bedroom Desc");
+        $rtB->setIsActive(true);
+        $rtB->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtB);
 
-        $rt3 = new RoomType();
-        $rt3->setName("Garage");
-        $rt3->setDescription("Garage Desc");
-        $rt3->setIsActive(true);
-        $rt3->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt3);
+        $rtC = new RoomType();
+        $rtC->setName("Garage");
+        $rtC->setDescription("Garage Desc");
+        $rtC->setIsActive(true);
+        $rtC->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtC);
 
-        $rt4 = new RoomType();
-        $rt4->setName("Bathroom");
-        $rt4->setDescription("Bathroom Desc");
-        $rt4->setIsActive(true);
-        $rt4->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt4);
+        $rtD = new RoomType();
+        $rtD->setName("Bathroom");
+        $rtD->setDescription("Bathroom Desc");
+        $rtD->setIsActive(true);
+        $rtD->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtD);
 
-        $rt5 = new RoomType();
-        $rt5->setName("Toilet");
-        $rt5->setDescription("Toilet Desc");
-        $rt5->setIsActive(true);
-        $rt5->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt5);
+        $rtE = new RoomType();
+        $rtE->setName("Toilet");
+        $rtE->setDescription("Toilet Desc");
+        $rtE->setIsActive(true);
+        $rtE->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtE);
 
-        $nt1 = new NodeType();
-        $nt1->setName("Temperature");
-        $nt1->setUnit('°C');
-        $nt1->setIsActive(true);
-        $nt1->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt1);
+        $ntA = new NodeType();
+        $ntA->setName("Temperature");
+        $ntA->setUnit('°C');
+        $ntA->setIsActive(true);
+        $ntA->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntA);
 
-        $nt2 = new NodeType();
-        $nt2->setName("Humidity");
-        $nt2->setUnit('%');
-        $nt2->setIsActive(true);
-        $nt2->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt2);
+        $ntB = new NodeType();
+        $ntB->setName("Humidity");
+        $ntB->setUnit('%');
+        $ntB->setIsActive(true);
+        $ntB->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntB);
 
-        $nt3 = new NodeType();
-        $nt3->setName("Pressure");
-        $nt3->setUnit('Pa');
-        $nt3->setIsActive(true);
-        $nt3->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt3);
+        $ntC = new NodeType();
+        $ntC->setName("Pressure");
+        $ntC->setUnit('Pa');
+        $ntC->setIsActive(true);
+        $ntC->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntC);
 
-        $nt4 = new NodeType();
-        $nt4->setName("Luminosity");
-        $nt4->setUnit('lux');
-        $nt4->setIsActive(true);
-        $nt4->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt4);
+        $ntD = new NodeType();
+        $ntD->setName("Luminosity");
+        $ntD->setUnit('lux');
+        $ntD->setIsActive(true);
+        $ntD->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntD);
 
-        $room1 = new Room();
-        $room1->setName("Salon");
-        $room1->setCreatedAt(new \DateTime('now'));
-        $room1->setDescription('Description du salon');
-        $room1->setIsActive(true);
-        $room1->setType($rt1);
-        $this->em->persist($room1);
+        $roomA = new Room();
+        $roomA->setName("Salon");
+        $roomA->setCreatedAt(new \DateTime('now'));
+        $roomA->setDescription('Description du salon');
+        $roomA->setIsActive(true);
+        $roomA->setType($rtA);
+        $this->em->persist($roomA);
 
-        $room2 = new Room();
-        $room2->setName("Chambre");
-        $room2->setCreatedAt(new \DateTime('now'));
-        $room2->setDescription('Description de la chambre');
-        $room2->setIsActive(true);
-        $room2->setType($rt2);
-        $this->em->persist($room2);
+        $roomB = new Room();
+        $roomB->setName("Chambre");
+        $roomB->setCreatedAt(new \DateTime('now'));
+        $roomB->setDescription('Description de la chambre');
+        $roomB->setIsActive(true);
+        $roomB->setType($rtB);
+        $this->em->persist($roomB);
 
         $this->em->flush();
     }

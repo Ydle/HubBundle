@@ -18,7 +18,7 @@ class PageControllerTest extends DataBaseTestCase
         $this->truncateTable('fos_user');
         $this->loadContext();
 
-        $this->helper->logIn($this->client, 'adminTest','test');
+        $this->helper->logIn($this->client, 'adminTest', 'test');
     }
 
     public function tearDown()
@@ -29,10 +29,11 @@ class PageControllerTest extends DataBaseTestCase
     /**
      * @group pages
      */
-    public function testIndex() {
+    public function testIndex()
+    {
         $this->client->request('GET', '/pages/about');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-	$this->assertEquals('Ydle\HubBundle\Controller\PagesController::indexAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('Ydle\HubBundle\Controller\PagesController::indexAction', $this->client->getRequest()->attributes->get('_controller'));
     }
 
     private function loadContext()
