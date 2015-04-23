@@ -41,7 +41,7 @@ class NodesTest extends DataBaseTestCase
         $this->truncateTable('node_data');
         $this->loadContext();
 
-        $this->helper->logIn($this->client, 'adminTest','test');
+        $this->helper->logIn($this->client, 'adminTest', 'test');
     }
 
     public function tearDown()
@@ -64,11 +64,11 @@ class NodesTest extends DataBaseTestCase
      */
     public function testCreateOrEditNode()
     {
-	$this->client->request('GET', '/nodes/list.json');
+        $this->client->request('GET', '/nodes/list.json');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-	$this->assertEquals('ydle.settings.nodes.controller:getNodesListAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('ydle.settings.nodes.controller:getNodesListAction', $this->client->getRequest()->attributes->get('_controller'));
 
-        $formDatas1 = array(
+        $formDatasA = array(
             'submit' => 'submit',
             'datas' => array(
                 'node_form[name]' => 'Node Test',
@@ -81,14 +81,14 @@ class NodesTest extends DataBaseTestCase
             'token' => 'node_form[_token]'
         );    
 
-	// Création d'un node
-        $this->crawler = $this->checkForm('/nodes/form/0/submit','POST',$formDatas1);
+        // Création d'un node
+        $this->crawler = $this->checkForm('/nodes/form/0/submit', 'POST', $formDatasA);
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
         // TODO : Renvoi le formulaire et plus de message de confirmation. Régression ?
         //$this->assertEquals('"Node saved successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('Ydle\HubBundle\Controller\NodesController::submitNodeFormAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('Ydle\HubBundle\Controller\NodesController::submitNodeFormAction', $this->client->getRequest()->attributes->get('_controller'));
 
-        $formDatas2 = array(
+        $formDatasB = array(
             'submit' => 'submit',
             'datas' => array(
                 'node_form[name]' => 'Node Test',
@@ -100,8 +100,8 @@ class NodesTest extends DataBaseTestCase
             ),
             'token' => 'node_form[_token]'
         );
-	// Edition d'un node
-        $this->crawler = $this->checkForm('/nodes/form/1','POST',$formDatas2);
+        // Edition d'un node
+        $this->crawler = $this->checkForm('/nodes/form/1', 'POST', $formDatasB);
         $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
         // TODO : Renvoi le formulaire et plus de message de confirmation. Régression ?
         //$this->assertEquals('"Type room saved successfully"', $this->client->getResponse()->getContent());
@@ -112,17 +112,17 @@ class NodesTest extends DataBaseTestCase
      */
     public function testDeleteNode()
     {
-	$this->client->request('DELETE', '/node.json?node_id=2');
+        $this->client->request('DELETE', '/node.json?node_id=2');
         $this->assertEquals(204, $this->client->getResponse()->getStatusCode());
         // TODO : Ne renvoi plus rien, plus de message de confirmation. Régression ?
         //$this->assertEquals('"Node type deleted successfully"', $this->client->getResponse()->getContent());
-	$this->assertEquals('ydle.settings.nodes.controller:deleteNodeAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('ydle.settings.nodes.controller:deleteNodeAction', $this->client->getRequest()->attributes->get('_controller'));
 
-	$this->client->request('DELETE', '/node.json?node_id=999');
+        $this->client->request('DELETE', '/node.json?node_id=999');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         // TODO : Améliorer le getContent pour avoir un test plus propre.
         $this->assertContains('This node does not exist', $this->client->getResponse()->getContent());
-	$this->assertEquals('ydle.settings.nodes.controller:deleteNodeAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('ydle.settings.nodes.controller:deleteNodeAction', $this->client->getRequest()->attributes->get('_controller'));
     }
 
     /**
@@ -130,15 +130,15 @@ class NodesTest extends DataBaseTestCase
      */
     public function testActiveNode()
     {
-	$this->client->request('PUT', '/node/state.json?node_id=1&state=0');
+        $this->client->request('PUT', '/node/state.json?node_id=1&state=0');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('true', $this->client->getResponse()->getContent());
 
-	$this->client->request('PUT', '/node/state.json?node_id=1&state=1');
+        $this->client->request('PUT', '/node/state.json?node_id=1&state=1');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('true', $this->client->getResponse()->getContent());
 
-	$this->client->request('PUT', '/node/state.json?node_id=999&state=0');
+        $this->client->request('PUT', '/node/state.json?node_id=999&state=0');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         $this->assertContains('node.not.found', $this->client->getResponse()->getContent());
     }
@@ -148,11 +148,11 @@ class NodesTest extends DataBaseTestCase
      */
     public function testLinkNode()
     {
-	$this->client->request('PUT', '/node/link.json?node=1');
+        $this->client->request('PUT', '/node/link.json?node=1');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(200, $this->client->getResponse()->getContent());
 
-	$this->client->request('PUT', '/node/link.json?node=999');
+        $this->client->request('PUT', '/node/link.json?node=999');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         // TODO : Améliorer le getContent pour avoir un test plus propre.
         $this->assertContains("node.not.found", $this->client->getResponse()->getContent());
@@ -163,11 +163,11 @@ class NodesTest extends DataBaseTestCase
      */
     public function testResetNode()
     {
-	$this->client->request('PUT', '/node/reset.json?node=1');
+        $this->client->request('PUT', '/node/reset.json?node=1');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(200, $this->client->getResponse()->getContent());
 
-	$this->client->request('PUT', '/node/reset.json?node=999');
+        $this->client->request('PUT', '/node/reset.json?node=999');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         // TODO : Améliorer le getContent pour avoir un test plus propre.
         $this->assertContains("node.not.found", $this->client->getResponse()->getContent());
@@ -179,22 +179,22 @@ class NodesTest extends DataBaseTestCase
     public function testgetRoomNodeStats()
     {
         // Mauvais Code - renvoi 404
-	$this->client->request('GET', '/room/node/stats.json?node=666&filter=month');
+        $this->client->request('GET', '/room/node/stats.json?node=666&filter=month');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         $this->assertContains('{"error":{"code":404,"message":"Not Found"', $this->client->getResponse()->getContent());
 
         // Bon code
-	$this->client->request('GET', '/room/node/stats.json?node=5&filter=day');
+        $this->client->request('GET', '/room/node/stats.json?node=5&filter=day');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('{"1":{"label":"Temperature (\u00b0C)","data":[['.((int) $this->dateA->format('U') * 1000).',0.3]],"yaxis":1}}', $this->client->getResponse()->getContent());
 
         // Bon code
-	$this->client->request('GET', '/room/node/stats.json?node=5&filter=week');
+        $this->client->request('GET', '/room/node/stats.json?node=5&filter=week');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('{"1":{"label":"Temperature (\u00b0C)","data":[['.((int) $this->dateA->format('U') * 1000).',0.3]],"yaxis":1}}', $this->client->getResponse()->getContent());
 
         // Bon code
-	$this->client->request('GET', '/room/node/stats.json?node=5&filter=month');
+        $this->client->request('GET', '/room/node/stats.json?node=5&filter=month');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('{"1":{"label":"Temperature (\u00b0C)","data":[['.((int) $this->dateA->format('U') * 1000).',0.3]],"yaxis":1}}', $this->client->getResponse()->getContent());
     }
@@ -204,15 +204,15 @@ class NodesTest extends DataBaseTestCase
      */
     public function testpostNodesDatas()
     {
-	$this->client->request('POST', '/nodes/datas.json?sender=666&type=1&data=27');
+        $this->client->request('POST', '/nodes/datas.json?sender=666&type=1&data=27');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         $this->assertContains('{"error":{"code":404,"message":"Not Found"', $this->client->getResponse()->getContent());
 
-	$this->client->request('POST', '/nodes/datas.json?sender=5&type=666&data=27');
+        $this->client->request('POST', '/nodes/datas.json?sender=5&type=666&data=27');
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
         $this->assertContains('{"error":{"code":404,"message":"Not Found"', $this->client->getResponse()->getContent());
 
-	$this->client->request('POST', '/nodes/datas.json?sender=5&type=1&data=27');
+        $this->client->request('POST', '/nodes/datas.json?sender=5&type=1&data=27');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('{"code":0,"result":"data sent"}', $this->client->getResponse()->getContent());
     }
@@ -221,107 +221,107 @@ class NodesTest extends DataBaseTestCase
     {
         $this->createAdmin('adminTest', 'test');
 
-        $rt1 = new RoomType();
-        $rt1->setName("Living Room");
-        $rt1->setDescription("Living Room Desc");
-        $rt1->setIsActive(true);
-        $rt1->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt1);
+        $rtA = new RoomType();
+        $rtA->setName("Living Room");
+        $rtA->setDescription("Living Room Desc");
+        $rtA->setIsActive(true);
+        $rtA->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtA);
 
-        $rt2 = new RoomType();
-        $rt2->setName("Bedroom");
-        $rt2->setDescription("Bedroom Desc");
-        $rt2->setIsActive(true);
-        $rt2->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt2);
+        $rtB = new RoomType();
+        $rtB->setName("Bedroom");
+        $rtB->setDescription("Bedroom Desc");
+        $rtB->setIsActive(true);
+        $rtB->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtB);
 
-        $rt3 = new RoomType();
-        $rt3->setName("Garage");
-        $rt3->setDescription("Garage Desc");
-        $rt3->setIsActive(true);
-        $rt3->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt3);
+        $rtC = new RoomType();
+        $rtC->setName("Garage");
+        $rtC->setDescription("Garage Desc");
+        $rtC->setIsActive(true);
+        $rtC->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtC);
 
-        $rt4 = new RoomType();
-        $rt4->setName("Bathroom");
-        $rt4->setDescription("Bathroom Desc");
-        $rt4->setIsActive(true);
-        $rt4->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt4);
+        $rtD = new RoomType();
+        $rtD->setName("Bathroom");
+        $rtD->setDescription("Bathroom Desc");
+        $rtD->setIsActive(true);
+        $rtD->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtD);
 
-        $rt5 = new RoomType();
-        $rt5->setName("Toilet");
-        $rt5->setDescription("Toilet Desc");
-        $rt5->setIsActive(true);
-        $rt5->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt5);
+        $rtE = new RoomType();
+        $rtE->setName("Toilet");
+        $rtE->setDescription("Toilet Desc");
+        $rtE->setIsActive(true);
+        $rtE->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtE);
 
-        $nt1 = new NodeType();
-        $nt1->setName("Temperature");
-        $nt1->setUnit('°C');
-        $nt1->setIsActive(true);
-        $nt1->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt1);
+        $ntA = new NodeType();
+        $ntA->setName("Temperature");
+        $ntA->setUnit('°C');
+        $ntA->setIsActive(true);
+        $ntA->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntA);
 
-        $nt2 = new NodeType();
-        $nt2->setName("Humidity");
-        $nt2->setUnit('%');
-        $nt2->setIsActive(true);
-        $nt2->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt2);
+        $ntB = new NodeType();
+        $ntB->setName("Humidity");
+        $ntB->setUnit('%');
+        $ntB->setIsActive(true);
+        $ntB->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntB);
 
-        $nt3 = new NodeType();
-        $nt3->setName("Pressure");
-        $nt3->setUnit('Pa');
-        $nt3->setIsActive(true);
-        $nt3->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt3);
+        $ntC = new NodeType();
+        $ntC->setName("Pressure");
+        $ntC->setUnit('Pa');
+        $ntC->setIsActive(true);
+        $ntC->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntC);
 
-        $nt4 = new NodeType();
-        $nt4->setName("Luminosity");
-        $nt4->setUnit('lux');
-        $nt4->setIsActive(true);
-        $nt4->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt4);
+        $ntD = new NodeType();
+        $ntD->setName("Luminosity");
+        $ntD->setUnit('lux');
+        $ntD->setIsActive(true);
+        $ntD->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntD);
 
-        $room1 = new Room();
-        $room1->setName("Salon");
-        $room1->setCreatedAt(new \DateTime('now'));
-        $room1->setDescription('Description du salon');
-        $room1->setIsActive(true);
-        $room1->setType($rt1);
-        $this->em->persist($room1);
+        $roomA = new Room();
+        $roomA->setName("Salon");
+        $roomA->setCreatedAt(new \DateTime('now'));
+        $roomA->setDescription('Description du salon');
+        $roomA->setIsActive(true);
+        $roomA->setType($rtA);
+        $this->em->persist($roomA);
 
-        $room2 = new Room();
-        $room2->setName("Chambre");
-        $room2->setCreatedAt(new \DateTime('now'));
-        $room2->setDescription('Description de la chambre');
-        $room2->setIsActive(true);
-        $room2->setType($rt2);
-        $this->em->persist($room2);
+        $roomB = new Room();
+        $roomB->setName("Chambre");
+        $roomB->setCreatedAt(new \DateTime('now'));
+        $roomB->setDescription('Description de la chambre');
+        $roomB->setIsActive(true);
+        $roomB->setType($rtB);
+        $this->em->persist($roomB);
 
-        $node1 = new Node();
-        $node1->setCode(5);
-        $node1->setDescription('Description du node de la chambre');
-        $node1->setIsActive(true);
-        $node1->setName("Température Chambre");
-        $node1->setRoom($room2);
-        $node1->addType($nt1);
-        $this->em->persist($node1);
+        $nodeA = new Node();
+        $nodeA->setCode(5);
+        $nodeA->setDescription('Description du node de la chambre');
+        $nodeA->setIsActive(true);
+        $nodeA->setName("Température Chambre");
+        $nodeA->setRoom($roomB);
+        $nodeA->addType($ntA);
+        $this->em->persist($nodeA);
 
-        $node2 = new Node();
-        $node2->setCode(6);
-        $node2->setDescription('Description du deuwième node de la chambre');
-        $node2->setIsActive(true);
-        $node2->setName("Humidité Chambre");
-        $node2->setRoom($room2);
-        $node2->addType($nt2);
-        $this->em->persist($node2);
+        $nodeB = new Node();
+        $nodeB->setCode(6);
+        $nodeB->setDescription('Description du deuwième node de la chambre');
+        $nodeB->setIsActive(true);
+        $nodeB->setName("Humidité Chambre");
+        $nodeB->setRoom($roomB);
+        $nodeB->addType($ntB);
+        $this->em->persist($nodeB);
 
         $this->dateA = new \DateTime('now');
         $nodeData = new NodeData();
-        $nodeData->setNode($node1);
-        $nodeData->setType($nt1);
+        $nodeData->setNode($nodeA);
+        $nodeData->setType($ntA);
         $nodeData->setData(25);
         $nodeData->setCreated($this->dateA);
         $this->em->persist($nodeData);
