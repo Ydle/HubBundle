@@ -22,7 +22,7 @@ class NodeDataInsertCommandTest extends DataBaseTestCase
      * @var Application
      */
     protected $application;
-	
+
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
@@ -69,8 +69,7 @@ class NodeDataInsertCommandTest extends DataBaseTestCase
     {
         $command = $this->application->find('ydle:nodedata:insert');
         $commandTester = new CommandTester($command);
-        $commandTester->execute(
-            array('command' => $command->getName(), 'node' => '5', 'type' => '666', 'data' => '28', '--autopopulate' => true));
+        $commandTester->execute(array('command' => $command->getName(), 'node' => '5', 'type' => '666', 'data' => '28', '--autopopulate' => true));
 
         $actual = $commandTester->getDisplay();
         $this->assertContains('Unknown node type', $actual);
@@ -84,8 +83,7 @@ class NodeDataInsertCommandTest extends DataBaseTestCase
     {
         $command = $this->application->find('ydle:nodedata:insert');
         $commandTester = new CommandTester($command);
-        $commandTester->execute(
-            array('command' => $command->getName(), 'node' => '666', 'type' => '1', 'data' => '28', '--autopopulate' => true));
+        $commandTester->execute(array('command' => $command->getName(), 'node' => '666', 'type' => '1', 'data' => '28', '--autopopulate' => true));
 
         $actual = $commandTester->getDisplay();
         $this->assertContains('Unknown node', $actual);
@@ -99,8 +97,7 @@ class NodeDataInsertCommandTest extends DataBaseTestCase
     {
         $command = $this->application->find('ydle:nodedata:insert');
         $commandTester = new CommandTester($command);
-        $commandTester->execute(
-            array('command' => $command->getName(), 'node' => '5', 'type' => '1', 'data' => '28', '--autopopulate' => '1'));
+        $commandTester->execute(array('command' => $command->getName(), 'node' => '5', 'type' => '1', 'data' => '28', '--autopopulate' => '1'));
 
         $actual = $commandTester->getDisplay();
         /*
@@ -119,107 +116,107 @@ class NodeDataInsertCommandTest extends DataBaseTestCase
     {
         $this->createAdmin('adminTest', 'test');
 
-        $rt1 = new RoomType();
-        $rt1->setName("Living Room");
-        $rt1->setDescription("Living Room Desc");
-        $rt1->setIsActive(true);
-        $rt1->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt1);
+        $rtA = new RoomType();
+        $rtA->setName("Living Room");
+        $rtA->setDescription("Living Room Desc");
+        $rtA->setIsActive(true);
+        $rtA->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtA);
 
-        $rt2 = new RoomType();
-        $rt2->setName("Bedroom");
-        $rt2->setDescription("Bedroom Desc");
-        $rt2->setIsActive(true);
-        $rt2->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt2);
+        $rtB = new RoomType();
+        $rtB->setName("Bedroom");
+        $rtB->setDescription("Bedroom Desc");
+        $rtB->setIsActive(true);
+        $rtB->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtB);
 
-        $rt3 = new RoomType();
-        $rt3->setName("Garage");
-        $rt3->setDescription("Garage Desc");
-        $rt3->setIsActive(true);
-        $rt3->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt3);
+        $rtC = new RoomType();
+        $rtC->setName("Garage");
+        $rtC->setDescription("Garage Desc");
+        $rtC->setIsActive(true);
+        $rtC->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtC);
 
-        $rt4 = new RoomType();
-        $rt4->setName("Bathroom");
-        $rt4->setDescription("Bathroom Desc");
-        $rt4->setIsActive(true);
-        $rt4->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt4);
+        $rtD = new RoomType();
+        $rtD->setName("Bathroom");
+        $rtD->setDescription("Bathroom Desc");
+        $rtD->setIsActive(true);
+        $rtD->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtD);
 
-        $rt5 = new RoomType();
-        $rt5->setName("Toilet");
-        $rt5->setDescription("Toilet Desc");
-        $rt5->setIsActive(true);
-        $rt5->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($rt5);
+        $rtE = new RoomType();
+        $rtE->setName("Toilet");
+        $rtE->setDescription("Toilet Desc");
+        $rtE->setIsActive(true);
+        $rtE->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($rtE);
 
-        $nt1 = new NodeType();
-        $nt1->setName("Temperature");
-        $nt1->setUnit('°C');
-        $nt1->setIsActive(true);
-        $nt1->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt1);
+        $ntA = new NodeType();
+        $ntA->setName("Temperature");
+        $ntA->setUnit('°C');
+        $ntA->setIsActive(true);
+        $ntA->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntA);
 
-        $nt2 = new NodeType();
-        $nt2->setName("Humidity");
-        $nt2->setUnit('%');
-        $nt2->setIsActive(true);
-        $nt2->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt2);
+        $ntB = new NodeType();
+        $ntB->setName("Humidity");
+        $ntB->setUnit('%');
+        $ntB->setIsActive(true);
+        $ntB->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntB);
 
-        $nt3 = new NodeType();
-        $nt3->setName("Pressure");
-        $nt3->setUnit('Pa');
-        $nt3->setIsActive(true);
-        $nt3->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt3);
+        $ntC = new NodeType();
+        $ntC->setName("Pressure");
+        $ntC->setUnit('Pa');
+        $ntC->setIsActive(true);
+        $ntC->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntC);
 
-        $nt4 = new NodeType();
-        $nt4->setName("Luminosity");
-        $nt4->setUnit('lux');
-        $nt4->setIsActive(true);
-        $nt4->setCreatedAt(new \DateTime('now'));
-        $this->em->persist($nt4);
+        $ntD = new NodeType();
+        $ntD->setName("Luminosity");
+        $ntD->setUnit('lux');
+        $ntD->setIsActive(true);
+        $ntD->setCreatedAt(new \DateTime('now'));
+        $this->em->persist($ntD);
 
-        $room1 = new Room();
-        $room1->setName("Salon");
-        $room1->setCreatedAt(new \DateTime('now'));
-        $room1->setDescription('Description du salon');
-        $room1->setIsActive(true);
-        $room1->setType($rt1);
-        $this->em->persist($room1);
+        $roomA = new Room();
+        $roomA->setName("Salon");
+        $roomA->setCreatedAt(new \DateTime('now'));
+        $roomA->setDescription('Description du salon');
+        $roomA->setIsActive(true);
+        $roomA->setType($rtA);
+        $this->em->persist($roomA);
 
-        $room2 = new Room();
-        $room2->setName("Chambre");
-        $room2->setCreatedAt(new \DateTime('now'));
-        $room2->setDescription('Description de la chambre');
-        $room2->setIsActive(true);
-        $room2->setType($rt2);
-        $this->em->persist($room2);
+        $roomB = new Room();
+        $roomB->setName("Chambre");
+        $roomB->setCreatedAt(new \DateTime('now'));
+        $roomB->setDescription('Description de la chambre');
+        $roomB->setIsActive(true);
+        $roomB->setType($rtB);
+        $this->em->persist($roomB);
 
-        $node1 = new Node();
-        $node1->setCode(5);
-        $node1->setDescription('Description du node de la chambre');
-        $node1->setIsActive(true);
-        $node1->setName("Température Chambre");
-        $node1->setRoom($room2);
-        $node1->addType($nt1);
-        $this->em->persist($node1);
+        $nodeA = new Node();
+        $nodeA->setCode(5);
+        $nodeA->setDescription('Description du node de la chambre');
+        $nodeA->setIsActive(true);
+        $nodeA->setName("Température Chambre");
+        $nodeA->setRoom($roomB);
+        $nodeA->addType($ntA);
+        $this->em->persist($nodeA);
 
-        $node2 = new Node();
-        $node2->setCode(6);
-        $node2->setDescription('Description du deuwième node de la chambre');
-        $node2->setIsActive(true);
-        $node2->setName("Humidité Chambre");
-        $node2->setRoom($room2);
-        $node2->addType($nt2);
-        $this->em->persist($node2);
+        $nodeB = new Node();
+        $nodeB->setCode(6);
+        $nodeB->setDescription('Description du deuwième node de la chambre');
+        $nodeB->setIsActive(true);
+        $nodeB->setName("Humidité Chambre");
+        $nodeB->setRoom($roomB);
+        $nodeB->addType($ntB);
+        $this->em->persist($nodeB);
 
         $this->dateA = new \DateTime('now');
         $nodeData = new NodeData();
-        $nodeData->setNode($node1);
-        $nodeData->setType($nt1);
+        $nodeData->setNode($nodeA);
+        $nodeData->setType($ntA);
         $nodeData->setData(25);
         $nodeData->setCreated($this->dateA);
         $this->em->persist($nodeData);

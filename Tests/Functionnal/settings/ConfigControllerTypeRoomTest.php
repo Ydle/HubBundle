@@ -79,6 +79,27 @@ class ConfigControllerTypeRoomTest extends DataBaseTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('{"result":"success","message":"Room type modified successfully"}', $this->client->getResponse()->getContent());
     }
+
+    /**
+     * @group configTypeRoom
+     */
+    public function testRoomTypeState()
+    {
+        $this->client->request('PUT', '/room/type/state.json?roomtype_id=1&state=0');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('true', $this->client->getResponse()->getContent());
+        $this->assertEquals('ydle.settings.roomtype.controller:putRoomTypeStateAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        $this->client->request('PUT', '/room/type/state.json?roomtype_id=1&state=1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('true', $this->client->getResponse()->getContent());
+        $this->assertEquals('ydle.settings.roomtype.controller:putRoomTypeStateAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        $this->client->request('PUT', '/room/type/state.json?roomtype_id=666&state=0');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('This room type does not exist', $this->client->getResponse()->getContent());
+        $this->assertEquals('ydle.settings.roomtype.controller:putRoomTypeStateAction', $this->client->getRequest()->attributes->get('_controller'));
+    }
     
     /**
      * @group configTypeRoom
@@ -90,6 +111,28 @@ class ConfigControllerTypeRoomTest extends DataBaseTestCase
         $this->assertEquals(204, $this->client->getResponse()->getStatusCode());
         //$this->assertEquals('"Room type deleted successfully"', $this->client->getResponse()->getContent());
         $this->assertEquals('ydle.settings.roomtype.controller:deleteRoomTypeAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        $this->client->request('DELETE', '/room/type.json?roomtype_id=666');
+        // TODO : Avant le code retour était 200 avec en plus un message de retour. Régression ?
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('This room type does not exist', $this->client->getResponse()->getContent());
+        $this->assertEquals('ydle.settings.roomtype.controller:deleteRoomTypeAction', $this->client->getRequest()->attributes->get('_controller'));
+    }
+
+    /**
+     * @group configTypeRoom
+     */
+    public function testgetRoomTypeDetail()
+    {
+        $this->crawler = $this->client->request('GET', '/room/type/detail.json?roomtype_id=4');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('{"id":4,"name":"Bathroom","description":"Bathroom Desc","is_active":true,"rooms":[],', $this->client->getResponse()->getContent());
+        $this->assertEquals('ydle.settings.roomtype.controller:getRoomTypeDetailAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        $this->crawler = $this->client->request('GET', '/room/type/detail.json?roomtype_id=666');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('ok', $this->client->getResponse()->getContent());
+        $this->assertEquals('ydle.settings.roomtype.controller:getRoomTypeDetailAction', $this->client->getRequest()->attributes->get('_controller'));
     }
 
     private function loadContext()
