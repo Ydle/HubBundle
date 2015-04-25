@@ -6,6 +6,7 @@ use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 use Ydle\HubBundle\Entity\Room;
 use Ydle\HubBundle\Entity\Node;
+use Ydle\HubBundle\Entity\NodeData;
 
 use Ydle\HubBundle\Tests\Helper;
 
@@ -52,6 +53,11 @@ class RoomDetailsTest extends DataBaseTestCase
     {
         $repository = $this->em->getRepository('YdleHubBundle:Room');
         $room = $repository->find(1);
+        $this->client->request('GET', '/room/detail/'.$room->getSlug());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('Ydle\HubBundle\Controller\RoomController::roomDetailAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        $room = $repository->find(2);
         $this->client->request('GET', '/room/detail/'.$room->getSlug());
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('Ydle\HubBundle\Controller\RoomController::roomDetailAction', $this->client->getRequest()->attributes->get('_controller'));
@@ -156,8 +162,27 @@ class RoomDetailsTest extends DataBaseTestCase
         $nodeA->setIsActive(true);
         $nodeA->setName("Température Chambre");
         $nodeA->addType($ntA);
-        $roomA->addNode($nodeA);
+        $nodeA->setRoom($roomA);
         $this->em->persist($nodeA);
+
+        $roomA->addNode($nodeA);
+        $this->em->persist($roomA);
+
+        $this->dateA = new \DateTime('now');
+        $nodeData = new NodeData();
+        $nodeData->setNode($nodeA);
+        $nodeData->setType($ntA);
+        $nodeData->setData(25);
+        $nodeData->setCreated($this->dateA);
+        $this->em->persist($nodeData);
+
+        $this->dateB = $this->dateA->modify("-1 hour");
+        $nodeDataB = new NodeData();
+        $nodeDataB->setNode($nodeA);
+        $nodeDataB->setType($ntA);
+        $nodeDataB->setData(23);
+        $nodeDataB->setCreated($this->dateB);
+        $this->em->persist($nodeDataB);
 
         $this->em->flush();
     }

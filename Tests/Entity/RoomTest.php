@@ -100,7 +100,7 @@ class RoomTest extends \PHPUnit_Framework_TestCase
     public function testRemoveNode()
     {
         $node = new Node();
-        $arrNode[] = $node;
+        //$arrNode[] = $node;
         $room = new Room();
 
         $room->addNode($node);
