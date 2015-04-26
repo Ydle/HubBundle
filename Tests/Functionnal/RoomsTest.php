@@ -98,6 +98,11 @@ class RoomsTest extends DataBaseTestCase
         // TODO : Ne renvoi plus de réponse. Régression ?
         //$this->assertEquals('"Room type deleted successfully"', $this->client->getResponse()->getContent());
         $this->assertEquals('ydle.settings.rooms.controller:deleteRoomAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        $this->client->request('DELETE', '/room.json?room_id=666');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('"This room does not exist"', $this->client->getResponse()->getContent());
+        $this->assertEquals('ydle.settings.rooms.controller:deleteRoomAction', $this->client->getRequest()->attributes->get('_controller'));
     }
     
     /**
@@ -112,6 +117,10 @@ class RoomsTest extends DataBaseTestCase
         $this->client->request('PUT', '/room/state.json?room_id=1&state=1');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('true', $this->client->getResponse()->getContent());
+
+        $this->client->request('PUT', '/room/state.json?room_id=666&state=0');
+        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('This room does not exist', $this->client->getResponse()->getContent());
     }
 
     private function loadContext()
