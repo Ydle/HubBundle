@@ -111,9 +111,23 @@ class ConfigControllerNodeTypeTest extends DataBaseTestCase
     }
 
     /**
-     * @group configNodeType
+     * @group configNodeType2
      */
     public function testTypenodeDetails()
+    {
+        $this->client->request('GET', '/node/type/detail.json?nodetype_id=1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('ydle.settings.nodetype.controller:getNodeTypeDetailAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        $this->client->request('GET', '/node/type/detail.json?nodetype_id=666');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('ydle.settings.nodetype.controller:getNodeTypeDetailAction', $this->client->getRequest()->attributes->get('_controller'));
+    }
+
+    /**
+     * @group configNodeType
+     */
+    public function testTypenodeState()
     {
         $this->client->request('PUT', '/node/type/state.json?nodetype_id=4&state=0');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());

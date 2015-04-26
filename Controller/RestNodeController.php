@@ -206,7 +206,6 @@ class RestNodeController extends Controller
             default:
             case 'day':
                 $startTime = strtotime("-1 day");
-                break;
         }
         $startDate = new \DateTime();
         $startDate->setTimestamp($startTime);
