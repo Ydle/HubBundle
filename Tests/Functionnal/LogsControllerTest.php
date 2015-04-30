@@ -1,7 +1,8 @@
 <?php
 
-namespace Ydle\HubBundle\Tests;
+namespace Ydle\HubBundle\Tests\Functionnal;
 
+use Ydle\HubBundle\Tests\DataBaseTestCase;
 use Ydle\HubBundle\Tests\Helper;
 
 class LogsControllerTest extends DataBaseTestCase

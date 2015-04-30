@@ -1,6 +1,6 @@
 <?php
 
-namespace Ydle\HubBundle\Tests;
+namespace Ydle\HubBundle\Tests\Functionnal;
 
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
@@ -8,6 +8,7 @@ use Ydle\HubBundle\Entity\Room;
 use Ydle\HubBundle\Entity\Node;
 use Ydle\HubBundle\Entity\NodeData;
 
+use Ydle\HubBundle\Tests\DataBaseTestCase;
 use Ydle\HubBundle\Tests\Helper;
 
 class RoomDetailsTest extends DataBaseTestCase

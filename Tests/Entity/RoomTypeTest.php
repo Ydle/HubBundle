@@ -24,7 +24,6 @@ namespace Ydle\HubBundle\Tests\Entity;
 
 use Ydle\HubBundle\Entity\RoomType;
 use Ydle\HubBundle\Entity\Room;
-use Ydle\HubBundle\Entity\Node;
 
 class RoomTypeTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,10 +1,11 @@
 <?php
 
-namespace Ydle\HubBundle\Tests;
+namespace Ydle\HubBundle\Tests\Functionnal\Settings;
 
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 
+use Ydle\HubBundle\Tests\DataBaseTestCase;
 use Ydle\HubBundle\Tests\Helper;
 
 class ConfigControllerTypeRoomTest extends DataBaseTestCase
@@ -133,6 +134,34 @@ class ConfigControllerTypeRoomTest extends DataBaseTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertContains('ok', $this->client->getResponse()->getContent());
         $this->assertEquals('ydle.settings.roomtype.controller:getRoomTypeDetailAction', $this->client->getRequest()->attributes->get('_controller'));
+    }
+
+    /**
+     * @group configTypeRoom
+     */
+    public function testCreateOrEditNode()
+    {
+        $formDatas = array(
+            'submit' => 'submit',
+            'datas' => array(
+                'nodetypes_form[name]' => 'Nom Test',
+                'nodetypes_form[unit]' => 'unit Test',
+                'nodetypes_form[description]' => 'Room Description',
+                'nodetypes_form[is_active]' => 1
+            ),
+            'token' => 'nodetypes_form[_token]'
+        );
+
+        // Création d'un nodeType
+        $this->crawler = $this->checkForm('/conf/typenode/form', 'POST', $formDatas);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('{"result":"success","message":"Node type added successfully"}', $this->client->getResponse()->getContent());
+        $this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typenodeFormAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        // Edition d'un nodeType
+        $this->crawler = $this->checkForm('/conf/typenode/form/4', 'POST', $formDatas);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('{"result":"success","message":"Node type modified successfully"}', $this->client->getResponse()->getContent());
     }
 
     private function loadContext()

@@ -1,19 +1,18 @@
 <?php
 
-namespace Ydle\HubBundle\Tests;
+namespace Ydle\HubBundle\Tests\Commmand;
 
 use Ydle\HubBundle\Command\NodeDataInsertCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Ydle\HubBundle\Tests\Helper;
+use Ydle\HubBundle\Tests\DataBaseTestCase;
 
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 use Ydle\HubBundle\Entity\Room;
 use Ydle\HubBundle\Entity\Node;
 use Ydle\HubBundle\Entity\NodeData;
-
-use Ydle\HubBundle\Repository\NodeDataRepository;
 
 class NodeDataInsertCommandTest extends DataBaseTestCase
 {

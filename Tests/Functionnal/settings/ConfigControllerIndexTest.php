@@ -1,10 +1,11 @@
 <?php
 
-namespace Ydle\HubBundle\Tests;
+namespace Ydle\HubBundle\Tests\Functionnal\Settings;
 
 use Ydle\HubBundle\Entity\NodeType;
 use Ydle\HubBundle\Entity\RoomType;
 
+use Ydle\HubBundle\Tests\DataBaseTestCase;
 use Ydle\HubBundle\Tests\Helper;
 
 class ConfigControllerIndexTest extends DataBaseTestCase
