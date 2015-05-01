@@ -152,7 +152,7 @@ class ConfigController extends Controller
         // Manage edition mode
         $this->currentType = $request->get('type');
         if ($this->currentType) {
-            $sensorType = $this->get("ydle.nodetype.manager")->getRepository()->find($request->get('type'));
+            $sensorType = $this->get("ydle.nodetype.manager")->find($request->get('type'));
         }
         $form = $this->createForm("nodetypes_form", $sensorType);
         $form->handleRequest($request);

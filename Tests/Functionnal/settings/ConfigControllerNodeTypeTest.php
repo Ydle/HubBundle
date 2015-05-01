@@ -49,6 +49,10 @@ class ConfigControllerNodeTypeTest extends DataBaseTestCase
         $this->client->request('GET', '/conf/typenode');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typenodeAction', $this->client->getRequest()->attributes->get('_controller'));
+
+        $this->client->request('GET', '/conf/typenode?type=1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('Ydle\HubBundle\Controller\ConfigController::typenodeAction', $this->client->getRequest()->attributes->get('_controller'));
     }
 
     /**
