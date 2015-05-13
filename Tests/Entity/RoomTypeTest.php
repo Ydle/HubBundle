@@ -24,7 +24,6 @@ namespace Ydle\HubBundle\Tests\Entity;
 
 use Ydle\HubBundle\Entity\RoomType;
 use Ydle\HubBundle\Entity\Room;
-use Ydle\HubBundle\Entity\Node;
 
 class RoomTypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -109,7 +108,8 @@ class RoomTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($roomType->countRooms()));
     }
 
-    public function testToArray(){
+    public function testToArray()
+    {
         $room = new Room;
 
         $roomType = new RoomType();
@@ -126,11 +126,12 @@ class RoomTypeTest extends \PHPUnit_Framework_TestCase
             'nb_rooms' => 1
         );
 
-        $this->assertEquals($roomTypeComparative,$roomType->toArray());
+        $this->assertEquals($roomTypeComparative, $roomType->toArray());
     }
 
     // TODO
-    public function testSetTranslatableLocale() {
+    public function testSetTranslatableLocale()
+    {
 
     }
 

@@ -41,9 +41,9 @@ class RestLogsController extends Controller
             $error = $this->getTranslator()->trans('log.empty.message');
             throw new HttpException(404, $error);
         }
-        $this->getLogger()->log($level, $message, 'master');
-        
-        return new JsonResponse(array('result' => 'ok'));
+        $pager = $this->getLogger()->log($level, $message, 'master');
+
+        return $pager;
     }
 
     /**

@@ -28,7 +28,7 @@ use Ydle\HubBundle\Entity\NodeType;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as WebTestCase;
 
-class NodeDataTest extends WebTestCase 
+class NodeDataTest extends WebTestCase
 {
 
     protected $em;

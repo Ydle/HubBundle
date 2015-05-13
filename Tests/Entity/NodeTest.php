@@ -74,9 +74,9 @@ class NodeTest extends \PHPUnit_Framework_TestCase
         $node->setTypes($typeNode);
         $this->assertEquals($typeNode, $node->getTypes());
 
-        $typeNode2 = new NodeType();
-        $typeNode2->setName('Node Type Test 2');
-        $typeNode2->setIsActive(true);
+        $typeNodeB = new NodeType();
+        $typeNodeB->setName('Node Type Test 2');
+        $typeNodeB->setIsActive(true);
         $node->setTypes($typeNode);
     }
 
@@ -90,9 +90,9 @@ class NodeTest extends \PHPUnit_Framework_TestCase
         $typeNode->setIsActive(true);
         $node->setTypes($typeNode);
 
-        $typeNode2 = new NodeType();
-        $typeNode2->setName('Node Type Test 2');
-        $typeNode2->setIsActive(true);
+        $typeNodeB = new NodeType();
+        $typeNodeB->setName('Node Type Test 2');
+        $typeNodeB->setIsActive(true);
 //      $node->addType($typeNode2);
 
         // Le test est probablement faux
@@ -109,9 +109,9 @@ class NodeTest extends \PHPUnit_Framework_TestCase
         $typeNode->setIsActive(true);
         $node->setTypes($typeNode);
 
-        $typeNode2 = new NodeType();
-        $typeNode2->setName('Node Type Test 2');
-        $typeNode2->setIsActive(true);
+        $typeNodeB = new NodeType();
+        $typeNodeB->setName('Node Type Test 2');
+        $typeNodeB->setIsActive(true);
 
 //      $node->addType($typeNode2);
 
@@ -133,9 +133,9 @@ class NodeTest extends \PHPUnit_Framework_TestCase
         $typeNode->setIsActive(true);
         $node->setTypes($typeNode);
 
-        $typeNode2 = new NodeType();
-        $typeNode2->setName('Node Type Test 2');
-        $typeNode2->setIsActive(true);
+        $typeNodeB = new NodeType();
+        $typeNodeB->setName('Node Type Test 2');
+        $typeNodeB->setIsActive(true);
 
 //var_dump($node->hasType($typeNode));
 //      $this->assertEquals(TRUE, $node->hasType($typeNode));
@@ -143,13 +143,13 @@ class NodeTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testSetRoom() {
-
+    public function testSetRoom()
+    {
         $node = new Node();
         $room = new Room();
 
         $node->setRoom($room);
-        $this->assertEquals($room,$node->getRoom());
+        $this->assertEquals($room, $node->getRoom());
     }
 
     public function testSetCreatedAt()

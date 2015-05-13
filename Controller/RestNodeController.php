@@ -222,7 +222,6 @@ class RestNodeController extends Controller
             default:
             case 'day':
                 $startTime = strtotime("-1 day");
-                break;
         }
         $startDate = new \DateTime();
         $startDate->setTimestamp($startTime);
@@ -341,10 +340,10 @@ class RestNodeController extends Controller
             return new JsonResponse('No node found', 404);
         }
         // Check if the required options are set in the parameters.yml file
-        $masterAddr = $this->getMasterAddress();
-        $masterCode = $this->getMasterId();
-        if (empty($masterAddr) || empty($masterAddr)) {
-            $message = $this->getTranslator()->trans('node.link.fail.nomaster');
+        $masterAddr = $this->container->getParameter('master_address');
+        $masterCode = $this->container->getParameter('master_id');
+        if (empty($masterAddr) || empty($masterCode)) {
+            $message = $this->getTranslator()->trans('node.reset.fail.nomaster');
             $this->get('session')->getFlashBag()->add('error', $message);
             return new JsonResponse('No master address found', 404);
         }
